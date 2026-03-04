@@ -1,0 +1,140 @@
+import { motion } from "framer-motion";
+import { useState } from "react";
+import { ArrowRight, Check, Loader2 } from "lucide-react";
+import { storefrontFetch } from "../../lib/storefront";
+import { NEWSLETTER_SIGNUP_MUTATION } from "../../lib/queries";
+const heroModel = "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200";
+
+const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) {
+      setLoading(true);
+      setError(null);
+      try {
+        const { body } = await storefrontFetch({
+          query: NEWSLETTER_SIGNUP_MUTATION,
+          variables: {
+            input: {
+              email,
+              acceptsMarketing: true,
+            },
+          },
+        });
+
+        const { customerUserErrors } = body.data.customerCreate;
+
+        if (customerUserErrors.length > 0) {
+          throw new Error(customerUserErrors[0].message);
+        }
+
+        setIsSubmitted(true);
+        setEmail("");
+        setTimeout(() => setIsSubmitted(false), 5000);
+      } catch (err: any) {
+        console.error("Newsletter error:", err);
+        setError(err.message || "Something went wrong. Please try again.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
+  return (
+    <section className="py-24 lg:py-32">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Image */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative aspect-square lg:aspect-[4/5] overflow-hidden order-2 lg:order-1"
+          >
+            <img
+              src={heroModel}
+              alt="Newsletter"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
+          </motion.div>
+
+          {/* Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="order-1 lg:order-2"
+          >
+            <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-6">
+              Stay Connected
+            </span>
+            <h2 className="text-display font-serif mb-6">
+              Join the
+              <br />
+              <span className="italic">Inner Circle</span>
+            </h2>
+            <p className="text-body-lg text-muted-foreground mb-10 max-w-lg">
+              Be the first to discover new arrivals, exclusive offers, and behind-the-scenes
+              stories from the world of MAZE.
+            </p>
+
+            <form onSubmit={handleSubmit} className="max-w-md">
+              <div className="relative">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email address"
+                  className="w-full bg-transparent border-b-2 border-foreground/20 focus:border-foreground py-4 pr-14 text-body outline-none placeholder:text-muted-foreground transition-colors duration-500"
+                  disabled={isSubmitted}
+                />
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitted || loading}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 p-2"
+                  aria-label="Subscribe"
+                >
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : isSubmitted ? (
+                    <Check className="w-5 h-5 text-green-600" />
+                  ) : (
+                    <ArrowRight className="w-5 h-5" />
+                  )}
+                </motion.button>
+              </div>
+              {error && (
+                <p className="mt-2 text-caption text-destructive">{error}</p>
+              )}
+              {isSubmitted && (
+                <motion.p
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-4 text-body-sm text-muted-foreground"
+                >
+                  Thank you for subscribing. Welcome to the MAZE world.
+                </motion.p>
+              )}
+            </form>
+
+            <p className="mt-6 text-caption text-muted-foreground">
+              By subscribing, you agree to our Privacy Policy and consent to receive updates.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Newsletter;

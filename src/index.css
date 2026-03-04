@@ -1,0 +1,784 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Warm Beige/Taupe Color Palette - Refined Style */
+    --background: 0 0% 100%;
+    /* Pure white #ffffff */
+    --foreground: 20 10% 15%;
+    /* Deep charcoal #2a2622 */
+
+    --card: 30 20% 98%;
+    --card-foreground: 20 10% 15%;
+
+    --popover: 30 20% 98%;
+    --popover-foreground: 20 10% 15%;
+
+    --primary: 20 10% 15%;
+    --primary-foreground: 30 25% 95%;
+
+    --secondary: 30 15% 90%;
+    /* Light taupe */
+    --secondary-foreground: 20 10% 15%;
+
+    --muted: 30 12% 88%;
+    --muted-foreground: 20 8% 45%;
+
+    --accent: 32 20% 82%;
+    /* Warm beige accent */
+    --accent-foreground: 20 10% 15%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 15% 85%;
+    --input: 30 15% 85%;
+    --ring: 20 10% 15%;
+
+    --radius: 0px;
+
+    /* Custom Tokens - Refined Style */
+    --warm-cream: 30 25% 95%;
+    --light-taupe: 30 15% 90%;
+    --soft-beige: 32 20% 82%;
+    --camel: 30 35% 65%;
+    --charcoal: 20 10% 15%;
+    --warm-gray: 25 8% 50%;
+
+    /* Shadows - Softer, warmer */
+    --shadow-soft: 0 2px 20px -2px hsl(30 20% 20% / 0.06);
+    --shadow-medium: 0 4px 30px -4px hsl(30 20% 20% / 0.1);
+    --shadow-elevated: 0 12px 50px -8px hsl(30 20% 20% / 0.15);
+    --shadow-glow: 0 0 60px -15px hsl(30 35% 65% / 0.3);
+
+    /* Ultra-Luxury Shadow System */
+    --shadow-couture: 0 1px 0 hsl(20 10% 12%), 0 2px 8px hsl(30 20% 20% / 0.08);
+    --shadow-couture-hover: 0 1px 0 hsl(20 10% 12%), 0 4px 16px hsl(30 20% 20% / 0.12);
+    --shadow-couture-press: 0 0 0 hsl(20 10% 12%), 0 1px 4px hsl(30 20% 20% / 0.06);
+
+    /* 3D Card Shadows - Refined */
+    --shadow-card-3d: 0 8px 24px -4px hsl(30 20% 20% / 0.08), 0 16px 40px -8px hsl(30 20% 20% / 0.06);
+    --shadow-card-3d-hover: 0 16px 40px -8px hsl(30 20% 20% / 0.1), 0 28px 56px -12px hsl(30 20% 20% / 0.08);
+
+    /* Ultra-Luxury Transition Curves */
+    --ease-couture: cubic-bezier(0.33, 1, 0.68, 1);
+    --ease-silk: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-velvet: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-editorial: cubic-bezier(0.4, 0, 0, 1);
+
+    /* Transition Durations */
+    --duration-instant: 120ms;
+    --duration-swift: 280ms;
+    --duration-fluid: 500ms;
+    --duration-reveal: 800ms;
+    --duration-editorial: 1200ms;
+    --duration-shimmer: 10000ms;
+
+    --sidebar-background: 30 20% 97%;
+    --sidebar-foreground: 20 10% 30%;
+    --sidebar-primary: 20 10% 15%;
+    --sidebar-primary-foreground: 30 20% 97%;
+    --sidebar-accent: 30 15% 93%;
+    --sidebar-accent-foreground: 20 10% 15%;
+    --sidebar-border: 30 15% 88%;
+    --sidebar-ring: 30 35% 65%;
+  }
+
+  .dark {
+    --background: 20 10% 8%;
+    --foreground: 30 25% 95%;
+    --card: 20 10% 12%;
+    --card-foreground: 30 25% 95%;
+    --popover: 20 10% 12%;
+    --popover-foreground: 30 25% 95%;
+    --primary: 30 25% 95%;
+    --primary-foreground: 20 10% 8%;
+    --secondary: 20 10% 18%;
+    --secondary-foreground: 30 25% 95%;
+    --muted: 20 8% 25%;
+    --muted-foreground: 30 15% 65%;
+    --accent: 30 20% 25%;
+    --accent-foreground: 30 25% 95%;
+    --border: 20 8% 22%;
+    --input: 20 8% 22%;
+    --ring: 30 25% 95%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--warm-cream));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--camel) / 0.4);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--camel) / 0.6);
+  }
+}
+
+@layer components {
+  /* ===================================
+     ULTRA-LUXURY BUTTON SYSTEM
+     =================================== */
+
+  /* Couture Button Base - Leather-like press feel */
+  .btn-couture {
+    @apply relative overflow-hidden px-10 py-4 text-xs uppercase tracking-[0.25em] font-medium;
+    @apply border border-foreground bg-transparent text-foreground;
+    box-shadow: var(--shadow-couture);
+    transform: translateY(0);
+    transition:
+      transform var(--duration-swift) var(--ease-velvet),
+      box-shadow var(--duration-fluid) var(--ease-silk),
+      background-color var(--duration-fluid) var(--ease-silk);
+  }
+
+  /* Border stroke animation - draws from center outward */
+  .btn-couture::before {
+    content: '';
+    @apply absolute inset-0 border border-foreground/0;
+    transform: scaleX(0) scaleY(0);
+    transition:
+      transform var(--duration-fluid) var(--ease-editorial),
+      border-color var(--duration-swift) var(--ease-silk);
+  }
+
+  /* Light shift effect - subtle studio lighting */
+  .btn-couture::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(105deg,
+        transparent 40%,
+        hsl(var(--foreground) / 0.03) 50%,
+        transparent 60%);
+    transform: translateX(-100%);
+    transition: transform var(--duration-reveal) var(--ease-silk);
+  }
+
+  .btn-couture:hover {
+    transform: translateY(0);
+    box-shadow: var(--shadow-couture-hover);
+  }
+
+  .btn-couture:hover::before {
+    transform: scaleX(1.04) scaleY(1.15);
+    border-color: hsl(var(--foreground) / 0.15);
+  }
+
+  .btn-couture:hover::after {
+    transform: translateX(100%);
+  }
+
+  /* Press state - leather-like depression */
+  .btn-couture:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-couture-press);
+    transition-duration: var(--duration-instant);
+  }
+
+  .btn-couture span {
+    @apply relative z-10 transition-transform;
+    transition-duration: var(--duration-swift);
+    transition-timing-function: var(--ease-velvet);
+  }
+
+  /* Filled Couture Button */
+  .btn-couture-filled {
+    @apply relative overflow-hidden px-10 py-4 text-xs uppercase tracking-[0.25em] font-medium;
+    @apply border border-foreground bg-foreground text-background;
+    box-shadow: var(--shadow-couture);
+    transform: translateY(0);
+    transition:
+      transform var(--duration-swift) var(--ease-velvet),
+      box-shadow var(--duration-fluid) var(--ease-silk);
+  }
+
+  .btn-couture-filled::before {
+    content: '';
+    @apply absolute inset-0 border border-background/0;
+    transform: scaleX(0) scaleY(0);
+    transition:
+      transform var(--duration-fluid) var(--ease-editorial),
+      border-color var(--duration-swift) var(--ease-silk);
+  }
+
+  .btn-couture-filled::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(105deg,
+        transparent 40%,
+        hsl(var(--background) / 0.08) 50%,
+        transparent 60%);
+    transform: translateX(-100%);
+    transition: transform var(--duration-reveal) var(--ease-silk);
+  }
+
+  .btn-couture-filled:hover {
+    box-shadow: var(--shadow-couture-hover);
+  }
+
+  .btn-couture-filled:hover::before {
+    transform: scaleX(1.04) scaleY(1.15);
+    border-color: hsl(var(--background) / 0.2);
+  }
+
+  .btn-couture-filled:hover::after {
+    transform: translateX(100%);
+  }
+
+  .btn-couture-filled:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-couture-press);
+    transition-duration: var(--duration-instant);
+  }
+
+  .btn-couture-filled span {
+    @apply relative z-10;
+  }
+
+  /* Primary CTA - Runway Moment with subconscious shimmer */
+  .btn-runway {
+    @apply relative overflow-hidden px-10 py-4 text-xs uppercase tracking-[0.25em] font-medium;
+    @apply border border-foreground bg-foreground text-background;
+    box-shadow: var(--shadow-couture);
+    transition:
+      transform var(--duration-swift) var(--ease-velvet),
+      box-shadow var(--duration-fluid) var(--ease-silk);
+  }
+
+  /* Ultra-slow shimmer - 10s cycle, almost subconscious */
+  .btn-runway::before {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: linear-gradient(105deg,
+        transparent 0%,
+        transparent 40%,
+        hsl(var(--background) / 0.12) 50%,
+        transparent 60%,
+        transparent 100%);
+    transform: translateX(-150%);
+    animation: runwayShimmer var(--duration-shimmer) var(--ease-silk) infinite;
+    animation-play-state: paused;
+  }
+
+  .btn-runway.in-view::before {
+    animation-play-state: running;
+  }
+
+  .btn-runway:hover {
+    box-shadow: var(--shadow-couture-hover);
+  }
+
+  .btn-runway:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-couture-press);
+    transition-duration: var(--duration-instant);
+  }
+
+  .btn-runway span {
+    @apply relative z-10;
+  }
+
+  /* Legacy button classes - redirect to new couture system */
+  .btn-refined {
+    @apply btn-couture;
+  }
+
+  .btn-refined::before,
+  .btn-refined::after {
+    content: '';
+    @apply absolute inset-0;
+  }
+
+  .btn-refined::before {
+    @apply border border-foreground/0;
+    transform: scaleX(0) scaleY(0);
+    transition:
+      transform var(--duration-fluid) var(--ease-editorial),
+      border-color var(--duration-swift) var(--ease-silk);
+  }
+
+  .btn-refined::after {
+    @apply pointer-events-none;
+    background: linear-gradient(105deg,
+        transparent 40%,
+        hsl(var(--foreground) / 0.03) 50%,
+        transparent 60%);
+    transform: translateX(-100%);
+    transition: transform var(--duration-reveal) var(--ease-silk);
+  }
+
+  .btn-refined:hover::before {
+    transform: scaleX(1.04) scaleY(1.15);
+    border-color: hsl(var(--foreground) / 0.15);
+  }
+
+  .btn-refined:hover::after {
+    transform: translateX(100%);
+  }
+
+  .btn-refined-filled {
+    @apply btn-couture-filled;
+  }
+
+  .btn-refined-filled::before,
+  .btn-refined-filled::after {
+    content: '';
+    @apply absolute inset-0;
+  }
+
+  .btn-refined-filled::before {
+    @apply border border-background/0;
+    transform: scaleX(0) scaleY(0);
+    transition:
+      transform var(--duration-fluid) var(--ease-editorial),
+      border-color var(--duration-swift) var(--ease-silk);
+  }
+
+  .btn-refined-filled::after {
+    @apply pointer-events-none;
+    background: linear-gradient(105deg,
+        transparent 40%,
+        hsl(var(--background) / 0.08) 50%,
+        transparent 60%);
+    transform: translateX(-100%);
+    transition: transform var(--duration-reveal) var(--ease-silk);
+  }
+
+  .btn-refined-filled:hover::before {
+    transform: scaleX(1.04) scaleY(1.15);
+    border-color: hsl(var(--background) / 0.2);
+  }
+
+  .btn-refined-filled:hover::after {
+    transform: translateX(100%);
+  }
+
+  /* ===================================
+     EDITORIAL SCROLL ANIMATIONS
+     =================================== */
+
+  /* Mask reveal - vertical clipping effect */
+  .mask-reveal {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path var(--duration-editorial) var(--ease-editorial);
+  }
+
+  .mask-reveal.revealed {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* Depth layer effect - z-axis illusion without scale */
+  .depth-layer {
+    transform: translateZ(0);
+    transition:
+      transform var(--duration-reveal) var(--ease-silk),
+      opacity var(--duration-fluid) var(--ease-silk);
+  }
+
+  /* ===================================
+     MICRO-INTERACTIONS - HAUTE DETAIL
+     =================================== */
+
+  /* Navigation hover - text slides 1px with underline reveal */
+  .link-editorial {
+    @apply relative inline-block;
+    transform: translateY(0);
+    transition: transform var(--duration-swift) var(--ease-velvet);
+  }
+
+  .link-editorial::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-px bg-current;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--duration-fluid) var(--ease-editorial);
+  }
+
+  .link-editorial:hover {
+    transform: translateY(-1px);
+  }
+
+  .link-editorial:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Icon micro-rotation */
+  .icon-drift {
+    transition: transform var(--duration-swift) var(--ease-velvet);
+  }
+
+  .icon-drift:hover {
+    transform: rotate(3deg) translateX(2px);
+  }
+
+  /* ===================================
+     PRODUCT CARD - EDITORIAL HOVER
+     =================================== */
+
+  .product-card-editorial {
+    @apply relative overflow-hidden bg-secondary/50;
+    box-shadow: var(--shadow-card-3d);
+    transition:
+      box-shadow var(--duration-fluid) var(--ease-silk),
+      transform var(--duration-reveal) var(--ease-velvet);
+  }
+
+  .product-card-editorial:hover {
+    box-shadow: var(--shadow-card-3d-hover);
+  }
+
+  .product-card-editorial .product-image {
+    @apply transition-all;
+    transition-duration: var(--duration-reveal);
+    transition-timing-function: var(--ease-silk);
+  }
+
+  .product-card-editorial:hover .product-image {
+    @apply scale-[1.03];
+  }
+
+  /* ===================================
+     3D FLOATING CARD - REFINED
+     =================================== */
+
+  .card-float {
+    @apply relative bg-card;
+    transform-style: preserve-3d;
+    box-shadow: var(--shadow-card-3d);
+    transition:
+      transform var(--duration-reveal) var(--ease-silk),
+      box-shadow var(--duration-fluid) var(--ease-silk);
+  }
+
+  .card-float:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-card-3d-hover);
+  }
+
+  /* Elegant Divider */
+  .divider-elegant {
+    @apply h-px bg-gradient-to-r from-transparent via-border to-transparent;
+  }
+
+  /* ===================================
+     TEXT ANIMATIONS - COUTURE REVEAL
+     =================================== */
+
+  .text-reveal-up {
+    @apply overflow-hidden;
+  }
+
+  .text-reveal-up span {
+    @apply inline-block;
+    animation: coutureReveal 1s var(--ease-editorial) forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  /* Marquee */
+  .marquee-container {
+    @apply overflow-hidden whitespace-nowrap;
+  }
+
+  .marquee-content {
+    @apply inline-flex;
+    animation: marquee 40s linear infinite;
+  }
+
+  /* Link underline animation - editorial style */
+  .link-hover {
+    @apply relative;
+  }
+
+  .link-hover::after {
+    content: '';
+    @apply absolute bottom-0 left-0 h-px w-full bg-current origin-right;
+    transform: scaleX(0);
+    transition: transform var(--duration-fluid) var(--ease-editorial);
+  }
+
+  .link-hover:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Image Container with Slow Zoom */
+  .img-zoom {
+    @apply overflow-hidden;
+  }
+
+  .img-zoom img {
+    @apply transition-transform;
+    transition-duration: var(--duration-reveal);
+    transition-timing-function: var(--ease-silk);
+  }
+
+  .img-zoom:hover img {
+    @apply scale-[1.06];
+  }
+
+  /* Stagger Animation Container */
+  .stagger-container>* {
+    opacity: 0;
+    animation: editorialFadeIn var(--duration-reveal) var(--ease-editorial) forwards;
+  }
+
+  .stagger-container>*:nth-child(1) {
+    animation-delay: 0.15s;
+  }
+
+  .stagger-container>*:nth-child(2) {
+    animation-delay: 0.27s;
+  }
+
+  .stagger-container>*:nth-child(3) {
+    animation-delay: 0.39s;
+  }
+
+  .stagger-container>*:nth-child(4) {
+    animation-delay: 0.51s;
+  }
+
+  .stagger-container>*:nth-child(5) {
+    animation-delay: 0.63s;
+  }
+
+  .stagger-container>*:nth-child(6) {
+    animation-delay: 0.75s;
+  }
+}
+
+@layer utilities {
+
+  /* Animation delays - editorial timing */
+  .delay-100 {
+    animation-delay: 120ms;
+  }
+
+  .delay-200 {
+    animation-delay: 240ms;
+  }
+
+  .delay-300 {
+    animation-delay: 360ms;
+  }
+
+  .delay-400 {
+    animation-delay: 480ms;
+  }
+
+  .delay-500 {
+    animation-delay: 600ms;
+  }
+
+  .delay-600 {
+    animation-delay: 720ms;
+  }
+
+  .delay-700 {
+    animation-delay: 840ms;
+  }
+
+  .delay-800 {
+    animation-delay: 960ms;
+  }
+
+  /* Typography */
+  .font-serif {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-sans {
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tracking-luxury {
+    letter-spacing: 0.25em;
+  }
+
+  .tracking-wide-custom {
+    letter-spacing: 0.15em;
+  }
+
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--warm-gray)) 100%);
+  }
+}
+
+/* ===================================
+   KEYFRAMES - ULTRA-LUXURY MOTION
+   =================================== */
+
+/* Couture Reveal - vertical mask with micro drift */
+@keyframes coutureReveal {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Editorial Fade In - slower, more intentional */
+@keyframes editorialFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Runway Shimmer - ultra-slow, subconscious */
+@keyframes runwayShimmer {
+  0% {
+    transform: translateX(-150%);
+  }
+
+  100% {
+    transform: translateX(250%);
+  }
+}
+
+/* Marquee - slower, more deliberate */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Gentle Float - minimal, calm */
+@keyframes floatGentle {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Scroll Indicator Pulse */
+@keyframes scrollPulse {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateY(6px);
+  }
+}
+
+/* ===================================
+   MOBILE - QUIET LUXURY MODE
+   =================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --duration-swift: 200ms;
+    --duration-fluid: 350ms;
+    --duration-reveal: 500ms;
+    --duration-editorial: 800ms;
+  }
+
+  .btn-couture:hover,
+  .btn-couture-filled:hover,
+  .btn-runway:hover {
+    transform: none;
+    box-shadow: var(--shadow-couture);
+  }
+
+  .btn-couture:active,
+  .btn-couture-filled:active,
+  .btn-runway:active {
+    transform: translateY(1px);
+    box-shadow: var(--shadow-couture-press);
+  }
+
+  /* Disable hover shimmer on mobile */
+  .btn-couture::after,
+  .btn-couture-filled::after {
+    display: none;
+  }
+}
+
+/* ===================================
+   REDUCED MOTION - ACCESSIBILITY
+   =================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .marquee-content {
+    animation: none;
+  }
+
+  .btn-runway::before {
+    animation: none;
+  }
+}
