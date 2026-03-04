@@ -29,18 +29,18 @@ const values = [
 
 const team = [
   {
-    name: "Elena Marchetti",
-    role: "Creative Director",
+    name: "Founder",
+    role: "Maze Visionary",
     image: categoryDresses,
   },
   {
-    name: "Alexander Chen",
-    role: "Head of Design",
+    name: "Lead Designer",
+    role: "Couture Lead",
     image: categoryKnitwear,
   },
   {
-    name: "Sofia Laurent",
-    role: "Sustainability Lead",
+    name: "Our Team",
+    role: "Craftsmanship Lead",
     image: categoryJackets,
   },
 ];
@@ -66,7 +66,7 @@ const About = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-transparent z-10" />
           <img
             src={heroModel}
-            alt="MAANCE Atelier"
+            alt="Maze Atelier"
             className="w-full h-full object-cover"
           />
         </motion.div>
