@@ -157,7 +157,7 @@ const About = () => {
       </section>
 
       {/* Values */}
-      <section className="py-24 lg:py-32 bg-foreground text-background">
+      <section className="py-24 lg:py-32 bg-[#111111] text-[#F4F1EA]">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -193,7 +193,7 @@ const About = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 bg-secondary/30">
+      <section className="py-24 lg:py-32 bg-[#111111] border-t border-white/5">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -201,11 +201,11 @@ const About = () => {
             viewport={{ once: true }}
             className="max-w-2xl mx-auto text-center"
           >
-            <h2 className="text-display font-serif mb-6">Experience MAZE</h2>
-            <p className="text-body-lg text-muted-foreground mb-10">
+            <h2 className="text-display font-serif mb-6 text-[#F4F1EA]">Experience MAZE</h2>
+            <p className="text-body-lg text-[#A1A1A1] mb-10">
               Discover our latest performance collection and experience the art of athletic luxury.
             </p>
-            <a href="/collection" className="btn-refined-filled">
+            <a href="/collection" className="inline-flex items-center justify-center bg-[#C6A75E] text-[#111111] px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase rounded-[6px] hover:bg-white transition-all shadow-[0_4px_0_rgba(198,167,94,0.3)]">
               <span>Shop the Collection</span>
             </a>
           </motion.div>

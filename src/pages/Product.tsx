@@ -148,7 +148,7 @@ const Product = () => {
                       <button
                         key={variant.id}
                         onClick={() => setSelectedVariant(variant)}
-                        className={`py-3 border text-body-sm font-bold tracking-widest uppercase transition-all duration-300 ${selectedVariant?.id === variant.id ? "bg-foreground text-background border-foreground" : "border-border hover:border-foreground"}`}
+                        className={`py-3 border text-body-sm font-bold tracking-widest uppercase transition-all duration-300 rounded-[6px] ${selectedVariant?.id === variant.id ? "bg-foreground text-background border-foreground shadow-[0_2px_0_hsl(var(--foreground)/0.2)]" : "border-border hover:border-foreground"}`}
                       >
                         {variant.title}
                       </button>
@@ -159,12 +159,12 @@ const Product = () => {
 
               {/* Add to Cart */}
               <div className="flex gap-3 mb-8">
-                <div className="flex items-center border border-border">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-4 hover:bg-secondary transition-colors">
+                <div className="flex items-center border border-border rounded-[6px] transition-shadow duration-300 focus-within:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)]">
+                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-4 hover:bg-secondary transition-colors rounded-l-[6px]">
                     <Minus className="w-4 h-4" />
                   </button>
                   <span className="px-5 text-body font-bold">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-4 hover:bg-secondary transition-colors">
+                  <button onClick={() => setQuantity(quantity + 1)} className="p-4 hover:bg-secondary transition-colors rounded-r-[6px]">
                     <Plus className="w-4 h-4" />
                   </button>
                 </div>
@@ -177,7 +177,7 @@ const Product = () => {
                     {!selectedVariant?.availableForSale ? "Sold Out" : "Add to Cart"}
                   </span>
                 </button>
-                <button onClick={() => setIsWishlisted(!isWishlisted)} className="p-4 border border-border hover:border-foreground transition-colors">
+                <button onClick={() => setIsWishlisted(!isWishlisted)} className="p-4 border border-border hover:border-foreground transition-all duration-300 rounded-[6px] hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.1)]">
                   <Heart className={`w-5 h-5 ${isWishlisted ? "fill-foreground" : ""}`} />
                 </button>
               </div>

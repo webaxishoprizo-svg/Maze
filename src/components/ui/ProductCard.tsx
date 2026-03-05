@@ -71,10 +71,11 @@ const ProductCard = ({
           to={`/product/${handle || id}`}
           className="block relative overflow-hidden bg-secondary aspect-[3/4]"
           style={{
+            borderRadius: '6px',
             boxShadow: isHovered
-              ? "0 16px 40px -8px hsl(30 20% 20% / 0.1), 0 28px 56px -12px hsl(30 20% 20% / 0.08)"
-              : "0 8px 24px -4px hsl(30 20% 20% / 0.08), 0 16px 40px -8px hsl(30 20% 20% / 0.06)",
-            transition: "box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
+              ? "var(--shadow-card-3d-hover)"
+              : "var(--shadow-card-3d)",
+            transition: "box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)",
           }}
         >
           {/* Shimmer Loading */}
