@@ -120,7 +120,7 @@ const CartDrawer = () => {
                           {item.color && ` · ${item.color}`}
                         </p>
                         <div className="mt-auto flex items-center justify-between">
-                          <div className="flex items-center border border-border">
+                          <div className="flex items-center border border-border rounded-[6px] overflow-hidden shadow-[0_2px_0_rgba(0,0,0,0.05)]">
                             <button
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               className="p-2 hover:bg-secondary transition-colors"
@@ -128,7 +128,7 @@ const CartDrawer = () => {
                             >
                               <Minus className="w-3 h-3" />
                             </button>
-                            <span className="px-4 text-body-sm font-medium">
+                            <span className="px-4 text-body-sm font-medium border-x border-border">
                               {item.quantity}
                             </span>
                             <button
@@ -158,9 +158,9 @@ const CartDrawer = () => {
                   <input
                     type="text"
                     placeholder="Discount code"
-                    className="flex-1 bg-transparent border border-border px-4 py-2 text-body-sm placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors"
+                    className="flex-1 bg-transparent border border-border rounded-[6px] px-4 py-2 text-body-sm placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors"
                   />
-                  <button className="px-4 py-2 border border-foreground text-overline uppercase tracking-luxury hover:bg-foreground hover:text-background transition-colors">
+                  <button className="px-6 py-2 border border-foreground text-overline uppercase tracking-luxury hover:bg-foreground hover:text-background transition-all rounded-[6px] shadow-[0_3px_0_rgba(0,0,0,0.1)] active:translate-y-[1px] active:shadow-none font-bold">
                     Apply
                   </button>
                 </div>

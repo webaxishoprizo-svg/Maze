@@ -51,9 +51,9 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
           >
             <Link
               to="/collection"
-              className="bg-[#111] text-white px-6 py-3 text-xs font-bold tracking-widest uppercase hover:bg-black transition-colors min-w-[120px] text-center"
+              className="btn-couture-filled min-w-[120px] text-center"
             >
-              View All
+              <span>View All</span>
             </Link>
           </motion.div>
         </div>

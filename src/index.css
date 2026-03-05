@@ -137,6 +137,15 @@
     letter-spacing: -0.02em;
   }
 
+  button,
+  .btn,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"] {
+    border-radius: var(--radius);
+    transition: all var(--duration-swift) var(--ease-silk);
+  }
+
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 5px;

@@ -35,10 +35,10 @@ const HeroSection = () => {
 
             <Link
               to="/collection"
-              className="inline-flex items-center justify-between bg-[#151515] text-white px-8 py-4 text-sm font-bold tracking-widest uppercase hover:bg-black transition-colors min-w-[240px] mb-16 shadow-lg"
+              className="btn-couture-filled min-w-[240px] mb-16"
             >
               <span>Shop Now</span>
-              <span>→</span>
+              <span className="ml-4">→</span>
             </Link>
 
             <div className="flex flex-wrap items-center gap-6 md:gap-8">

@@ -100,29 +100,29 @@ const Newsletter = () => {
             </p>
 
             <form onSubmit={handleSubmit} className="max-w-md">
-              <div className="relative">
+              <div className="relative group">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
-                  className={`w-full bg-transparent border-b-2 ${error ? 'border-destructive' : 'border-foreground/20'} focus:border-foreground py-4 pr-14 text-body outline-none placeholder:text-muted-foreground transition-colors duration-500`}
+                  className={`w-full bg-secondary/30 border border-transparent rounded-[6px] px-6 py-4 text-body outline-none placeholder:text-muted-foreground focus:border-foreground/20 focus:bg-white transition-all duration-500 shadow-inner`}
                   disabled={isSubmitted}
                 />
                 <motion.button
                   type="submit"
                   disabled={isSubmitted || loading}
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.1, x: -4 }}
                   whileTap={{ scale: 0.95 }}
-                  className="absolute right-0 top-1/2 -translate-y-1/2 p-2"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-foreground text-background rounded-[4px] shadow-[0_2px_0_rgba(0,0,0,0.2)]"
                   aria-label="Subscribe"
                 >
                   {loading ? (
-                    <Loader2 className="w-5 h-5 animate-spin" />
+                    <Loader2 className="w-4 h-4 animate-spin" />
                   ) : isSubmitted ? (
-                    <Check className="w-5 h-5 text-green-600" />
+                    <Check className="w-4 h-4" />
                   ) : (
-                    <ArrowRight className="w-5 h-5" />
+                    <ArrowRight className="w-4 h-4" />
                   )}
                 </motion.button>
               </div>
