@@ -1,95 +1,73 @@
-import { useState, useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getProducts, getProductByHandle, Product } from '@/api/products';
 import { storefrontFetch } from '../lib/storefront';
 import { GET_PRODUCTS_BY_COLLECTION_QUERY, GET_COLLECTIONS_QUERY } from '../lib/queries';
 
-export function useProducts(first = 10) {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+export function useProducts(first = 12) {
+    const { data: products = [], isLoading: loading, error } = useQuery({
+        queryKey: ['products', first],
+        queryFn: () => getProducts(first),
+        staleTime: 1000 * 60 * 5, // 5 minutes
+    });
 
-    useEffect(() => {
-        async function fetchProducts() {
-            try {
-                const data = await getProducts(first);
-                setProducts(data);
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchProducts();
-    }, [first]);
-
-    return { products, loading, error };
+    return {
+        products,
+        loading,
+        error: error ? (error as Error).message : null
+    };
 }
 
 export function useProductsByCategory(handle: string, first = 20) {
-    const [products, setProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: products = [], isLoading: loading, error } = useQuery({
+        queryKey: ['products-by-category', handle, first],
+        queryFn: async () => {
+            if (!handle) return [];
+            const { body } = await storefrontFetch({
+                query: GET_PRODUCTS_BY_COLLECTION_QUERY,
+                variables: { handle, first },
+            });
 
-    useEffect(() => {
-        async function fetchByCategory() {
-            if (!handle) return;
-            try {
-                setLoading(true);
-                const { body } = await storefrontFetch({
-                    query: GET_PRODUCTS_BY_COLLECTION_QUERY,
-                    variables: { handle, first },
-                });
-
-                if (body.data.collectionByHandle) {
-                    const mapped = body.data.collectionByHandle.products.edges.map((edge: any) => ({
-                        id: edge.node.id,
-                        title: edge.node.title,
-                        handle: edge.node.handle,
-                        description: edge.node.description,
-                        image: edge.node.featuredImage?.url || edge.node.images.edges[0]?.node.url,
-                        price: edge.node.priceRange.minVariantPrice.amount,
-                        currencyCode: edge.node.priceRange.minVariantPrice.currencyCode,
-                    }));
-                    setProducts(mapped);
-                } else {
-                    setProducts([]);
-                }
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
+            if (body.data.collectionByHandle) {
+                return body.data.collectionByHandle.products.edges.map((edge: any) => ({
+                    id: edge.node.id,
+                    variantId: edge.node.variants?.edges[0]?.node.id,
+                    title: edge.node.title,
+                    handle: edge.node.handle,
+                    description: edge.node.description,
+                    image: edge.node.featuredImage?.url || edge.node.images.edges[0]?.node.url,
+                    price: edge.node.priceRange.minVariantPrice.amount,
+                    currencyCode: edge.node.priceRange.minVariantPrice.currencyCode,
+                }));
             }
-        }
+            return [];
+        },
+        enabled: !!handle,
+        staleTime: 1000 * 60 * 5,
+    });
 
-        fetchByCategory();
-    }, [handle, first]);
-
-    return { products, loading, error };
+    return {
+        products,
+        loading,
+        error: error ? (error as Error).message : null
+    };
 }
 
 export function useCollections(first = 5) {
-    const [collections, setCollections] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
+    const { data: collections = [], isLoading: loading, error } = useQuery({
+        queryKey: ['collections', first],
+        queryFn: async () => {
+            const { body } = await storefrontFetch({
+                query: GET_COLLECTIONS_QUERY,
+                variables: { first },
+            });
+            return body.data.collections.edges.map((edge: any) => edge.node);
+        },
+        staleTime: 1000 * 60 * 10, // 10 minutes
+    });
 
-    useEffect(() => {
-        async function fetchCollections() {
-            try {
-                const { body } = await storefrontFetch({
-                    query: GET_COLLECTIONS_QUERY,
-                    variables: { first },
-                });
-                setCollections(body.data.collections.edges.map((edge: any) => edge.node));
-            } catch (err: any) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        fetchCollections();
-    }, [first]);
-
-    return { collections, loading, error };
+    return {
+        collections,
+        loading,
+        error: error ? (error as Error).message : null
+    };
 }

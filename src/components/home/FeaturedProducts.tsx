@@ -63,6 +63,7 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
           {products.map((p, index) => {
             const mappedProduct = {
               id: p.id,
+              variantId: p.variantId,
               name: p.title,
               price: parseFloat(p.price),
               image: p.image,

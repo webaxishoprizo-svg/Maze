@@ -4,13 +4,13 @@ export const PRODUCT_FIELDS = `
   handle
   description
   featuredImage {
-    url
+    url(transform: {maxWidth: 1000, preferredContentType: WEBP})
     altText
   }
   images(first: 5) {
     edges {
       node {
-        url
+        url(transform: {maxWidth: 1000, preferredContentType: WEBP})
         altText
       }
     }
@@ -67,7 +67,7 @@ export const GET_COLLECTIONS_QUERY = `
           handle
           description
           image {
-            url
+            url(transform: {maxWidth: 600, preferredContentType: WEBP})
             altText
           }
         }
@@ -124,4 +124,3 @@ export const GET_PRODUCTS_BY_COLLECTION_QUERY = `
     }
   }
 `;
-

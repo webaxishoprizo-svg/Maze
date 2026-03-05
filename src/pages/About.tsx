@@ -105,19 +105,28 @@ const About = () => {
               <span className="text-overline uppercase tracking-luxury text-muted-foreground block mb-6">
                 Founded 2024
               </span>
-              <h2 className="text-display font-serif mb-8">The MAZE Vision</h2>
+              <h2 className="text-display font-serif mb-8">Welcome to MAZE, where comfort meets confidence.</h2>
               <div className="space-y-6 text-body-lg text-muted-foreground">
                 <p>
-                  MAZE was born from a desire to create activewear that speaks to the modern
-                  individual who values both performance and high fashion. We envisioned a brand that would bridge the gap between durable engineering and timeless design.
+                  We started MAZE with one simple idea — to create track pants that move with you, not against you.
+                </p>
+                <div className="py-4 border-l-2 border-foreground/10 pl-6 my-8">
+                  <p className="text-xl font-serif italic text-foreground">
+                    "Why should everyday wear feel ordinary?"
+                  </p>
+                </div>
+                <p>
+                  At MAZE, we design track pants for everyone — men, women, and kids — blending style, stretch, and strength into every thread. Whether you’re hitting the gym, stepping out with friends, or lounging at home, our fits are made to match your rhythm.
                 </p>
                 <p>
-                  Based in Kerala, India, our team brings together the finest textiles and
-                  modern silhouettes for those who share a passion for pushing their limits without compromising on elegance. Each collection is a testament to our commitment to quality, power, and enduring style.
+                  Every MAZE piece is crafted from premium-quality fabric, tested for durability, breathability, and comfort. From baggy fits to tapered joggers, our collection covers every style — because we believe movement should never be restricted by your clothes.
                 </p>
                 <p>
-                  Today, MAZE stands as a symbol of athletic luxury—pieces that are
-                  designed to be worn in the gym, on the track, and in the city with pride.
+                  We’re not just another fashion label — we’re building a movement where every age, every body, and every lifestyle finds its comfort zone.
+                </p>
+                <p className="pt-4 font-semibold text-foreground">
+                  Move with MAZE.<br />
+                  Everyday comfort. Timeless style. All-in-one fit.
                 </p>
               </div>
             </motion.div>

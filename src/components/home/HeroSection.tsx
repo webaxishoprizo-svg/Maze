@@ -34,7 +34,7 @@ const HeroSection = () => {
             </p>
 
             <Link
-              to="/collections"
+              to="/collection"
               className="inline-flex items-center justify-between bg-[#151515] text-white px-8 py-4 text-sm font-bold tracking-widest uppercase hover:bg-black transition-colors min-w-[240px] mb-16 shadow-lg"
             >
               <span>Shop Now</span>

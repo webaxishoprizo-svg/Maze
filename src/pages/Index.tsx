@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
@@ -8,18 +8,13 @@ import CategoryTiles from "@/components/home/CategoryTiles";
 import WhyMaze from "@/components/home/WhyMaze";
 import EditorialSection from "@/components/home/EditorialSection";
 import Newsletter from "@/components/home/Newsletter";
-import { getProducts } from "@/api/products";
+import { useProducts } from "@/hooks/useProducts";
 
 const Index = () => {
-  const [products, setProducts] = useState<any[]>([]);
+  const { products } = useProducts(4);
 
   useEffect(() => {
     document.title = "Maze | Engineered for Strength & Style";
-    async function fetchProducts() {
-      const data = await getProducts(4);
-      setProducts(data);
-    }
-    fetchProducts();
   }, []);
 
   return (

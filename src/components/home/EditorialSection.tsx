@@ -40,7 +40,7 @@ const EditorialSection = () => {
             </p>
 
             <Link
-              to="/collections"
+              to="/collection"
               className="inline-flex items-center justify-center bg-transparent border border-[#d5d5d5] text-white px-8 py-4 text-sm font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-colors min-w-[240px]"
             >
               Explore Collection

@@ -235,6 +235,7 @@ const Product = () => {
             {relatedProducts.map((p: ProductType, index: number) => {
               const mappedProduct = {
                 id: p.id,
+                variantId: p.variantId,
                 name: p.title,
                 price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
                 image: p.image,

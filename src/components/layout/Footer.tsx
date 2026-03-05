@@ -8,15 +8,16 @@ import { NEWSLETTER_SIGNUP_MUTATION } from "../../lib/queries";
 const footerLinks = {
   quickLinks: [
     { name: "Shop All", href: "/collection" },
-    { name: "Men’s Collection", href: "/collection/men" },
-    { name: "Women’s Collection", href: "/collection/women" },
+    { name: "My Account", href: "/account" },
     { name: "Track Order", href: "/track-order" },
+    { name: "Wishlist", href: "/wishlist" },
   ],
   information: [
     { name: "About Us", href: "/about" },
     { name: "Return Policy", href: "/return-policy" },
     { name: "Privacy Policy", href: "/privacy-policy" },
     { name: "Terms & Conditions", href: "/terms-conditions" },
+    { name: "Cookie Policy", href: "/cookies" },
   ],
 };
 

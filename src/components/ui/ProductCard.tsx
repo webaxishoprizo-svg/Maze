@@ -11,6 +11,7 @@ const easeVelvet: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 interface ProductCardProps {
   id: string;
+  variantId?: string;
   name: string;
   price: number;
   image: string;
@@ -25,6 +26,7 @@ interface ProductCardProps {
 
 const ProductCard = ({
   id,
+  variantId,
   name,
   price,
   image,
@@ -84,6 +86,7 @@ const ProductCard = ({
           <motion.img
             src={image}
             alt={name}
+            loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
             onLoad={() => setImageLoaded(true)}
             animate={{
@@ -101,6 +104,7 @@ const ProductCard = ({
             <motion.img
               src={hoverImage}
               alt={`${name} alternate view`}
+              loading="lazy"
               className="absolute inset-0 w-full h-full object-cover"
               initial={{ opacity: 0 }}
               animate={{
@@ -157,7 +161,7 @@ const ProductCard = ({
             <motion.button
               onClick={(e) => {
                 e.preventDefault();
-                addItem({ id, name, price, image });
+                addItem({ id: variantId || id, name, price, image });
               }}
               className="w-10 h-10 bg-[#111] text-white flex items-center justify-center transition-colors hover:bg-black"
             >

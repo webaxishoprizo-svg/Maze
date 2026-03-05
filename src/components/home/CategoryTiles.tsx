@@ -36,8 +36,9 @@ const CategoryTiles = () => {
             >
               <Link to={`/collection/${item.handle}`} className="group block relative aspect-square md:aspect-[4/5] overflow-hidden bg-gray-100">
                 <img
-                  src={item.image?.url || "https://images.unsplash.com/photo-1510319766946-880629bb46fa?q=80&w=1500&auto=format&fit=crop"}
+                  src={item.image?.url || "https://images.unsplash.com/photo-1544441893-675973e31985?q=80&w=1500&auto=format&fit=crop"}
                   alt={item.title}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
                 <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/80 to-transparent" />

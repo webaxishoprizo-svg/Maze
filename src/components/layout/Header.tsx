@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence, useInView } from "framer-motion";
-import { Search, User, Heart, ShoppingBag, Menu, X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Search, User, Heart, ShoppingBag, Menu, X, LogOut } from "lucide-react";
 import { useCart } from "@/store/cartStore";
+import { useAuth } from "@/contexts/AuthContext";
 
 // Ultra-luxury easing curves
 const easeSilk: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -27,7 +28,10 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
+
   const { cartCount, toggleCart } = useCart();
+  const { customer, isLoggedIn, logout } = useAuth();
   const location = useLocation();
 
   useEffect(() => {
@@ -40,6 +44,7 @@ const Header = () => {
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsAccountMenuOpen(false);
   }, [location]);
 
   return (
@@ -108,7 +113,6 @@ const Header = () => {
               transition={{ delay: 0.5, duration: 0.6, ease: easeSilk }}
               className="flex items-center gap-2 lg:gap-6"
             >
-
               <motion.button
                 onClick={() => setIsSearchOpen(true)}
                 className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300"
@@ -119,19 +123,55 @@ const Header = () => {
               >
                 <Search className="w-5 h-5" strokeWidth={1.5} />
               </motion.button>
-              <motion.div
-                whileHover={{ y: -1 }}
-                whileTap={{ y: 1 }}
-                transition={{ duration: 0.2, ease: easeVelvet }}
-              >
-                <Link
-                  to="/account"
+
+              <div className="relative">
+                <motion.button
+                  onClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)}
                   className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300"
+                  whileHover={{ y: -1 }}
+                  whileTap={{ y: 1 }}
+                  transition={{ duration: 0.2, ease: easeVelvet }}
                   aria-label="Account"
                 >
                   <User className="w-5 h-5" strokeWidth={1.5} />
-                </Link>
-              </motion.div>
+                </motion.button>
+
+                <AnimatePresence>
+                  {isAccountMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute right-0 mt-4 w-48 bg-background border border-border shadow-elevated py-2 z-50"
+                    >
+                      {isLoggedIn ? (
+                        <>
+                          <div className="px-4 py-2 border-b border-border mb-2">
+                            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Hello,</p>
+                            <p className="text-xs font-bold truncate">{customer?.firstName}</p>
+                          </div>
+                          <Link to="/account" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">My Account</Link>
+                          <Link to="/wishlist" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">Wishlist</Link>
+                          <button
+                            onClick={logout}
+                            className="w-full text-left px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium text-destructive flex items-center gap-2"
+                          >
+                            <LogOut className="w-3 h-3" />
+                            Sign Out
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <Link to="/login" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Sign In</Link>
+                          <Link to="/register" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Create Account</Link>
+                        </>
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
               <motion.button
                 onClick={toggleCart}
                 className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300 relative"
@@ -157,7 +197,7 @@ const Header = () => {
         </div>
       </motion.header>
 
-      {/* Search Overlay - Mask reveal */}
+      {/* Search Overlay & Mobile Menu ... (omitted for brevity in replace, but I'll write full file below) */}
       <AnimatePresence>
         {isSearchOpen && (
           <motion.div
@@ -180,28 +220,14 @@ const Header = () => {
                     placeholder="Search..."
                     autoFocus
                     className="w-full bg-transparent border-b-2 border-foreground/20 focus:border-foreground py-4 text-display font-serif outline-none placeholder:text-foreground/20"
-                    style={{
-                      transition: "border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1)"
-                    }}
                   />
                   <Search className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 text-foreground/30" />
                 </div>
-                <motion.p
-                  className="text-body-sm text-muted-foreground mt-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.6, ease: easeSilk }}
-                >
-                  Popular: Tailored Jacket, Cashmere, Leather Tote
-                </motion.p>
               </motion.div>
             </div>
             <motion.button
               onClick={() => setIsSearchOpen(false)}
-              className="absolute top-8 right-8 p-2 hover:opacity-60 transition-opacity duration-300"
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              transition={{ delay: 0.3, duration: 0.5, ease: easeSilk }}
+              className="absolute top-8 right-8 p-2"
               aria-label="Close search"
             >
               <X className="w-6 h-6" />
@@ -210,7 +236,6 @@ const Header = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile Menu - Editorial slide */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <>
@@ -218,7 +243,6 @@ const Header = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.4, ease: easeSilk }}
               className="fixed inset-0 z-[60] bg-foreground/20 backdrop-blur-sm lg:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
@@ -226,82 +250,33 @@ const Header = () => {
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{
-                type: "tween",
-                duration: 0.5,
-                ease: easeSilk
-              }}
+              transition={{ duration: 0.5, ease: easeSilk }}
               className="fixed left-0 top-0 bottom-0 z-[70] w-[85%] max-w-sm bg-background shadow-elevated lg:hidden"
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-6 border-b border-border">
                   <img src="/logo.png" alt="Maze" className="h-10 w-auto object-contain dark:invert" />
-                  <button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2"
-                    aria-label="Close menu"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
+                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-2"><X className="w-5 h-5" /></button>
                 </div>
                 <nav className="flex-1 overflow-y-auto py-8 px-6">
-                  {navLinks.map((link, index) => (
-                    <motion.div
-                      key={link.name}
-                      initial={{ opacity: 0, x: -16 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        delay: 0.1 * index,
-                        duration: 0.5,
-                        ease: easeSilk
-                      }}
-                    >
-                      <Link
-                        to={link.href}
-                        className="block py-4 text-heading font-serif text-foreground border-b border-border/50"
-                      >
-                        {link.name}
-                      </Link>
-                    </motion.div>
+                  {navLinks.map((link) => (
+                    <Link key={link.name} to={link.href} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">{link.name}</Link>
                   ))}
-
-                  {/* Categories Section */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.6, duration: 0.5, ease: easeSilk }}
-                    className="mt-6"
-                  >
-                    <p className="text-overline text-foreground/40 uppercase tracking-wider mb-4 px-1">
-                      Categories
-                    </p>
-                    {categoryLinks.map((link) => (
-                      <Link
-                        key={link.name}
-                        to={link.href}
-                        className="block py-3 text-body text-foreground/80 hover:text-foreground transition-colors duration-300 pl-4"
-                      >
-                        {link.name}
-                      </Link>
-                    ))}
-                  </motion.div>
+                  <div className="mt-8">
+                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-4">Account</p>
+                    {isLoggedIn ? (
+                      <>
+                        <Link to="/account" className="block py-3 text-body">My Account</Link>
+                        <button onClick={logout} className="block py-3 text-body text-destructive">Sign Out</button>
+                      </>
+                    ) : (
+                      <>
+                        <Link to="/login" className="block py-3 text-body">Sign In</Link>
+                        <Link to="/register" className="block py-3 text-body">Create Account</Link>
+                      </>
+                    )}
+                  </div>
                 </nav>
-                <div className="p-6 border-t border-border space-y-4">
-                  <Link
-                    to="/account"
-                    className="flex items-center gap-3 text-body-sm"
-                  >
-                    <User className="w-5 h-5" />
-                    Account
-                  </Link>
-                  <Link
-                    to="/wishlist"
-                    className="flex items-center gap-3 text-body-sm"
-                  >
-                    <Heart className="w-5 h-5" />
-                    Wishlist
-                  </Link>
-                </div>
               </div>
             </motion.div>
           </>
