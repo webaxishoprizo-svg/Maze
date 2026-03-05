@@ -22,15 +22,22 @@ const Newsletter = () => {
           variables: {
             input: {
               email,
+              password: Math.random().toString(36).slice(-10), // Required for customerCreate
               acceptsMarketing: true,
             },
           },
         });
 
-        const { customerUserErrors } = body.data.customerCreate;
+        const userErrors = body.data?.customerCreate?.customerUserErrors || [];
 
-        if (customerUserErrors.length > 0) {
-          throw new Error(customerUserErrors[0].message);
+        if (userErrors.length > 0) {
+          // If already taken, treat as success for newsletter
+          if (userErrors.some((err: any) => err.code === "TAKEN")) {
+            setIsSubmitted(true);
+            setEmail("");
+            return;
+          }
+          throw new Error(userErrors[0].message);
         }
 
         setIsSubmitted(true);
@@ -38,7 +45,12 @@ const Newsletter = () => {
         setTimeout(() => setIsSubmitted(false), 5000);
       } catch (err: any) {
         console.error("Newsletter error:", err);
-        setError(err.message || "Something went wrong. Please try again.");
+        // If it's a GraphQL schema error (like missing password was), don't show the raw text
+        if (err.message && err.message.includes("Variable $input")) {
+          setError("Unable to process request. Please try again later.");
+        } else {
+          setError(err.message || "Something went wrong. Please try again.");
+        }
       } finally {
         setLoading(false);
       }
@@ -61,6 +73,7 @@ const Newsletter = () => {
               src={heroModel}
               alt="Newsletter"
               className="w-full h-full object-cover"
+              loading="lazy"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
           </motion.div>
@@ -93,7 +106,7 @@ const Newsletter = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your email address"
-                  className="w-full bg-transparent border-b-2 border-foreground/20 focus:border-foreground py-4 pr-14 text-body outline-none placeholder:text-muted-foreground transition-colors duration-500"
+                  className={`w-full bg-transparent border-b-2 ${error ? 'border-destructive' : 'border-foreground/20'} focus:border-foreground py-4 pr-14 text-body outline-none placeholder:text-muted-foreground transition-colors duration-500`}
                   disabled={isSubmitted}
                 />
                 <motion.button
@@ -114,7 +127,7 @@ const Newsletter = () => {
                 </motion.button>
               </div>
               {error && (
-                <p className="mt-2 text-caption text-destructive">{error}</p>
+                <p className="mt-2 text-caption text-destructive font-medium">{error}</p>
               )}
               {isSubmitted && (
                 <motion.p

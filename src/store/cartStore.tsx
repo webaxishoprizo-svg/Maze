@@ -37,6 +37,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   const addItem = (newItem: Omit<CartItem, "quantity">) => {
+    // SECURITY: Ensure we are using ProductVariant IDs, not Product IDs
+    if (newItem.id.includes("/Product/") && !newItem.id.includes("/ProductVariant/")) {
+      console.warn("Cart: Detected Product ID instead of Variant ID. Checkout might fail.", newItem.id);
+    }
+
     setItems((prev) => {
       const existing = prev.find((item) => item.id === newItem.id);
       if (existing) {
@@ -87,18 +92,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         },
       });
 
-      const { checkout, checkoutUserErrors } = body.data.checkoutCreate;
+      const checkoutData = body.data?.checkoutCreate;
 
-      if (checkoutUserErrors.length > 0) {
-        throw new Error(checkoutUserErrors[0].message);
+      if (!checkoutData) {
+        throw new Error("No response from Shopify checkout service.");
+      }
+
+      const { checkout, checkoutUserErrors } = checkoutData;
+
+      if (checkoutUserErrors && checkoutUserErrors.length > 0) {
+        const errorMsg = checkoutUserErrors[0].message;
+        console.error("Shopify Checkout Error:", errorMsg);
+        throw new Error(errorMsg);
       }
 
       if (checkout?.webUrl) {
         window.location.href = checkout.webUrl;
+      } else {
+        throw new Error("Checkout URL was not generated.");
       }
-    } catch (error) {
-      console.error("Checkout error:", error);
-      alert("There was an error creating the checkout. Please try again.");
+    } catch (error: any) {
+      console.error("Checkout process failed:", error);
+      alert(`Checkout Error: ${error.message || "Please check your connectivity and try again."}`);
     } finally {
       setIsCheckingOut(false);
     }

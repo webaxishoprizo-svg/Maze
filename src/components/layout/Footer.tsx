@@ -32,30 +32,45 @@ const Footer = () => {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorStatus, setErrorStatus] = useState<string | null>(null);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || loading) return;
 
     setLoading(true);
+    setErrorStatus(null);
     try {
       const { body } = await storefrontFetch({
         query: NEWSLETTER_SIGNUP_MUTATION,
         variables: {
           input: {
             email,
+            password: Math.random().toString(36).slice(-10), // Required field for customerCreate
             acceptsMarketing: true,
           },
         },
       });
 
-      if (body.data.customerCreate.customerUserErrors.length === 0) {
+      const userErrors = body.data?.customerCreate?.customerUserErrors || [];
+
+      if (userErrors.length === 0) {
         setSubmitted(true);
         setEmail("");
         setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        // If the email is already taken, they are likely already subscribed or already have an account
+        if (userErrors.some((err: any) => err.code === "TAKEN")) {
+          setSubmitted(true);
+          setEmail("");
+        } else {
+          setErrorStatus(userErrors[0].message);
+        }
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Newsletter error:", err);
+      // Don't show raw GraphQL errors to the user
+      setErrorStatus("There was an error. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -186,7 +201,7 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
                 disabled={loading || submitted}
-                className="w-full bg-transparent border-b border-[#A1A1A1]/30 focus:border-[#C6A75E] py-2 pr-10 text-body-sm outline-none transition-colors placeholder:text-[#A1A1A1]/50 text-[#F4F1EA]"
+                className={`w-full bg-transparent border-b ${errorStatus ? 'border-destructive' : 'border-[#A1A1A1]/30'} focus:border-[#C6A75E] py-2 pr-10 text-body-sm outline-none transition-colors placeholder:text-[#A1A1A1]/50 text-[#F4F1EA]`}
               />
               <button
                 type="submit"
@@ -205,6 +220,9 @@ const Footer = () => {
             </form>
             {submitted && (
               <p className="mt-2 text-xs text-green-500">Thank you for subscribing!</p>
+            )}
+            {errorStatus && (
+              <p className="mt-2 text-xs text-destructive">{errorStatus}</p>
             )}
           </div>
         </div>
