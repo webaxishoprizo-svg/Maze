@@ -64,143 +64,148 @@ const Contact = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="pb-24 lg:pb-32">
+      <section className="pb-24 lg:pb-32 bg-[#FAFAF9]">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Form */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Form Card */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
+              className="bg-white p-8 lg:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.04)] rounded-[4px] border border-[#f0f0f0]"
             >
-              <h2 className="text-heading font-serif mb-8">Send Us a Message</h2>
+              <h2 className="text-display-sm font-serif mb-8 text-[#111]">Send Us a Message</h2>
 
               {isSubmitted ? (
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-8 bg-secondary/50 text-center"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="p-12 bg-secondary/30 text-center rounded-[4px]"
                 >
-                  <h3 className="text-subheading font-serif mb-4">Thank You</h3>
+                  <div className="w-16 h-16 bg-[#111] text-white rounded-full flex items-center justify-center mx-auto mb-6">
+                    <Mail className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-subheading font-serif mb-4">Message Sent</h3>
                   <p className="text-body text-muted-foreground">
-                    Your message has been received. We'll be in touch within 24-48 hours.
+                    Your inquiry has been received. Our concierge team will reach out within 24 hours.
                   </p>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <label className="text-body-sm uppercase tracking-luxury block mb-2">
-                        Name
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
+                        Full Name
                       </label>
                       <input
                         type="text"
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border border-border px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors"
-                        placeholder="Your name"
+                        className="w-full bg-secondary/20 border border-transparent rounded-[4px] px-5 py-4 text-body-sm focus:bg-white focus:border-border outline-none transition-all shadow-inner"
+                        placeholder="e.g. James Bond"
                       />
                     </div>
-                    <div>
-                      <label className="text-body-sm uppercase tracking-luxury block mb-2">
-                        Email
+                    <div className="space-y-2">
+                      <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
+                        Email Address
                       </label>
                       <input
                         type="email"
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-transparent border border-border px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors"
+                        className="w-full bg-secondary/20 border border-transparent rounded-[4px] px-5 py-4 text-body-sm focus:bg-white focus:border-border outline-none transition-all shadow-inner"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
-                  <div>
-                    <label className="text-body-sm uppercase tracking-luxury block mb-2">
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
                       Subject
                     </label>
                     <select
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full bg-transparent border border-border px-4 py-3 text-body focus:border-foreground outline-none transition-colors"
+                      className="w-full bg-secondary/20 border border-transparent rounded-[4px] px-5 py-4 text-body-sm focus:bg-white focus:border-border outline-none transition-all cursor-pointer appearance-none"
                     >
-                      <option value="">Select a topic</option>
+                      <option value="">Choose a subject...</option>
                       <option value="order">Order Inquiry</option>
-                      <option value="product">Product Question</option>
-                      <option value="returns">Returns & Exchanges</option>
-                      <option value="press">Press Inquiry</option>
-                      <option value="other">Other</option>
+                      <option value="product">Sizing & Fit</option>
+                      <option value="returns">Returns Center</option>
+                      <option value="other">General Inquiry</option>
                     </select>
                   </div>
-                  <div>
-                    <label className="text-body-sm uppercase tracking-luxury block mb-2">
-                      Message
+                  <div className="space-y-2">
+                    <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-muted-foreground">
+                      How Can We Help?
                     </label>
                     <textarea
                       required
-                      rows={6}
+                      rows={5}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-transparent border border-border px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors resize-none"
-                      placeholder="How can we help you?"
+                      className="w-full bg-secondary/20 border border-transparent rounded-[4px] px-5 py-4 text-body-sm focus:bg-white focus:border-border outline-none transition-all resize-none shadow-inner"
+                      placeholder="Describe your request in detail..."
                     />
                   </div>
-                  <button type="submit" className="btn-couture-filled w-full sm:w-auto">
-                    <span>Send Message</span>
+                  <button type="submit" className="btn-couture-filled w-full group !rounded-[4px]">
+                    <span className="flex items-center justify-center gap-2">
+                      Send Message <motion.span animate={{ x: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.5 }}>→</motion.span>
+                    </span>
                   </button>
                 </form>
               )}
             </motion.div>
 
-            {/* Contact Info */}
+            {/* Info Card */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
+              className="space-y-8"
             >
-              <h2 className="text-heading font-serif mb-8">Contact Information</h2>
-              <div className="space-y-8">
-                {contactInfo.map((info, index) => (
-                  <motion.div
-                    key={info.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 + index * 0.1 }}
-                    className="flex gap-4"
-                  >
-                    <div className="w-12 h-12 border border-border flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-5 h-5 text-muted-foreground" />
+              <div className="bg-white p-8 lg:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.04)] rounded-[4px] border border-[#f0f0f0]">
+                <h2 className="text-display-sm font-serif mb-10 text-[#111]">Our Atelier</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                  {contactInfo.map((info, index) => (
+                    <div key={info.title} className="group">
+                      <div className="flex items-center gap-4 mb-3">
+                        <div className="w-10 h-10 bg-[#111] text-white rounded-[4px] shadow-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                          <info.icon className="w-4 h-4" />
+                        </div>
+                        <h3 className="text-xs uppercase tracking-widest font-bold text-[#111]">{info.title}</h3>
+                      </div>
+                      <div className="pl-14">
+                        {info.details.map((detail, i) => (
+                          <p key={i} className="text-body-sm text-muted-foreground leading-relaxed">
+                            {detail}
+                          </p>
+                        ))}
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="text-body font-medium mb-1">{info.title}</h3>
-                      {info.details.map((detail, i) => (
-                        <p key={i} className="text-body-sm text-muted-foreground">
-                          {detail}
-                        </p>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
+                  ))}
+                </div>
               </div>
 
-              {/* Map */}
+              {/* Map Card */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
-                className="mt-12 aspect-video bg-secondary overflow-hidden"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 }}
+                className="relative aspect-video bg-white shadow-[0_20px_50px_rgba(0,0,0,0.06)] overflow-hidden rounded-[4px] border border-[#f0f0f0] p-2"
               >
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124844.75704179313!2d75.3181822!3d11.8744773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba422b9b2aca753%3A0x380ffdec0867bc5a!2sKannur%2C%20Kerala!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
-                  style={{ border: 0 }}
+                  style={{ border: 0, borderRadius: '2px' }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Maze Store Location"
+                  className="grayscale hover:grayscale-0 transition-all duration-700"
                 />
               </motion.div>
             </motion.div>
