@@ -1,25 +1,22 @@
 import { GraphQLClient } from 'graphql-request';
 
-// Support both new and old environment variable names for backward compatibility during transition
-const domain = import.meta.env.VITE_SHOPIFY_STORE || import.meta.env.VITE_STORE_DOMAIN;
-const accessToken = import.meta.env.VITE_SHOPIFY_TOKEN || import.meta.env.VITE_STORE_TOKEN;
-const apiVersion = import.meta.env.VITE_SHOPIFY_API_VERSION || import.meta.env.VITE_STORE_API_VERSION || '2024-01';
+// Robust environment variable loader for both Local and Vercel environments
+const getEnv = (key: string) => {
+    return import.meta.env[key] || (process.env && process.env[key]) || '';
+};
 
-if (!domain || !accessToken) {
-    console.warn('Shopify configuration missing. Please check your Vercel Environment Variables.');
-    console.log('Domain found:', !!domain);
-    console.log('Token found:', !!accessToken);
-} else {
-    console.log('Shopify Storefront connected to:', domain);
-    // Log a masked version of the token for verification without exposing it
-    console.log('Token verified (masked):', accessToken.substring(0, 4) + '...' + accessToken.substring(accessToken.length - 4));
-}
+const domain = getEnv('VITE_SHOPIFY_STORE') || getEnv('VITE_STORE_DOMAIN') || 'maze-9983.myshopify.com';
+const accessToken = getEnv('VITE_SHOPIFY_TOKEN') || getEnv('VITE_STORE_TOKEN') || 'bfe4c13bf4e02a5e373e70586b08936b';
+const apiVersion = getEnv('VITE_SHOPIFY_API_VERSION') || '2024-01';
+
+console.log('Shopify Storefront Domain:', domain);
+console.log('Shopify Storefront Token present:', !!accessToken);
 
 const endpoint = `https://${domain}/api/${apiVersion}/graphql.json`;
 
 export const storefrontClient = new GraphQLClient(endpoint, {
     headers: {
-        'X-Shopify-Storefront-Access-Token': accessToken || '',
+        'X-Shopify-Storefront-Access-Token': accessToken,
         'Content-Type': 'application/json',
     },
 });

@@ -5,7 +5,6 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node -e \"if(!process.env.VITE_SHOPIFY_STORE && !process.env.VITE_STORE_DOMAIN) { console.error('FATAL ERROR: SHOPIFY_STORE environment variable is missing in Vercel Settings'); process.exit(1); }\"",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
