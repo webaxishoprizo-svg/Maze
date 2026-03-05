@@ -193,7 +193,7 @@ const About = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-24 lg:py-32 bg-[#111111] border-t border-white/5">
+      <section className="py-24 lg:py-32 bg-background border-t border-border">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -201,11 +201,11 @@ const About = () => {
             viewport={{ once: true }}
             className="max-w-2xl mx-auto text-center"
           >
-            <h2 className="text-display font-serif mb-6 text-[#F4F1EA]">Experience MAZE</h2>
-            <p className="text-body-lg text-[#A1A1A1] mb-10">
+            <h2 className="text-display font-serif mb-6 text-foreground">Experience MAZE</h2>
+            <p className="text-body-lg text-muted-foreground mb-10">
               Discover our latest performance collection and experience the art of athletic luxury.
             </p>
-            <a href="/collection" className="inline-flex items-center justify-center bg-[#C6A75E] text-[#111111] px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase rounded-[6px] hover:bg-white transition-all shadow-[0_4px_0_rgba(198,167,94,0.3)]">
+            <a href="/collection" className="inline-flex items-center justify-center bg-[#C6A75E] text-[#111111] px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase rounded-[6px] hover:bg-[#b59855] transition-all shadow-[0_4px_0_rgba(198,167,94,0.3)] hover:shadow-[0_2px_0_rgba(198,167,94,0.3)] hover:translate-y-[2px]">
               <span>Shop the Collection</span>
             </a>
           </motion.div>
