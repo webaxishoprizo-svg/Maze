@@ -205,7 +205,7 @@ const About = () => {
             <p className="text-body-lg text-muted-foreground mb-10">
               Discover our latest performance collection and experience the art of athletic luxury.
             </p>
-            <a href="/collection" className="inline-flex items-center justify-center bg-[#C6A75E] text-[#111111] px-10 py-4 text-xs font-bold tracking-[0.2em] uppercase rounded-[6px] hover:bg-[#b59855] transition-all shadow-[0_4px_0_rgba(198,167,94,0.3)] hover:shadow-[0_2px_0_rgba(198,167,94,0.3)] hover:translate-y-[2px]">
+            <a href="/collection" className="btn-couture-filled px-10 py-4">
               <span>Shop the Collection</span>
             </a>
           </motion.div>
