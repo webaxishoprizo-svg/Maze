@@ -10,8 +10,8 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-max-w-max lg:to-transparent z-10" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent z-10" />
         <img
-          src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=2670&auto=format&fit=crop"
-          alt="Athlete working out"
+          src="/images/hero_man_baggy.png"
+          alt="Athlete wearing Maze baggy track pants"
           className="w-full h-full object-cover object-top"
         />
       </div>

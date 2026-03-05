@@ -13,9 +13,9 @@ const EditorialSection = () => {
       <div className="relative h-[600px] lg:h-[700px] bg-[#111] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=2670&auto=format&fit=crop"
-            alt="Engineered for strength"
-            className="w-full h-full object-cover opacity-50 object-center"
+            src="/images/lifestyle_baggy.png"
+            alt="Maze baggy track pants lifestyle"
+            className="w-full h-full object-cover"
           />
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black to-transparent" />
           <div className="absolute inset-y-0 right-0 w-2/3 lg:w-1/2 bg-gradient-to-l from-black/90 via-black/80 to-transparent" />

@@ -3,10 +3,10 @@ import { useRef } from "react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
-const heroModel = "https://images.unsplash.com/photo-1550614000-4b95d41d14e9?auto=format&fit=crop&q=80&w=800";
-const categoryDresses = "https://images.unsplash.com/photo-1515347619152-19e04863f69b?auto=format&fit=crop&q=80&w=800";
-const categoryKnitwear = "https://images.unsplash.com/photo-1611095973763-414019e72400?auto=format&fit=crop&q=80&w=800";
-const categoryJackets = "https://images.unsplash.com/photo-1551028719-00167b16eac5?auto=format&fit=crop&q=80&w=800";
+const heroModel = "/images/hero_woman_baggy.png";
+const categoryDresses = "/images/hero_man_baggy.png";
+const categoryKnitwear = "/images/lifestyle_baggy.png";
+const categoryJackets = "/images/newsletter_baggy.png";
 
 const values = [
   {
@@ -139,8 +139,8 @@ const About = () => {
             >
               <div className="aspect-[4/5] overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2670&auto=format&fit=crop"
-                  alt="MAZE Performance"
+                  src="/images/lifestyle_baggy.png"
+                  alt="MAZE Baggy Performance"
                   className="w-full h-full object-cover"
                 />
               </div>

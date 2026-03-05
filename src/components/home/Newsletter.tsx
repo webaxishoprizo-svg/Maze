@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ArrowRight, Check, Loader2 } from "lucide-react";
 import { storefrontFetch } from "../../lib/storefront";
 import { NEWSLETTER_SIGNUP_MUTATION } from "../../lib/queries";
-const heroModel = "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&q=80&w=1200";
+const heroModel = "/images/newsletter_baggy.png";
 
 const Newsletter = () => {
   const [email, setEmail] = useState("");
