@@ -61,21 +61,23 @@ const Newsletter = () => {
     <section className="py-24 lg:py-32">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Image */}
+          {/* Image Container */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative aspect-square lg:aspect-[4/5] overflow-hidden order-2 lg:order-1"
+            className="flex items-center justify-center order-2 lg:order-1"
           >
-            <img
-              src={heroModel}
-              alt="Newsletter"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent" />
+            <div className="relative w-full max-w-[400px] aspect-[4/5] card-float rounded-[4px] overflow-hidden shadow-card-3d group">
+              <img
+                src={heroModel}
+                alt="Newsletter"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-silk"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60 pointer-events-none" />
+            </div>
           </motion.div>
 
           {/* Content */}
