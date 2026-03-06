@@ -29,7 +29,7 @@ const CategoryTiles = () => {
 
   return (
     <section ref={sectionRef} className="py-24 bg-white overflow-hidden">
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-6 lg:px-12 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -58,9 +58,9 @@ const CategoryTiles = () => {
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: index * 0.2, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="relative group"
+              className="relative group card-float rounded-[4px] overflow-hidden shadow-card-3d"
             >
-              <Link to={item.link} className="block relative overflow-hidden bg-secondary aspect-[4/5] lg:aspect-[16/10]">
+              <Link to={item.link} className="block relative overflow-hidden bg-secondary aspect-[4/5]">
                 {/* Image Component */}
                 <motion.div
                   className="w-full h-full"
@@ -100,7 +100,7 @@ const CategoryTiles = () => {
                 </div>
 
                 {/* Border Effect */}
-                <div className="absolute inset-0 border border-white/0 group-hover:border-white/20 transition-all duration-700 m-4 lg:m-6 pointer-events-none" />
+                <div className="absolute inset-0 border border-white/0 group-hover:border-white/10 transition-all duration-700 m-4 pointer-events-none" />
               </Link>
             </motion.div>
           ))}
