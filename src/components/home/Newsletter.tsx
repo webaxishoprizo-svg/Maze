@@ -62,8 +62,8 @@ const Newsletter = () => {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
 
-          {/* Header/Image Group - Mobile Horizontal, Desktop Column */}
-          <div className="flex flex-row items-center gap-6 lg:contents w-full">
+          {/* Header/Image Group - Mobile Horizontal split, Desktop Column */}
+          <div className="flex flex-row items-start gap-5 sm:gap-8 lg:contents w-full">
             {/* Image Container */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -72,51 +72,49 @@ const Newsletter = () => {
               transition={{ duration: 0.8 }}
               className="flex-shrink-0 lg:flex lg:items-center lg:justify-center order-1 lg:order-1"
             >
-              <div className="relative w-[100px] sm:w-[140px] lg:w-full lg:max-w-[400px] aspect-[4/5] card-float rounded-[4px] overflow-hidden shadow-card-3d group">
+              <div className="relative w-[120px] sm:w-[180px] lg:w-full lg:max-w-[400px] aspect-[4/5] card-float rounded-[4px] overflow-hidden shadow-card-3d group">
                 <img
                   src={heroModel}
                   alt="Newsletter"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[1.2s] ease-silk"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-60 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-40 pointer-events-none" />
               </div>
             </motion.div>
 
-            {/* Content Text (Part of row on mobile, full width on desktop) */}
+            {/* Content Text - On mobile: Right side, On desktop: Full width block */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex-1 lg:flex-none order-2 lg:order-2"
+              className="flex-1 lg:flex-none order-2 lg:order-2 pt-2 lg:pt-0"
             >
               <span className="text-[10px] lg:text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-2 lg:mb-6">
                 Stay Connected
               </span>
-              <h2 className="text-2xl lg:text-display font-serif mb-2 lg:mb-6 leading-tight">
+              <h2 className="text-xl sm:text-3xl lg:text-display font-serif mb-3 lg:mb-6 leading-tight">
                 Join the
                 <br />
                 <span className="italic">Inner Circle</span>
               </h2>
-              <p className="hidden md:block text-body-lg text-muted-foreground mb-10 max-w-lg">
+              {/* Description visible on BOTH mobile and desktop now */}
+              <p className="text-[11px] sm:text-sm lg:text-body-lg text-muted-foreground mb-0 lg:mb-10 max-w-lg leading-relaxed">
                 Be the first to discover new arrivals, exclusive offers, and behind-the-scenes
                 stories from the world of MAZE.
               </p>
             </motion.div>
           </div>
 
-          {/* Form Area - Full width on mobile, part of content column on desktop */}
+          {/* Form Area - Pushed below the horizontal group on mobile */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="w-full lg:col-start-2 order-3"
+            className="w-full lg:col-start-2 order-3 mt-4 lg:mt-0"
           >
-            <p className="md:hidden text-body-sm text-muted-foreground mb-6">
-              Be the first to discover new arrivals and exclusive offers.
-            </p>
             <form onSubmit={handleSubmit} className="max-w-md w-full">
               <div className="relative group">
                 <input
@@ -160,8 +158,8 @@ const Newsletter = () => {
               )}
             </form>
 
-            <p className="mt-6 text-caption text-muted-foreground">
-              By subscribing, you agree to receive updates.
+            <p className="mt-6 text-[10px] uppercase font-bold tracking-widest text-[#C6A75E]/60">
+              Maze Global Society
             </p>
           </motion.div>
         </div>
