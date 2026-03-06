@@ -12,7 +12,7 @@ const NewArrivals = () => {
     const staggerDelay = 0.1;
 
     return (
-        <section id="new-arrivals" ref={sectionRef} className="py-24 bg-background">
+        <section ref={sectionRef} className="py-24 bg-background">
             <div className="container mx-auto px-6 lg:px-12">
                 {/* Editorial Header */}
                 <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
@@ -56,47 +56,50 @@ const NewArrivals = () => {
                     </motion.div>
                 </div>
 
-                {/* Products Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12">
-                    {loading ? (
-                        Array(4).fill(0).map((_, i) => (
-                            <div key={i} className="space-y-4 animate-pulse">
-                                <div className="aspect-[3/4] bg-secondary/30 rounded-[4px]" />
-                                <div className="h-4 bg-secondary/30 w-2/3" />
-                                <div className="h-4 bg-secondary/30 w-1/3" />
-                            </div>
-                        ))
-                    ) : (
-                        products.map((p, index) => {
-                            const mappedProduct = {
-                                id: p.id,
-                                variantId: p.variantId,
-                                name: p.title,
-                                price: Number(p.price),
-                                image: p.image,
-                                hoverImage: p.image,
-                                category: "New Arrival",
-                                handle: p.handle,
-                            };
-                            return (
-                                <motion.div
-                                    key={p.id}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    animate={isInView ? {
-                                        opacity: 1,
-                                        y: 0,
-                                        transition: {
-                                            duration: 1,
-                                            delay: 0.4 + (index * staggerDelay),
-                                            ease: [0.22, 1, 0.36, 1]
-                                        }
-                                    } : {}}
-                                >
-                                    <ProductCard {...mappedProduct} />
-                                </motion.div>
-                            );
-                        })
-                    )}
+                {/* Products Grid - Horizontal Scroll on Mobile, Grid on Desktop */}
+                <div className="relative">
+                    <div className="flex overflow-x-auto pb-8 lg:pb-0 lg:grid lg:grid-cols-4 gap-x-6 gap-y-12 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0">
+                        {loading ? (
+                            Array(4).fill(0).map((_, i) => (
+                                <div key={i} className="min-w-[280px] lg:min-w-0 space-y-4 animate-pulse">
+                                    <div className="aspect-[3/4] bg-secondary/30 rounded-[4px]" />
+                                    <div className="h-4 bg-secondary/30 w-2/3" />
+                                    <div className="h-4 bg-secondary/30 w-1/3" />
+                                </div>
+                            ))
+                        ) : (
+                            products.map((p, index) => {
+                                const mappedProduct = {
+                                    id: p.id,
+                                    variantId: p.variantId,
+                                    name: p.title,
+                                    price: Number(p.price),
+                                    image: p.image,
+                                    hoverImage: p.image,
+                                    category: "New Arrival",
+                                    handle: p.handle,
+                                };
+                                return (
+                                    <motion.div
+                                        key={p.id}
+                                        className="min-w-[280px] lg:min-w-0 snap-center"
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={isInView ? {
+                                            opacity: 1,
+                                            y: 0,
+                                            transition: {
+                                                duration: 1,
+                                                delay: 0.4 + (index * staggerDelay),
+                                                ease: [0.22, 1, 0.36, 1]
+                                            }
+                                        } : {}}
+                                    >
+                                        <ProductCard {...mappedProduct} />
+                                    </motion.div>
+                                );
+                            })
+                        )}
+                    </div>
                 </div>
 
                 {!loading && products.length === 0 && (
