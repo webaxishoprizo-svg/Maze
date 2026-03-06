@@ -14,6 +14,7 @@ const navLinks = [
   { name: "MEN", href: "/men" },
   { name: "WOMEN", href: "/women" },
   { name: "ABOUT", href: "/about" },
+  { name: "CONTACT", href: "/contact" },
 ];
 
 const categoryLinks = [
