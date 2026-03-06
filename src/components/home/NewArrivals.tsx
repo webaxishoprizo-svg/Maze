@@ -58,10 +58,10 @@ const NewArrivals = () => {
 
                 {/* Products Grid - Horizontal Scroll on Mobile, Grid on Desktop */}
                 <div className="relative">
-                    <div className="flex overflow-x-auto pb-8 lg:pb-0 lg:grid lg:grid-cols-4 gap-x-6 gap-y-12 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0">
+                    <div className="flex overflow-x-auto pb-8 lg:pb-0 lg:grid lg:grid-cols-4 gap-4 lg:gap-8 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0">
                         {loading ? (
                             Array(4).fill(0).map((_, i) => (
-                                <div key={i} className="min-w-[280px] lg:min-w-0 space-y-4 animate-pulse">
+                                <div key={i} className="min-w-[180px] lg:min-w-0 space-y-4 animate-pulse">
                                     <div className="aspect-[3/4] bg-secondary/30 rounded-[4px]" />
                                     <div className="h-4 bg-secondary/30 w-2/3" />
                                     <div className="h-4 bg-secondary/30 w-1/3" />
@@ -82,7 +82,7 @@ const NewArrivals = () => {
                                 return (
                                     <motion.div
                                         key={p.id}
-                                        className="min-w-[280px] lg:min-w-0 snap-center"
+                                        className="min-w-[180px] lg:min-w-0 snap-center"
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={isInView ? {
                                             opacity: 1,
