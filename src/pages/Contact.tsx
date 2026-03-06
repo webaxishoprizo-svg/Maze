@@ -79,7 +79,7 @@ const Contact = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-8 bg-secondary/50 text-center"
+                  className="p-8 bg-secondary/30 rounded-[4px] border border-border shadow-[4px_4px_0px_0px_rgba(0,0,0,0.05)] text-center"
                 >
                   <h3 className="text-subheading font-serif mb-4">Thank You</h3>
                   <p className="text-body text-muted-foreground">
@@ -98,7 +98,7 @@ const Contact = () => {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full bg-transparent border border-border px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors"
+                        className="w-full bg-transparent border border-border rounded-[4px] shadow-[3px_3px_0px_0px_rgba(0,0,0,0.03)] px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.06)] outline-none transition-all"
                         placeholder="Your name"
                       />
                     </div>
@@ -111,7 +111,7 @@ const Contact = () => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full bg-transparent border border-border px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors"
+                        className="w-full bg-transparent border border-border rounded-[4px] shadow-[3px_3px_0px_0px_rgba(0,0,0,0.03)] px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.06)] outline-none transition-all"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -124,7 +124,7 @@ const Contact = () => {
                       required
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      className="w-full bg-transparent border border-border px-4 py-3 text-body focus:border-foreground outline-none transition-colors"
+                      className="w-full bg-transparent border border-border rounded-[4px] shadow-[3px_3px_0px_0px_rgba(0,0,0,0.03)] px-4 py-3 text-body focus:border-foreground focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.06)] outline-none transition-all"
                     >
                       <option value="">Select a topic</option>
                       <option value="order">Order Inquiry</option>
@@ -143,11 +143,11 @@ const Contact = () => {
                       rows={6}
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-transparent border border-border px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground outline-none transition-colors resize-none"
+                      className="w-full bg-transparent border border-border rounded-[4px] shadow-[3px_3px_0px_0px_rgba(0,0,0,0.03)] px-4 py-3 text-body placeholder:text-muted-foreground focus:border-foreground focus:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.06)] outline-none transition-all resize-none"
                       placeholder="How can we help you?"
                     />
                   </div>
-                  <button type="submit" className="btn-couture-filled w-full sm:w-auto">
+                  <button type="submit" className="btn-standard-filled w-full sm:w-auto">
                     <span>Send Message</span>
                   </button>
                 </form>
@@ -170,7 +170,7 @@ const Contact = () => {
                     transition={{ delay: 0.4 + index * 0.1 }}
                     className="flex gap-4"
                   >
-                    <div className="w-12 h-12 border border-border flex items-center justify-center flex-shrink-0">
+                    <div className="w-12 h-12 border border-border rounded-[4px] shadow-[3px_3px_0px_0px_rgba(0,0,0,0.03)] flex items-center justify-center flex-shrink-0 transition-all hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,0.06)] hover:-translate-y-0.5">
                       <info.icon className="w-5 h-5 text-muted-foreground" />
                     </div>
                     <div>
@@ -190,7 +190,7 @@ const Contact = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 }}
-                className="mt-12 aspect-video bg-secondary overflow-hidden"
+                className="mt-12 aspect-video bg-secondary rounded-[6px] shadow-[8px_8px_0px_0px_rgba(0,0,0,0.05)] border border-border/50 overflow-hidden group"
               >
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d124844.75704179313!2d75.3181822!3d11.8744773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba422b9b2aca753%3A0x380ffdec0867bc5a!2sKannur%2C%20Kerala!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"

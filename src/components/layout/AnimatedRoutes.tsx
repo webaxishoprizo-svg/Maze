@@ -1,28 +1,29 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import PageTransition from "./PageTransition";
-import Index from "@/pages/Index";
-import Collection from "@/pages/Collection";
-import Product from "@/pages/Product";
-import About from "@/pages/About";
-import Blog from "@/pages/Blog";
-import Contact from "@/pages/Contact";
-import Search from "@/pages/Search";
-import Wishlist from "@/pages/Wishlist";
-import NotFound from "@/pages/NotFound";
-import Bags from "@/pages/categories/Bags";
-import Dresses from "@/pages/categories/Dresses";
-import Jackets from "@/pages/categories/Jackets";
-import Knitwear from "@/pages/categories/Knitwear";
-import Accessories from "@/pages/categories/Accessories";
-import ReturnPolicy from "@/pages/ReturnPolicy";
-import PrivacyPolicy from "@/pages/PrivacyPolicy";
-import TermsConditions from "@/pages/TermsConditions";
-import Login from "@/pages/Login";
-import Register from "@/pages/Register";
-import Account from "@/pages/Account";
-import TrackOrder from "@/pages/TrackOrder";
-import Cookies from "@/pages/Cookies";
+import Index from "../../pages/Index";
+import Collection from "../../pages/Collection";
+import Product from "../../pages/Product";
+import About from "../../pages/About";
+import Contact from "../../pages/Contact";
+import Search from "../../pages/Search";
+import Wishlist from "../../pages/Wishlist";
+import NotFound from "../../pages/NotFound";
+import Bags from "../../pages/categories/Bags";
+import Dresses from "../../pages/categories/Dresses";
+import Jackets from "../../pages/categories/Jackets";
+import Knitwear from "../../pages/categories/Knitwear";
+import Accessories from "../../pages/categories/Accessories";
+import Men from "../../pages/categories/Men";
+import Women from "../../pages/categories/Women";
+import ReturnPolicy from "../../pages/ReturnPolicy";
+import PrivacyPolicy from "../../pages/PrivacyPolicy";
+import TermsConditions from "../../pages/TermsConditions";
+import Login from "../../pages/Login";
+import Register from "../../pages/Register";
+import Account from "../../pages/Account";
+import TrackOrder from "../../pages/TrackOrder";
+import Cookies from "../../pages/Cookies";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -87,6 +88,22 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
+          path="/men"
+          element={
+            <PageTransition>
+              <Men />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/women"
+          element={
+            <PageTransition>
+              <Women />
+            </PageTransition>
+          }
+        />
+        <Route
           path="/product/:handle"
           element={
             <PageTransition>
@@ -99,14 +116,6 @@ const AnimatedRoutes = () => {
           element={
             <PageTransition>
               <About />
-            </PageTransition>
-          }
-        />
-        <Route
-          path="/blog"
-          element={
-            <PageTransition>
-              <Blog />
             </PageTransition>
           }
         />

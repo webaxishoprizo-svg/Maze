@@ -12,7 +12,7 @@ const filters = {
   category: ["All", "Dresses", "Outerwear", "Blazers", "Knitwear", "Accessories"],
   color: ["Black", "White", "Cream", "Navy", "Camel", "Grey"],
   size: ["XS", "S", "M", "L", "XL"],
-  price: ["Under $300", "$300 - $500", "$500 - $800", "Over $800"],
+  price: ["Under ₹3,000", "₹3,000 - ₹5,000", "₹5,000 - ₹8,000", "Over ₹8,000"],
 };
 
 const Collection = () => {

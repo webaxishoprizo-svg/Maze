@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useParams, Link } from "react-router-dom";
-import { Heart, Minus, Plus, ChevronDown, ChevronUp, Truck, RotateCcw, Shield, Loader2 } from "lucide-react";
+import { Heart, Minus, Plus, ChevronDown, ChevronUp, Truck, RotateCcw, Shield, Loader2, Check } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
@@ -10,6 +10,8 @@ import ProductCard from "@/components/ui/ProductCard";
 import { useProduct } from "@/hooks/useProduct";
 import { useProducts } from "@/hooks/useProducts";
 import { Product as ProductType } from "@/api/products";
+import { storefrontClient } from "@/lib/storefront";
+import { CHECKOUT_CREATE_MUTATION } from "@/lib/queries";
 
 const Product = () => {
   const { handle } = useParams();
@@ -18,6 +20,7 @@ const Product = () => {
   const { addItem } = useCart();
 
   const [selectedImage, setSelectedImage] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
   const [selectedVariant, setSelectedVariant] = useState<any>(null);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
@@ -25,9 +28,31 @@ const Product = () => {
 
   useEffect(() => {
     if (product && product.variants && product.variants.length > 0) {
-      setSelectedVariant(product.variants[0]);
+      const defaultVariant = product.variants[0];
+      setSelectedVariant(defaultVariant);
+
+      // Initialize selected options from the first variant
+      if (defaultVariant.selectedOptions) {
+        const initialOptions: Record<string, string> = {};
+        defaultVariant.selectedOptions.forEach((opt: any) => {
+          initialOptions[opt.name] = opt.value;
+        });
+        setSelectedOptions(initialOptions);
+      }
     }
   }, [product]);
+
+  // Update selected variant when options change
+  useEffect(() => {
+    if (product?.variants && Object.keys(selectedOptions).length > 0) {
+      const variant = product.variants.find((v: any) =>
+        v.selectedOptions.every((opt: any) => selectedOptions[opt.name] === opt.value)
+      );
+      if (variant) {
+        setSelectedVariant(variant);
+      }
+    }
+  }, [selectedOptions, product?.variants]);
 
   if (productLoading) {
     return (
@@ -60,12 +85,45 @@ const Product = () => {
       price: parseFloat(price as string),
       image: images[0] || product.image,
       size: selectedVariant.title !== "Default Title" ? selectedVariant.title : undefined,
-    });
+    }, quantity);
+  };
+
+  const handleBuyNow = async () => {
+    if (!selectedVariant) return;
+    try {
+      const response = await storefrontClient.request<any>(CHECKOUT_CREATE_MUTATION, {
+        input: {
+          lineItems: [{ variantId: selectedVariant.id, quantity }]
+        }
+      });
+      if (response.checkoutCreate?.checkout?.webUrl) {
+        window.location.href = response.checkoutCreate.checkout.webUrl;
+      }
+    } catch (error) {
+      console.error("Buy Now Error:", error);
+    }
+  };
+
+  const handleOptionChange = (name: string, value: string) => {
+    setSelectedOptions(prev => ({ ...prev, [name]: value }));
+  };
+
+  const colorMap: Record<string, string> = {
+    black: "#121212",
+    white: "#FFFFFF",
+    grey: "#8e8e8e",
+    gray: "#8e8e8e",
+    brown: "#5C4033",
+    beige: "#F5F5DC",
+    navy: "#000080",
+    blue: "#0000FF",
+    red: "#FF0000",
+    gold: "#C6A75E",
   };
 
   const accordionItems = [
     { title: "Product Details", content: [product.description] },
-    { title: "Shipping & Returns", content: ["Free shipping on orders over $200", "Express delivery: 2-3 days", "Free returns within 30 days"] },
+    { title: "Shipping & Returns", content: ["Free shipping on orders over ₹200", "Express delivery: 2-3 days", "Free returns within 30 days"] },
     { title: "Care Instructions", content: ["Machine wash cold", "Store in a cool dry place"] },
   ];
 
@@ -139,47 +197,143 @@ const Product = () => {
               <p className="text-heading font-serif mb-6">{currency} {parseFloat(price as string).toLocaleString()}</p>
               <p className="text-body text-muted-foreground mb-8">{product.description}</p>
 
-              {/* Variant Selection */}
-              {product.variants && product.variants.length > 1 && (
-                <div className="mb-8">
-                  <p className="text-body-sm uppercase tracking-luxury mb-3 font-bold">Options</p>
-                  <div className="grid grid-cols-2 gap-3">
-                    {product.variants.map((variant: any) => (
-                      <button
-                        key={variant.id}
-                        onClick={() => setSelectedVariant(variant)}
-                        className={`py-3 border text-body-sm font-bold tracking-widest uppercase transition-all duration-300 rounded-[6px] ${selectedVariant?.id === variant.id ? "bg-foreground text-background border-foreground shadow-[0_2px_0_hsl(var(--foreground)/0.2)]" : "border-border hover:border-foreground"}`}
-                      >
-                        {variant.title}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
+              {/* Product Options Redesign */}
+              <div className="space-y-8 mb-8">
+                {product.options?.filter((opt: any) => opt.name !== "Title").map((option: any) => {
+                  const isColor = option.name.toLowerCase() === "color";
+                  const isSize = option.name.toLowerCase() === "size";
 
-              {/* Add to Cart */}
-              <div className="flex gap-3 mb-8">
-                <div className="flex items-center border border-border rounded-[6px] transition-shadow duration-300 focus-within:shadow-[0_4px_12px_-4px_rgba(0,0,0,0.1)]">
-                  <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="p-4 hover:bg-secondary transition-colors rounded-l-[6px]">
-                    <Minus className="w-4 h-4" />
-                  </button>
-                  <span className="px-5 text-body font-bold">{quantity}</span>
-                  <button onClick={() => setQuantity(quantity + 1)} className="p-4 hover:bg-secondary transition-colors rounded-r-[6px]">
-                    <Plus className="w-4 h-4" />
+                  if (isColor) {
+                    return (
+                      <div key={option.name} className="space-y-4">
+                        <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                          {option.name}
+                        </p>
+                        <div className="flex flex-wrap gap-4">
+                          {option.values.map((value: string) => {
+                            const isSelected = selectedOptions[option.name] === value;
+                            const colorHex = colorMap[value.toLowerCase()] || value.toLowerCase();
+                            return (
+                              <button
+                                key={value}
+                                onClick={() => handleOptionChange(option.name, value)}
+                                className={`group relative w-12 h-12 rounded-full transition-all duration-300 flex items-center justify-center shadow-[2px_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[4px_8px_16px_rgba(0,0,0,0.15)] hover:-translate-y-0.5 ${isSelected ? "ring-2 ring-offset-2 ring-foreground" : "ring-1 ring-border"}`}
+                                style={{ backgroundColor: colorHex }}
+                                title={value}
+                              >
+                                {isSelected && (
+                                  <Check className={`w-5 h-5 ${value.toLowerCase() === 'white' ? 'text-black' : 'text-white'}`} />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  if (isSize) {
+                    return (
+                      <div key={option.name} className="space-y-4">
+                        <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                          {option.name}
+                        </p>
+                        <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+                          {option.values.map((value: string) => {
+                            const isSelected = selectedOptions[option.name] === value;
+                            return (
+                              <button
+                                key={value}
+                                onClick={() => handleOptionChange(option.name, value)}
+                                className={`h-14 flex items-center justify-center rounded-xl text-xs font-bold transition-all duration-300 shadow-[0_4px_12px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 ${isSelected ? "bg-foreground text-background" : "bg-background text-foreground border border-border"}`}
+                              >
+                                {value}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div key={option.name} className="space-y-4">
+                      <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                        {option.name}
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                        {option.values.map((value: string) => {
+                          const isSelected = selectedOptions[option.name] === value;
+                          return (
+                            <button
+                              key={value}
+                              onClick={() => handleOptionChange(option.name, value)}
+                              className={`px-6 py-3 rounded-xl text-xs font-bold border transition-all duration-300 ${isSelected ? "bg-foreground text-background border-foreground shadow-[2px_4px_12px_rgba(0,0,0,0.1)]" : "bg-background text-foreground border-border hover:border-foreground"}`}
+                            >
+                              {value}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+
+                {/* Options / Purchase Area */}
+                <div className="space-y-4 pt-4">
+                  <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                    Options
+                  </p>
+                  <div className="flex flex-wrap sm:flex-nowrap gap-3">
+                    {/* Quantity Selector */}
+                    <div className="flex items-center bg-[#F8F8F8] rounded-xl p-1 h-14 w-full sm:w-auto shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
+                      <button
+                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all text-muted-foreground hover:text-foreground"
+                      >
+                        <Minus className="w-4 h-4" />
+                      </button>
+                      <span className="flex-1 sm:w-12 text-center text-sm font-bold">{quantity}</span>
+                      <button
+                        onClick={() => setQuantity(quantity + 1)}
+                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all text-muted-foreground hover:text-foreground"
+                      >
+                        <Plus className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* Add to Cart */}
+                    <button
+                      onClick={handleAddToCart}
+                      disabled={!selectedVariant || !selectedVariant.availableForSale}
+                      className="flex-[3] h-14 bg-foreground text-background rounded-xl text-xs font-bold uppercase tracking-widest shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group active:translate-y-0"
+                    >
+                      <span>
+                        {!selectedVariant?.availableForSale ? "Sold Out" : "Add to Cart"}
+                      </span>
+                    </button>
+
+                    {/* Wishlist */}
+                    <button
+                      onClick={() => setIsWishlisted(!isWishlisted)}
+                      className="w-14 h-14 flex items-center justify-center bg-[#F8F8F8] rounded-xl border border-transparent hover:border-border hover:bg-white hover:shadow-md transition-all duration-300 group active:scale-95"
+                    >
+                      <Heart className={`w-5 h-5 transition-colors ${isWishlisted ? "fill-foreground text-foreground" : "text-muted-foreground group-hover:text-foreground"}`} />
+                    </button>
+                  </div>
+
+                  {/* Buy It Now */}
+                  <button
+                    onClick={handleBuyNow}
+                    disabled={!selectedVariant || !selectedVariant.availableForSale}
+                    className="w-full h-14 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+                             bg-gradient-to-r from-[#F5D17E] via-[#C6A75E] to-[#B38B3F] text-white
+                             shadow-[0_8px_20px_rgba(198,167,94,0.3)] hover:shadow-[0_12px_28px_rgba(198,167,94,0.4)] 
+                             hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99]"
+                  >
+                    <span>Buy it Now</span>
                   </button>
                 </div>
-                <button
-                  onClick={handleAddToCart}
-                  disabled={!selectedVariant || !selectedVariant.availableForSale}
-                  className={`flex-1 btn-couture-filled ${(!selectedVariant || !selectedVariant.availableForSale) ? "opacity-50 cursor-not-allowed" : ""}`}
-                >
-                  <span>
-                    {!selectedVariant?.availableForSale ? "Sold Out" : "Add to Cart"}
-                  </span>
-                </button>
-                <button onClick={() => setIsWishlisted(!isWishlisted)} className="p-4 border border-border hover:border-foreground transition-all duration-300 rounded-[6px] hover:shadow-[0_2px_8px_-2px_rgba(0,0,0,0.1)]">
-                  <Heart className={`w-5 h-5 ${isWishlisted ? "fill-foreground" : ""}`} />
-                </button>
               </div>
 
               {/* Features */}

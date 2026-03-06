@@ -15,6 +15,10 @@ export const PRODUCT_FIELDS = `
       }
     }
   }
+  options {
+    name
+    values
+  }
   priceRange {
     minVariantPrice {
       amount
@@ -30,6 +34,10 @@ export const PRODUCT_FIELDS = `
         price {
           amount
           currencyCode
+        }
+        selectedOptions {
+          name
+          value
         }
       }
     }
@@ -119,6 +127,18 @@ export const GET_PRODUCTS_BY_COLLECTION_QUERY = `
           node {
             ${PRODUCT_FIELDS}
           }
+        }
+      }
+    }
+  }
+`;
+
+export const SEARCH_PRODUCTS_QUERY = `
+  query searchProducts($query: String!, $first: Int!) {
+    products(first: $first, query: $query) {
+      edges {
+        node {
+          ${PRODUCT_FIELDS}
         }
       }
     }

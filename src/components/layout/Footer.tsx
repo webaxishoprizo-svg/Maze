@@ -232,7 +232,7 @@ const Footer = () => {
       <div className="border-t border-[#A1A1A1]/10">
         <div className="container mx-auto px-6 lg:px-12 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-[#A1A1A1]">
-            <p>© 2026 Maze. All rights reserved.</p>
+            <p>© 2025 Maze. All rights reserved.</p>
             <div className="flex gap-6">
               <Link to="/privacy-policy" className="hover:text-[#C6A75E] transition-colors">
                 Privacy Policy

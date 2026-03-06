@@ -16,7 +16,7 @@ interface CartContextType {
   items: CartItem[];
   cartCount: number;
   isOpen: boolean;
-  addItem: (item: Omit<CartItem, "quantity">) => void;
+  addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   updateQuantity: (id: string, quantity: number) => void;
   toggleCart: () => void;
@@ -36,7 +36,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const addItem = (newItem: Omit<CartItem, "quantity">) => {
+  const addItem = (newItem: Omit<CartItem, "quantity">, qty: number = 1) => {
     // SECURITY: Ensure we are using ProductVariant IDs, not Product IDs
     if (newItem.id.includes("/Product/") && !newItem.id.includes("/ProductVariant/")) {
       console.warn("Cart: Detected Product ID instead of Variant ID. Checkout might fail.", newItem.id);
@@ -47,11 +47,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (existing) {
         return prev.map((item) =>
           item.id === newItem.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: item.quantity + qty }
             : item
         );
       }
-      return [...prev, { ...newItem, quantity: 1 }];
+      return [...prev, { ...newItem, quantity: qty }];
     });
     setIsOpen(true);
   };

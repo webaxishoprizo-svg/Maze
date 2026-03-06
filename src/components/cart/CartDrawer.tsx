@@ -53,10 +53,10 @@ const CartDrawer = () => {
                 <div className="flex justify-between text-caption mb-2">
                   <span className="text-muted-foreground">
                     {amountToFreeShipping > 0
-                      ? `Add $${amountToFreeShipping.toFixed(2)} for free shipping`
+                      ? `Add ₹${amountToFreeShipping.toFixed(2)} for free shipping`
                       : "You've unlocked free shipping!"}
                   </span>
-                  <span className="text-foreground">${freeShippingThreshold}</span>
+                  <span className="text-foreground">₹{freeShippingThreshold}</span>
                 </div>
                 <div className="h-1 bg-border overflow-hidden">
                   <motion.div
@@ -140,7 +140,7 @@ const CartDrawer = () => {
                             </button>
                           </div>
                           <span className="text-body font-medium">
-                            ${(item.price * item.quantity).toLocaleString()}
+                            ₹{(item.price * item.quantity).toLocaleString()}
                           </span>
                         </div>
                       </div>
@@ -169,7 +169,7 @@ const CartDrawer = () => {
                 <div className="flex justify-between py-4 border-t border-border">
                   <span className="text-body">Subtotal</span>
                   <span className="text-body font-medium">
-                    ${subtotal.toLocaleString()}
+                    ₹{subtotal.toLocaleString()}
                   </span>
                 </div>
 
