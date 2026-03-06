@@ -12,7 +12,9 @@ const easeVelvet: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const navLinks = [
   { name: "HOME", href: "/" },
   { name: "SHOP", href: "/collection" },
-  { name: "NEW ARRIVAL", href: "/#new-arrivals" },
+  { name: "NEW ARRIVAL", href: "/collection" },
+  { name: "ABOUT", href: "/about" },
+  { name: "CONTACT", href: "/contact" },
 ];
 
 const categoryLinks = [
@@ -257,6 +259,7 @@ const Header = () => {
                   {navLinks.map((link) => (
                     <Link key={link.name} to={link.href} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">{link.name}</Link>
                   ))}
+                  <Link to="/wishlist" className="block py-4 text-heading font-serif border-b border-border/50 uppercase">Wishlist</Link>
                   <div className="mt-8">
                     <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-4">Account</p>
                     {isLoggedIn ? (
