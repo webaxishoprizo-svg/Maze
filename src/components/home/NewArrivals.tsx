@@ -82,7 +82,7 @@ const NewArrivals = () => {
                                 return (
                                     <motion.div
                                         key={p.id}
-                                        className="min-w-[180px] lg:min-w-0 snap-center"
+                                        className="min-w-[160px] lg:min-w-0 snap-center"
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={isInView ? {
                                             opacity: 1,
