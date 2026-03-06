@@ -60,7 +60,7 @@ const Newsletter = () => {
   return (
     <section className="py-24 lg:py-32">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-8 lg:gap-x-20 lg:gap-y-6 items-start lg:items-center">
 
           {/* Header/Image Group - Mobile Horizontal split, Desktop Column */}
           <div className="flex flex-row items-start gap-5 sm:gap-8 lg:contents w-full">
@@ -70,7 +70,7 @@ const Newsletter = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="flex-shrink-0 lg:flex lg:items-center lg:justify-center order-1 lg:order-1"
+              className="flex-shrink-0 lg:flex lg:items-center lg:justify-center order-1 lg:order-1 lg:row-span-2"
             >
               <div className="relative w-[120px] sm:w-[180px] lg:w-full lg:max-w-[400px] aspect-[4/5] card-float rounded-[4px] overflow-hidden shadow-card-3d group">
                 <img
@@ -91,16 +91,16 @@ const Newsletter = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="flex-1 lg:flex-none order-2 lg:order-2 pt-2 lg:pt-0"
             >
-              <span className="text-[10px] lg:text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-2 lg:mb-6">
+              <span className="text-[10px] lg:text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-2 lg:mb-4">
                 Stay Connected
               </span>
-              <h2 className="text-xl sm:text-3xl lg:text-display font-serif mb-3 lg:mb-6 leading-tight">
+              <h2 className="text-xl sm:text-3xl lg:text-display font-serif mb-2 lg:mb-4 leading-tight">
                 Join the
                 <br />
                 <span className="italic">Inner Circle</span>
               </h2>
               {/* Description visible on BOTH mobile and desktop now */}
-              <p className="text-[11px] sm:text-sm lg:text-body-lg text-muted-foreground mb-0 lg:mb-10 max-w-lg leading-relaxed">
+              <p className="text-[11px] sm:text-sm lg:text-body-lg text-muted-foreground mb-0 lg:mb-0 max-w-lg leading-relaxed">
                 Be the first to discover new arrivals, exclusive offers, and behind-the-scenes
                 stories from the world of MAZE.
               </p>
@@ -113,7 +113,7 @@ const Newsletter = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="w-full lg:col-start-2 order-3 mt-4 lg:mt-0"
+            className="w-full lg:col-start-2 order-3 lg:mt-0"
           >
             <form onSubmit={handleSubmit} className="max-w-md w-full">
               <div className="relative group">
