@@ -111,21 +111,24 @@ const Newsletter = () => {
                   className={`w-full bg-secondary/30 border border-transparent rounded-[6px] px-6 py-4 text-body outline-none placeholder:text-muted-foreground focus:border-foreground/20 focus:bg-white transition-all duration-500 shadow-inner`}
                   disabled={isSubmitted}
                 />
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitted || loading}
-                  whileHover={{ scale: 1.1, x: -4 }}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-foreground text-background rounded-[4px] shadow-[0_2px_0_rgba(0,0,0,0.2)]"
-                  aria-label="Subscribe"
-                >
-                  {loading ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                  ) : isSubmitted ? (
-                    <Check className="w-4 h-4" />
-                  ) : (
-                    <ArrowRight className="w-4 h-4" />
-                  )}
-                </motion.button>
+                <div className="absolute right-2 inset-y-0 flex items-center">
+                  <motion.button
+                    type="submit"
+                    disabled={isSubmitted || loading}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ y: 1 }}
+                    className="p-2 bg-foreground text-background rounded-[4px] shadow-[0_2px_0_rgba(0,0,0,0.15)] flex items-center justify-center transition-colors hover:bg-[#C6A75E]"
+                    aria-label="Subscribe"
+                  >
+                    {loading ? (
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                    ) : isSubmitted ? (
+                      <Check className="w-4 h-4" />
+                    ) : (
+                      <ArrowRight className="w-4 h-4" />
+                    )}
+                  </motion.button>
+                </div>
               </div>
               {error && (
                 <p className="mt-2 text-caption text-destructive font-medium">{error}</p>
