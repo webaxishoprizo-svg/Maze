@@ -35,6 +35,10 @@ const Header = () => {
   const { customer, isLoggedIn, logout } = useAuth();
   const location = useLocation();
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 30);
@@ -78,7 +82,7 @@ const Header = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3, duration: 0.8, ease: easeSilk }}
               >
-                <Link to="/" className="block">
+                <Link to="/" className="block" onClick={scrollToTop}>
                   <img src="/logo.png" alt="Maze" className="h-10 lg:h-16 w-auto object-contain dark:invert" />
                 </Link>
               </motion.div>
@@ -99,6 +103,7 @@ const Header = () => {
                 >
                   <Link
                     to={link.href}
+                    onClick={scrollToTop}
                     className="text-[13px] font-bold tracking-widest text-foreground hover:text-foreground/70 transition-colors uppercase"
                   >
                     {link.name}
@@ -148,8 +153,8 @@ const Header = () => {
                             <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Hello,</p>
                             <p className="text-xs font-bold truncate">{customer?.firstName}</p>
                           </div>
-                          <Link to="/account" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">My Account</Link>
-                          <Link to="/wishlist" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">Wishlist</Link>
+                          <Link to="/account" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">My Account</Link>
+                          <Link to="/wishlist" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">Wishlist</Link>
                           <button
                             onClick={logout}
                             className="w-full text-left px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium text-destructive flex items-center gap-2"
@@ -160,8 +165,8 @@ const Header = () => {
                         </>
                       ) : (
                         <>
-                          <Link to="/login" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Sign In</Link>
-                          <Link to="/register" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Create Account</Link>
+                          <Link to="/login" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Sign In</Link>
+                          <Link to="/register" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Create Account</Link>
                         </>
                       )}
                     </motion.div>
@@ -252,25 +257,27 @@ const Header = () => {
             >
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between p-6 border-b border-border">
-                  <img src="/logo.png" alt="Maze" className="h-10 w-auto object-contain dark:invert" />
+                  <Link to="/" onClick={scrollToTop}>
+                    <img src="/logo.png" alt="Maze" className="h-10 w-auto object-contain dark:invert" />
+                  </Link>
                   <button onClick={() => setIsMobileMenuOpen(false)} className="p-2"><X className="w-5 h-5" /></button>
                 </div>
                 <nav className="flex-1 overflow-y-auto py-8 px-6">
                   {navLinks.map((link) => (
-                    <Link key={link.name} to={link.href} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">{link.name}</Link>
+                    <Link key={link.name} to={link.href} onClick={scrollToTop} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">{link.name}</Link>
                   ))}
-                  <Link to="/wishlist" className="block py-4 text-heading font-serif border-b border-border/50 uppercase">Wishlist</Link>
+                  <Link to="/wishlist" onClick={scrollToTop} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">Wishlist</Link>
                   <div className="mt-8">
                     <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-4">Account</p>
                     {isLoggedIn ? (
                       <>
-                        <Link to="/account" className="block py-3 text-body">My Account</Link>
+                        <Link to="/account" onClick={scrollToTop} className="block py-3 text-body">My Account</Link>
                         <button onClick={logout} className="block py-3 text-body text-destructive">Sign Out</button>
                       </>
                     ) : (
                       <>
-                        <Link to="/login" className="block py-3 text-body">Sign In</Link>
-                        <Link to="/register" className="block py-3 text-body">Create Account</Link>
+                        <Link to="/login" onClick={scrollToTop} className="block py-3 text-body">Sign In</Link>
+                        <Link to="/register" onClick={scrollToTop} className="block py-3 text-body">Create Account</Link>
                       </>
                     )}
                   </div>

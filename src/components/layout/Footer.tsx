@@ -101,7 +101,7 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1 mb-8 lg:mb-0">
-            <Link to="/" className="inline-block mb-6">
+            <Link to="/" className="inline-block mb-6" onClick={scrollToTop}>
               <img src="/logo.png" alt="Maze" className="h-16 w-auto object-contain invert" />
             </Link>
             <p className="text-body-sm text-[#A1A1A1] mb-8 max-w-xs leading-relaxed font-medium">
@@ -133,6 +133,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
+                    onClick={scrollToTop}
                     className="text-body-sm text-[#A1A1A1] hover:text-[#C6A75E] transition-colors duration-300"
                   >
                     {link.name}
@@ -151,6 +152,7 @@ const Footer = () => {
                 <li key={link.name}>
                   <Link
                     to={link.href}
+                    onClick={scrollToTop}
                     className="text-body-sm text-[#A1A1A1] hover:text-[#C6A75E] transition-colors duration-300"
                   >
                     {link.name}
@@ -234,13 +236,13 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-medium text-[#A1A1A1]">
             <p>© 2025 Maze. All rights reserved.</p>
             <div className="flex gap-6">
-              <Link to="/privacy-policy" className="hover:text-[#C6A75E] transition-colors">
+              <Link to="/privacy-policy" onClick={scrollToTop} className="hover:text-[#C6A75E] transition-colors">
                 Privacy Policy
               </Link>
-              <Link to="/terms-conditions" className="hover:text-[#C6A75E] transition-colors">
+              <Link to="/terms-conditions" onClick={scrollToTop} className="hover:text-[#C6A75E] transition-colors">
                 Terms of Service
               </Link>
-              <Link to="/cookies" className="hover:text-[#C6A75E] transition-colors">
+              <Link to="/cookies" onClick={scrollToTop} className="hover:text-[#C6A75E] transition-colors">
                 Cookie Policy
               </Link>
             </div>
