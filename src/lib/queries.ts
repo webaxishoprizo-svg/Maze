@@ -144,3 +144,15 @@ export const SEARCH_PRODUCTS_QUERY = `
     }
   }
 `;
+
+export const GET_NEW_ARRIVALS_QUERY = `
+  query getNewArrivals($first: Int!) {
+    products(first: $first, sortKey: CREATED_AT, reverse: true) {
+      edges {
+        node {
+          ${PRODUCT_FIELDS}
+        }
+      }
+    }
+  }
+`;

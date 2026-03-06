@@ -7,6 +7,7 @@ import FeaturedProducts from "@/components/home/FeaturedProducts";
 import CategoryTiles from "@/components/home/CategoryTiles";
 import WhyMaze from "@/components/home/WhyMaze";
 import EditorialSection from "@/components/home/EditorialSection";
+import NewArrivals from "@/components/home/NewArrivals";
 import Newsletter from "@/components/home/Newsletter";
 import { useProducts } from "@/hooks/useProducts";
 
@@ -23,6 +24,7 @@ const Index = () => {
       <CartDrawer />
 
       <HeroSection />
+      <NewArrivals />
       <CategoryTiles />
       <WhyMaze />
       <FeaturedProducts products={products} />

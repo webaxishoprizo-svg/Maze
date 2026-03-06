@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getProducts, getProductByHandle, Product } from '@/api/products';
+import { getProducts, getProductByHandle, getNewArrivals, Product } from '@/api/products';
 import { storefrontFetch } from '../lib/storefront';
 import { GET_PRODUCTS_BY_COLLECTION_QUERY, GET_COLLECTIONS_QUERY } from '../lib/queries';
 
@@ -67,6 +67,20 @@ export function useCollections(first = 5) {
 
     return {
         collections,
+        loading,
+        error: error ? (error as Error).message : null
+    };
+}
+
+export function useNewArrivals(first = 4) {
+    const { data: products = [], isLoading: loading, error } = useQuery({
+        queryKey: ['new-arrivals', first],
+        queryFn: () => getNewArrivals(first),
+        staleTime: 1000 * 60 * 5, // 5 minutes
+    });
+
+    return {
+        products,
         loading,
         error: error ? (error as Error).message : null
     };

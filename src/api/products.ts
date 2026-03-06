@@ -1,5 +1,5 @@
 import { storefrontClient } from '../lib/storefront';
-import { GET_PRODUCTS_QUERY, GET_PRODUCT_BY_HANDLE_QUERY, SEARCH_PRODUCTS_QUERY } from '../lib/queries';
+import { GET_PRODUCTS_QUERY, GET_PRODUCT_BY_HANDLE_QUERY, SEARCH_PRODUCTS_QUERY, GET_NEW_ARRIVALS_QUERY } from '../lib/queries';
 
 export interface Product {
     id: string;
@@ -92,6 +92,31 @@ export async function searchProducts(query: string, first = 20): Promise<Product
         });
     } catch (error) {
         console.error('Shopify API - searchProducts error:', error);
+        return [];
+    }
+}
+export async function getNewArrivals(first = 4): Promise<Product[]> {
+    try {
+        const data = await storefrontClient.request<any>(GET_NEW_ARRIVALS_QUERY, { first });
+        if (!data || !data.products) return [];
+
+        return data.products.edges.map((edge: any) => {
+            const product = edge.node;
+            const firstVariant = product.variants?.edges[0]?.node;
+
+            return {
+                id: product.id,
+                variantId: firstVariant?.id,
+                title: product.title,
+                handle: product.handle,
+                description: product.description,
+                image: product.featuredImage?.url || product.images?.edges[0]?.node.url,
+                price: product.priceRange.minVariantPrice.amount,
+                currencyCode: product.priceRange.minVariantPrice.currencyCode,
+            };
+        });
+    } catch (error) {
+        console.error('Shopify API - getNewArrivals error:', error);
         return [];
     }
 }
