@@ -115,7 +115,6 @@ const Newsletter = () => {
                   type="submit"
                   disabled={isSubmitted || loading}
                   whileHover={{ scale: 1.1, x: -4 }}
-                  whileTap={{ scale: 0.95 }}
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-2 bg-foreground text-background rounded-[4px] shadow-[0_2px_0_rgba(0,0,0,0.2)]"
                   aria-label="Subscribe"
                 >
