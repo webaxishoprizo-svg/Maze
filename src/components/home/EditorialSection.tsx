@@ -8,9 +8,9 @@ const EditorialSection = () => {
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={containerRef} className="relative mt-20">
+    <section ref={containerRef} className="relative mt-12">
       {/* Banner Area */}
-      <div className="relative h-[600px] lg:h-[700px] bg-[#111] overflow-hidden">
+      <div className="relative h-[450px] lg:h-[550px] bg-[#111] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/images/lifestyle_baggy.png"
@@ -50,7 +50,7 @@ const EditorialSection = () => {
       </div>
 
       {/* Stats Bar */}
-      <div className="bg-black py-8 md:py-12 border-t border-[#222]">
+      <div className="bg-black py-6 md:py-8 border-t border-[#222]">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 divide-x-0 lg:divide-x border-0 lg:border-x-0 divide-[#333] border-[#333]">
             <motion.div
