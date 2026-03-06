@@ -10,11 +10,9 @@ const easeSilk: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const easeVelvet: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const navLinks = [
+  { name: "HOME", href: "/" },
   { name: "SHOP", href: "/collection" },
-  { name: "MEN", href: "/men" },
-  { name: "WOMEN", href: "/women" },
-  { name: "ABOUT", href: "/about" },
-  { name: "CONTACT", href: "/contact" },
+  { name: "NEW ARRIVAL", href: "/#new-arrivals" },
 ];
 
 const categoryLinks = [

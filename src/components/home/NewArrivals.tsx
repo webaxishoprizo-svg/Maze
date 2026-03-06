@@ -12,7 +12,7 @@ const NewArrivals = () => {
     const staggerDelay = 0.1;
 
     return (
-        <section ref={sectionRef} className="py-24 bg-background">
+        <section id="new-arrivals" ref={sectionRef} className="py-24 bg-background">
             <div className="container mx-auto px-6 lg:px-12">
                 {/* Editorial Header */}
                 <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
