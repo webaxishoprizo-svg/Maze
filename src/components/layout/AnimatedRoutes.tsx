@@ -24,6 +24,7 @@ import Register from "../../pages/Register";
 import Account from "../../pages/Account";
 import TrackOrder from "../../pages/TrackOrder";
 import Cookies from "../../pages/Cookies";
+import Cart from "../../pages/Cart";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -204,6 +205,14 @@ const AnimatedRoutes = () => {
           element={
             <PageTransition>
               <TermsConditions />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <PageTransition>
+              <Cart />
             </PageTransition>
           }
         />
