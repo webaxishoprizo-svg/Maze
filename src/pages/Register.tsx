@@ -38,72 +38,90 @@ const Register = () => {
     };
 
     return (
-        <main className="min-h-screen bg-background text-foreground">
-            <Header />
-            <div className="pt-40 pb-24 lg:pt-48">
-                <div className="container mx-auto px-6 lg:px-12">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="max-w-md mx-auto"
-                    >
+        <main className="min-h-screen bg-[#FDFDFD] text-foreground flex flex-col justify-center py-20 lg:py-32">
+            <div className="container mx-auto px-6 lg:px-12 flex justify-center w-full">
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    className="w-full max-w-xl bg-white rounded-[2.5rem] p-10 lg:p-16 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] border border-border/40 relative overflow-hidden group"
+                >
+                    {/* Back to Home inside Card */}
+                    <Link to="/" className="absolute top-8 left-10 group/back flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-all z-20">
+                        <ArrowRight className="w-3 h-3 rotate-180 group-hover/back:-translate-x-1 transition-transform" />
+                        <span>Home</span>
+                    </Link>
+                    {/* Premium Glow Effect */}
+                    <div className="absolute -top-32 -right-32 w-64 h-64 bg-gradient-to-br from-[#C6A75E]/15 to-transparent rounded-full blur-[80px] group-hover:scale-110 transition-transform duration-1000" />
+
+                    <div className="relative z-10 w-full">
                         <div className="text-center mb-12">
-                            <h1 className="text-display font-serif uppercase mb-4">Join Maze</h1>
-                            <p className="text-body-sm text-muted-foreground">Become part of our performance community.</p>
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: 1, opacity: 1 }}
+                                transition={{ delay: 0.2 }}
+                                className="inline-block px-4 py-1.5 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase mb-6"
+                            >
+                                Early Access
+                            </motion.div>
+                            <h1 className="flex items-center justify-center gap-5 text-display font-serif uppercase mb-4 tracking-tighter leading-tight mt-4">
+                                <span>Join</span>
+                                <img src="/logo.png" alt="Maze" className="h-[1.1em] w-auto object-contain translate-y-[-0.05em]" />
+                            </h1>
+                            <p className="text-body-sm text-muted-foreground max-w-[320px] mx-auto text-balance">Become part of our exclusive performance community and unlock early access.</p>
                         </div>
 
                         {error && (
                             <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: "auto" }}
-                                className="mb-6 p-4 bg-destructive/10 border border-destructive/20 text-destructive text-xs font-bold tracking-wide uppercase text-center"
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="mb-10 p-5 bg-red-50/50 border border-red-100/50 text-red-600 text-[10px] font-black tracking-widest uppercase text-center rounded-2xl backdrop-blur-sm"
                             >
                                 {error}
                             </motion.div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-6">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-1">
-                                    <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground block mb-2">First Name</label>
+                        <form onSubmit={handleSubmit} className="space-y-8">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div className="space-y-3">
+                                    <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">First Name</label>
                                     <input
                                         type="text"
                                         name="firstName"
                                         value={formData.firstName}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-transparent border-b border-border focus:border-foreground py-3 outline-none transition-colors text-body font-medium"
+                                        className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
                                         placeholder="John"
                                     />
                                 </div>
-                                <div className="space-y-1">
-                                    <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground block mb-2">Last Name</label>
+                                <div className="space-y-3">
+                                    <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">Last Name</label>
                                     <input
                                         type="text"
                                         name="lastName"
                                         value={formData.lastName}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-transparent border-b border-border focus:border-foreground py-3 outline-none transition-colors text-body font-medium"
+                                        className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
                                         placeholder="Doe"
                                     />
                                 </div>
                             </div>
-                            <div className="space-y-1">
-                                <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground block mb-2">Email Address</label>
+                            <div className="space-y-3">
+                                <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">Email Address</label>
                                 <input
                                     type="email"
                                     name="email"
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
-                                    className="w-full bg-transparent border-b border-border focus:border-foreground py-3 outline-none transition-colors text-body font-medium"
-                                    placeholder="your@email.com"
+                                    className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
+                                    placeholder="your@access.com"
                                 />
                             </div>
-                            <div className="space-y-1">
-                                <label className="text-[10px] uppercase font-bold tracking-[0.2em] text-muted-foreground block mb-2">Password</label>
+                            <div className="space-y-3">
+                                <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">Secure Token (Password)</label>
                                 <input
                                     type="password"
                                     name="password"
@@ -111,40 +129,43 @@ const Register = () => {
                                     onChange={handleChange}
                                     required
                                     minLength={6}
-                                    className="w-full bg-transparent border-b border-border focus:border-foreground py-3 outline-none transition-colors text-body font-medium"
+                                    className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
+                                    placeholder="••••••••"
                                 />
-                                <p className="text-[9px] text-muted-foreground/50 mt-2 uppercase tracking-widest font-bold">Minimum 6 characters required</p>
+                                <p className="text-[9px] text-muted-foreground/50 px-2 uppercase tracking-widest font-bold">Minimum 6 characters required</p>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full btn-couture-filled py-5 flex items-center justify-center gap-3 mt-10"
+                                className="w-full h-16 bg-foreground text-background rounded-2xl text-[11px] font-black uppercase tracking-[0.4em] shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.2)] hover:-translate-y-1.5 active:translate-y-0.5 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 overflow-hidden group/btn mt-10 active:scale-[0.98]"
                             >
                                 {isLoading ? (
                                     <Loader2 className="w-5 h-5 animate-spin" />
                                 ) : (
                                     <>
                                         <span>Create Account</span>
-                                        <ArrowRight className="w-4 h-4" />
+                                        <div className="p-1 px-2 border-l border-white/20 group-hover/btn:translate-x-1 transition-transform">
+                                            <ArrowRight className="w-3.5 h-3.5" />
+                                        </div>
                                     </>
                                 )}
                             </button>
                         </form>
 
-                        <div className="mt-12 text-center pt-8 border-t border-border/50">
-                            <p className="text-body-sm text-muted-foreground mb-4">Already have an account?</p>
+                        <div className="mt-16 text-center pt-10 border-t border-border/40">
+                            <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-black">Already Profiled?</p>
                             <Link
                                 to="/login"
-                                className="text-[11px] uppercase font-black tracking-[0.3em] text-foreground hover:opacity-60 transition-opacity"
+                                className="inline-flex items-center gap-4 px-12 py-5 rounded-[1.25rem] border border-border text-[11px] font-black uppercase tracking-[0.3em] text-foreground hover:bg-foreground hover:text-background hover:scale-105 active:scale-95 transition-all duration-500 group/sig"
                             >
-                                Sign In
+                                <span>Sign In</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#C6A75E] scale-0 group-hover/sig:scale-100 transition-transform" />
                             </Link>
                         </div>
-                    </motion.div>
-                </div>
+                    </div>
+                </motion.div>
             </div>
-            <Footer />
         </main>
     );
 };

@@ -11,7 +11,7 @@ import { useProduct } from "@/hooks/useProduct";
 import { useProducts } from "@/hooks/useProducts";
 import { Product as ProductType } from "@/api/products";
 import { storefrontClient } from "@/lib/storefront";
-import { CHECKOUT_CREATE_MUTATION } from "@/lib/queries";
+import { CART_CREATE_MUTATION } from "@/lib/queries";
 
 const Product = () => {
   const { handle } = useParams();
@@ -91,13 +91,13 @@ const Product = () => {
   const handleBuyNow = async () => {
     if (!selectedVariant) return;
     try {
-      const response = await storefrontClient.request<any>(CHECKOUT_CREATE_MUTATION, {
+      const response = await storefrontClient.request<any>(CART_CREATE_MUTATION, {
         input: {
-          lineItems: [{ variantId: selectedVariant.id, quantity }]
+          lines: [{ merchandiseId: selectedVariant.id, quantity }]
         }
       });
-      if (response.checkoutCreate?.checkout?.webUrl) {
-        window.location.href = response.checkoutCreate.checkout.webUrl;
+      if (response.cartCreate?.cart?.checkoutUrl) {
+        window.location.href = response.cartCreate.cart.checkoutUrl;
       }
     } catch (error) {
       console.error("Buy Now Error:", error);

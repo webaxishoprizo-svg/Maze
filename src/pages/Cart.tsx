@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ShoppingBag, ArrowRight, Minus, Plus, Trash2, ShieldCheck, Truck, RefreshCcw } from "lucide-react";
+import { ShoppingBag, ArrowRight, ArrowLeft, Minus, Plus, Trash2, ShieldCheck, Truck, RefreshCcw } from "lucide-react";
 import { useCart } from "@/store/cartStore";
 
 const Cart = () => {
@@ -8,23 +8,33 @@ const Cart = () => {
 
     if (items.length === 0) {
         return (
-            <div className="min-h-[80vh] flex flex-col items-center justify-center px-6 pt-32 pb-24">
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    className="text-center"
-                >
-                    <div className="w-24 h-24 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
-                        <ShoppingBag className="w-10 h-10 text-muted-foreground/40" />
-                    </div>
-                    <h1 className="text-4xl md:text-5xl font-serif mb-6">Your Bag is Empty</h1>
-                    <p className="text-muted-foreground max-w-md mx-auto mb-10 leading-relaxed italic">
-                        The finest pieces are still waiting for you. Discover our seasonal collections and find your signature style.
-                    </p>
-                    <Link to="/collection" className="btn-standard-filled px-12">
-                        <span>Discover Collections</span>
+            <div className="min-h-[80vh] px-6 pt-32 pb-24">
+                <div className="container mx-auto px-6 lg:px-12">
+                    <Link
+                        to="/"
+                        className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-12 group"
+                    >
+                        <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                        <span className="text-[10px] uppercase tracking-widest font-bold">Back to Home</span>
                     </Link>
-                </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="text-center mt-20"
+                    >
+                        <div className="w-24 h-24 bg-secondary rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                            <ShoppingBag className="w-10 h-10 text-muted-foreground/40" />
+                        </div>
+                        <h1 className="text-4xl md:text-5xl font-serif mb-6">Your Bag is Empty</h1>
+                        <p className="text-muted-foreground max-w-md mx-auto mb-10 leading-relaxed italic">
+                            The finest pieces are still waiting for you. Discover our seasonal collections and find your signature style.
+                        </p>
+                        <Link to="/collection" className="btn-standard-filled px-12">
+                            <span>Discover Collections</span>
+                        </Link>
+                    </motion.div>
+                </div>
             </div>
         );
     }
@@ -40,7 +50,15 @@ const Cart = () => {
                             animate={{ opacity: 1, x: 0 }}
                             className="mb-12"
                         >
+                            <Link
+                                to="/"
+                                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-10 group"
+                            >
+                                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                                <span className="text-[10px] uppercase tracking-widest font-bold">Back to Home</span>
+                            </Link>
                             <h1 className="text-4xl md:text-5xl font-serif mb-2">Shopping Bag</h1>
+
                             <p className="text-muted-foreground uppercase tracking-luxury text-[11px] font-bold">
                                 {items.length} {items.length === 1 ? 'item' : 'items'} in your selection
                             </p>

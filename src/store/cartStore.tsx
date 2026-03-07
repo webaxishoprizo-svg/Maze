@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import { storefrontFetch } from "../lib/storefront";
-import { CHECKOUT_CREATE_MUTATION } from "../lib/queries";
+import { CART_CREATE_MUTATION } from "../lib/queries";
 
 interface CartItem {
   id: string;
@@ -75,39 +75,36 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const checkout = async () => {
     if (items.length === 0 || isCheckingOut) return;
-
     setIsCheckingOut(true);
     try {
-      const lineItems = items.map((item) => ({
-        variantId: item.id,
-        quantity: item.quantity,
-      }));
-
       const { body } = await storefrontFetch({
-        query: CHECKOUT_CREATE_MUTATION,
+        query: CART_CREATE_MUTATION,
         variables: {
           input: {
-            lineItems,
+            lines: items.map((item) => ({
+              merchandiseId: item.id,
+              quantity: item.quantity,
+            })),
           },
         },
       });
 
-      const checkoutData = body.data?.checkoutCreate;
+      const responseData = body.data?.cartCreate;
 
-      if (!checkoutData) {
-        throw new Error("No response from Shopify checkout service.");
+      if (!responseData) {
+        throw new Error("No response from Shopify cart service.");
       }
 
-      const { checkout, checkoutUserErrors } = checkoutData;
+      const { cart, userErrors } = responseData;
 
-      if (checkoutUserErrors && checkoutUserErrors.length > 0) {
-        const errorMsg = checkoutUserErrors[0].message;
-        console.error("Shopify Checkout Error:", errorMsg);
+      if (userErrors && userErrors.length > 0) {
+        const errorMsg = userErrors[0].message;
+        console.error("Shopify Cart Error:", errorMsg);
         throw new Error(errorMsg);
       }
 
-      if (checkout?.webUrl) {
-        window.location.href = checkout.webUrl;
+      if (cart?.checkoutUrl) {
+        window.location.href = cart.checkoutUrl;
       } else {
         throw new Error("Checkout URL was not generated.");
       }
