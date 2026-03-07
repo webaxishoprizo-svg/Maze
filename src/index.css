@@ -1,4 +1,4 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+﻿@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -133,9 +133,9 @@
   h4,
   h5,
   h6 {
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    @apply font-sans;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   button,
@@ -174,7 +174,7 @@
 
   /* Simplified Standard Button System */
   .btn-standard {
-    @apply relative inline-flex items-center justify-center overflow-hidden px-6 py-3 text-[11px] uppercase tracking-widest font-bold;
+    @apply relative inline-flex items-center justify-center overflow-hidden px-6 py-3 text-[11px] uppercase font-bold;
     @apply border border-foreground bg-transparent text-foreground;
     box-shadow: 2px 2px 0px 0px hsl(var(--foreground) / 0.1);
     border-radius: 4px;
@@ -193,7 +193,7 @@
   }
 
   .btn-standard-filled {
-    @apply relative inline-flex items-center justify-center overflow-hidden px-8 py-4 text-[11px] uppercase tracking-widest font-bold;
+    @apply relative inline-flex items-center justify-center overflow-hidden px-8 py-4 text-[11px] uppercase font-bold;
     @apply bg-foreground text-background border border-foreground;
     box-shadow: 2px 2px 0px 0px hsl(var(--foreground) / 0.2);
     border-radius: 4px;
@@ -213,7 +213,7 @@
 
   /* Buy Button - High Contrast */
   .btn-buy {
-    @apply relative overflow-hidden px-8 py-3 text-xs uppercase tracking-[0.2em] font-black;
+    @apply relative overflow-hidden px-8 py-3 text-xs uppercase font-black;
     @apply bg-[#C6A75E] text-white border-none;
     box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
@@ -602,11 +602,11 @@
   }
 
   .tracking-luxury {
-    letter-spacing: 0.25em;
+    letter-spacing: 0.05em;
   }
 
   .tracking-wide-custom {
-    letter-spacing: 0.15em;
+    letter-spacing: 0.02em;
   }
 
   /* Gradient Text */

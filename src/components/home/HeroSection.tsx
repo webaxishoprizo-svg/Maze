@@ -23,13 +23,13 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-sans font-medium tracking-widest text-[#222] uppercase mb-1">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium text-[#222] uppercase mb-1">
               Crafted For
             </h2>
-            <h1 className="text-6xl md:text-7xl lg:text-9xl font-black text-[#111] uppercase tracking-[-0.03em] mb-6 leading-none">
+            <h1 className="text-6xl md:text-7xl lg:text-9xl font-serif font-black text-[#111] uppercase tracking-[-0.03em] mb-6 leading-none">
               Greatness
             </h1>
-            <p className="text-lg md:text-xl text-[#333] font-medium tracking-wide mb-10">
+            <p className="text-lg md:text-xl text-[#333] font-serif font-medium mb-10">
               Performance Track Pants Redefined
             </p>
 
@@ -44,15 +44,15 @@ const HeroSection = () => {
             <div className="flex flex-wrap items-center gap-6 md:gap-8">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-[#c19864]" strokeWidth={2.5} />
-                <span className="text-xs font-bold tracking-widest uppercase text-[#333]">Premium Fabric</span>
+                <span className="text-xs font-bold uppercase text-[#333]">Premium Fabric</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-[#c19864]" strokeWidth={2.5} />
-                <span className="text-xs font-bold tracking-widest uppercase text-[#333]">Fast Shipping</span>
+                <span className="text-xs font-bold uppercase text-[#333]">Fast Shipping</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-[#c19864] fill-current" strokeWidth={1} />
-                <span className="text-xs font-bold tracking-widest uppercase text-[#333]">Limited Drops</span>
+                <span className="text-xs font-bold uppercase text-[#333]">Limited Drops</span>
               </div>
             </div>
           </motion.div>

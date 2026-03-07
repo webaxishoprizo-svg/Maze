@@ -104,7 +104,7 @@ const Header = () => {
                   <Link
                     to={link.href}
                     onClick={scrollToTop}
-                    className="text-[13px] font-bold tracking-widest text-foreground hover:text-foreground/70 transition-colors uppercase"
+                    className="text-[13px] font-bold text-foreground hover:text-foreground/70 transition-colors uppercase"
                   >
                     {link.name}
                   </Link>
@@ -150,7 +150,7 @@ const Header = () => {
                       {isLoggedIn ? (
                         <>
                           <div className="px-4 py-2 border-b border-border mb-2">
-                            <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold">Hello,</p>
+                            <p className="text-[10px] uppercase text-muted-foreground font-bold">Hello,</p>
                             <p className="text-xs font-bold truncate">{customer?.firstName}</p>
                           </div>
                           <Link to="/account" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">My Account</Link>
@@ -165,8 +165,8 @@ const Header = () => {
                         </>
                       ) : (
                         <>
-                          <Link to="/login" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Sign In</Link>
-                          <Link to="/register" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase tracking-widest">Create Account</Link>
+                          <Link to="/login" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Sign In</Link>
+                          <Link to="/register" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Create Account</Link>
                         </>
                       )}
                     </motion.div>
@@ -221,7 +221,7 @@ const Header = () => {
                     type="text"
                     placeholder="Search..."
                     autoFocus
-                    className="w-full bg-transparent border-b-2 border-foreground/20 focus:border-foreground py-4 text-display font-serif outline-none placeholder:text-foreground/20"
+                    className="w-full bg-transparent border-b-2 border-foreground/20 focus:border-foreground py-4 text-display font-bold outline-none placeholder:text-foreground/20"
                   />
                   <Search className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 text-foreground/30" />
                 </div>
@@ -264,11 +264,11 @@ const Header = () => {
                 </div>
                 <nav className="flex-1 overflow-y-auto py-8 px-6">
                   {navLinks.map((link) => (
-                    <Link key={link.name} to={link.href} onClick={scrollToTop} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">{link.name}</Link>
+                    <Link key={link.name} to={link.href} onClick={scrollToTop} className="block py-4 text-heading font-bold border-b border-border/50 uppercase">{link.name}</Link>
                   ))}
-                  <Link to="/wishlist" onClick={scrollToTop} className="block py-4 text-heading font-serif border-b border-border/50 uppercase">Wishlist</Link>
+                  <Link to="/wishlist" onClick={scrollToTop} className="block py-4 text-heading font-bold border-b border-border/50 uppercase">Wishlist</Link>
                   <div className="mt-8">
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-bold mb-4">Account</p>
+                    <p className="text-[10px] uppercase text-muted-foreground font-bold mb-4">Account</p>
                     {isLoggedIn ? (
                       <>
                         <Link to="/account" onClick={scrollToTop} className="block py-3 text-body">My Account</Link>

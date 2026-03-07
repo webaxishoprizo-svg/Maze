@@ -87,7 +87,7 @@ const Footer = () => {
         <div className="container mx-auto px-6 lg:px-12">
           <motion.button
             onClick={scrollToTop}
-            className="w-full py-6 flex items-center justify-center gap-2 text-[11px] uppercase tracking-[0.2em] hover:text-[#C6A75E] hover:opacity-100 opacity-70 transition-all font-bold"
+            className="w-full py-6 flex items-center justify-center gap-2 text-[11px] uppercase hover:text-[#C6A75E] hover:opacity-100 opacity-70 transition-all font-bold"
             whileHover={{ y: -2 }}
           >
             <ArrowUp className="w-4 h-4" />
@@ -125,7 +125,7 @@ const Footer = () => {
 
           {/* Links */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
               Quick Links
             </h4>
             <ul className="space-y-3 font-medium">
@@ -144,7 +144,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
               Information
             </h4>
             <ul className="space-y-3 font-medium">
@@ -164,7 +164,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
               Contact
             </h4>
             <ul className="space-y-4 font-medium text-body-sm text-[#A1A1A1]">
@@ -190,7 +190,7 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
               Newsletter
             </h4>
             <p className="text-body-sm text-[#A1A1A1] mb-6 leading-relaxed font-medium">

@@ -24,7 +24,7 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
             transition={{ duration: 0.6 }}
             className="flex items-center gap-6"
           >
-            <h2 className="text-xl md:text-2xl font-black uppercase tracking-widest text-[#111]">
+            <h2 className="text-xl md:text-2xl font-serif font-bold uppercase tracking-widest text-[#111]">
               Bestsellers
             </h2>
             <div className="hidden md:block h-px bg-[#e5e5e5] w-24 lg:w-48" />

@@ -47,7 +47,7 @@ const Register = () => {
                     className="w-full max-w-xl bg-white rounded-[2.5rem] p-10 lg:p-16 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] border border-border/40 relative overflow-hidden group"
                 >
                     {/* Back to Home inside Card */}
-                    <Link to="/" className="absolute top-8 left-10 group/back flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground transition-all z-20">
+                    <Link to="/" className="absolute top-8 left-10 group/back flex items-center gap-2 text-[9px] font-black uppercase text-muted-foreground hover:text-foreground transition-all z-20">
                         <ArrowRight className="w-3 h-3 rotate-180 group-hover/back:-translate-x-1 transition-transform" />
                         <span>Home</span>
                     </Link>
@@ -60,11 +60,11 @@ const Register = () => {
                                 initial={{ scale: 0.9, opacity: 0 }}
                                 animate={{ scale: 1, opacity: 1 }}
                                 transition={{ delay: 0.2 }}
-                                className="inline-block px-4 py-1.5 rounded-full bg-secondary text-[10px] font-bold tracking-[0.2em] text-muted-foreground uppercase mb-6"
+                                className="inline-block px-4 py-1.5 rounded-full bg-secondary text-[10px] font-bold text-muted-foreground uppercase mb-6"
                             >
                                 Early Access
                             </motion.div>
-                            <h1 className="flex items-center justify-center gap-5 text-display font-serif uppercase mb-4 tracking-tighter leading-tight mt-4">
+                            <h1 className="flex items-center justify-center gap-5 text-display font-bold uppercase mb-4 leading-tight mt-4">
                                 <span>Join</span>
                                 <img src="/logo.png" alt="Maze" className="h-[1.1em] w-auto object-contain translate-y-[-0.05em]" />
                             </h1>
@@ -75,7 +75,7 @@ const Register = () => {
                             <motion.div
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                className="mb-10 p-5 bg-red-50/50 border border-red-100/50 text-red-600 text-[10px] font-black tracking-widest uppercase text-center rounded-2xl backdrop-blur-sm"
+                                className="mb-10 p-5 bg-red-50/50 border border-red-100/50 text-red-600 text-[10px] font-black uppercase text-center rounded-2xl backdrop-blur-sm"
                             >
                                 {error}
                             </motion.div>
@@ -84,7 +84,7 @@ const Register = () => {
                         <form onSubmit={handleSubmit} className="space-y-8">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 <div className="space-y-3">
-                                    <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">First Name</label>
+                                    <label className="text-[10px] uppercase font-black text-foreground block px-2">First Name</label>
                                     <input
                                         type="text"
                                         name="firstName"
@@ -96,7 +96,7 @@ const Register = () => {
                                     />
                                 </div>
                                 <div className="space-y-3">
-                                    <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">Last Name</label>
+                                    <label className="text-[10px] uppercase font-black text-foreground block px-2">Last Name</label>
                                     <input
                                         type="text"
                                         name="lastName"
@@ -109,7 +109,7 @@ const Register = () => {
                                 </div>
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">Email Address</label>
+                                <label className="text-[10px] uppercase font-black text-foreground block px-2">Email Address</label>
                                 <input
                                     type="email"
                                     name="email"
@@ -121,7 +121,7 @@ const Register = () => {
                                 />
                             </div>
                             <div className="space-y-3">
-                                <label className="text-[10px] uppercase font-black tracking-[0.3em] text-foreground block px-2">Secure Token (Password)</label>
+                                <label className="text-[10px] uppercase font-black text-foreground block px-2">Secure Token (Password)</label>
                                 <input
                                     type="password"
                                     name="password"
@@ -132,13 +132,13 @@ const Register = () => {
                                     className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
                                     placeholder="••••••••"
                                 />
-                                <p className="text-[9px] text-muted-foreground/50 px-2 uppercase tracking-widest font-bold">Minimum 6 characters required</p>
+                                <p className="text-[9px] text-muted-foreground/50 px-2 uppercase font-bold">Minimum 6 characters required</p>
                             </div>
 
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full h-16 bg-foreground text-background rounded-2xl text-[11px] font-black uppercase tracking-[0.4em] shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.2)] hover:-translate-y-1.5 active:translate-y-0.5 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 overflow-hidden group/btn mt-10 active:scale-[0.98]"
+                                className="w-full h-16 bg-foreground text-background rounded-2xl text-[11px] font-black uppercase shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_50px_rgba(0,0,0,0.2)] hover:-translate-y-1.5 active:translate-y-0.5 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-4 overflow-hidden group/btn mt-10 active:scale-[0.98]"
                             >
                                 {isLoading ? (
                                     <Loader2 className="w-5 h-5 animate-spin" />
@@ -154,10 +154,10 @@ const Register = () => {
                         </form>
 
                         <div className="mt-16 text-center pt-10 border-t border-border/40">
-                            <p className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-8 font-black">Already Profiled?</p>
+                            <p className="text-[10px] uppercase text-muted-foreground mb-8 font-black">Already Profiled?</p>
                             <Link
                                 to="/login"
-                                className="inline-flex items-center gap-4 px-12 py-5 rounded-[1.25rem] border border-border text-[11px] font-black uppercase tracking-[0.3em] text-foreground hover:bg-foreground hover:text-background hover:scale-105 active:scale-95 transition-all duration-500 group/sig"
+                                className="inline-flex items-center gap-4 px-12 py-5 rounded-[1.25rem] border border-border text-[11px] font-black uppercase text-foreground hover:bg-foreground hover:text-background hover:scale-105 active:scale-95 transition-all duration-500 group/sig"
                             >
                                 <span>Sign In</span>
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#C6A75E] scale-0 group-hover/sig:scale-100 transition-transform" />

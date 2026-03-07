@@ -65,7 +65,7 @@ const Product = () => {
   if (productError || !product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
-        <h2 className="text-display font-serif text-center">Product Not Found</h2>
+        <h2 className="text-display font-bold text-center">Product Not Found</h2>
         <Link to="/collection" className="btn-couture-filled">
           <span>Back to Collection</span>
         </Link>
@@ -193,8 +193,8 @@ const Product = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="lg:sticky lg:top-32 lg:self-start"
             >
-              <h1 className="text-display font-serif mb-4 uppercase">{product.title}</h1>
-              <p className="text-heading font-serif mb-6">{currency} {parseFloat(price as string).toLocaleString()}</p>
+              <h1 className="text-display font-bold mb-4 uppercase">{product.title}</h1>
+              <p className="text-heading font-bold mb-6">{currency} {parseFloat(price as string).toLocaleString()}</p>
               <p className="text-body text-muted-foreground mb-8">{product.description}</p>
 
               {/* Product Options Redesign */}
@@ -206,7 +206,7 @@ const Product = () => {
                   if (isColor) {
                     return (
                       <div key={option.name} className="space-y-4">
-                        <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                        <p className="text-[11px] uppercase font-bold text-foreground">
                           {option.name}
                         </p>
                         <div className="flex flex-wrap gap-4">
@@ -235,7 +235,7 @@ const Product = () => {
                   if (isSize) {
                     return (
                       <div key={option.name} className="space-y-4">
-                        <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                        <p className="text-[11px] uppercase font-bold text-foreground">
                           {option.name}
                         </p>
                         <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
@@ -258,7 +258,7 @@ const Product = () => {
 
                   return (
                     <div key={option.name} className="space-y-4">
-                      <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                      <p className="text-[11px] uppercase font-bold text-foreground">
                         {option.name}
                       </p>
                       <div className="flex flex-wrap gap-3">
@@ -281,7 +281,7 @@ const Product = () => {
 
                 {/* Options / Purchase Area */}
                 <div className="space-y-4 pt-4">
-                  <p className="text-[11px] uppercase tracking-[0.2em] font-bold text-foreground">
+                  <p className="text-[11px] uppercase font-bold text-foreground">
                     Options
                   </p>
                   <div className="flex flex-wrap sm:flex-nowrap gap-3">
@@ -306,7 +306,7 @@ const Product = () => {
                     <button
                       onClick={handleAddToCart}
                       disabled={!selectedVariant || !selectedVariant.availableForSale}
-                      className="flex-[3] h-14 bg-foreground text-background rounded-xl text-xs font-bold uppercase tracking-widest shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group active:translate-y-0"
+                      className="flex-[3] h-14 bg-foreground text-background rounded-xl text-xs font-bold uppercase shadow-[0_8px_20px_rgba(0,0,0,0.15)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.2)] hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group active:translate-y-0"
                     >
                       <span>
                         {!selectedVariant?.availableForSale ? "Sold Out" : "Add to Cart"}
@@ -326,7 +326,7 @@ const Product = () => {
                   <button
                     onClick={handleBuyNow}
                     disabled={!selectedVariant || !selectedVariant.availableForSale}
-                    className="w-full h-14 rounded-xl text-xs font-bold uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
+                    className="w-full h-14 rounded-xl text-xs font-bold uppercase transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
                              bg-gradient-to-r from-[#F5D17E] via-[#C6A75E] to-[#B38B3F] text-white
                              shadow-[0_8px_20px_rgba(198,167,94,0.3)] hover:shadow-[0_12px_28px_rgba(198,167,94,0.4)] 
                              hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.99]"
@@ -340,15 +340,15 @@ const Product = () => {
               <div className="grid grid-cols-3 gap-4 py-6 border-t border-b border-border mb-8">
                 <div className="text-center">
                   <Truck className="w-5 h-5 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Free Shipping</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground">Free Shipping</p>
                 </div>
                 <div className="text-center">
                   <RotateCcw className="w-5 h-5 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">30-Day Returns</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground">30-Day Returns</p>
                 </div>
                 <div className="text-center">
                   <Shield className="w-5 h-5 mx-auto mb-2 text-muted-foreground" />
-                  <p className="text-[10px] uppercase font-bold tracking-widest text-muted-foreground">Authenticity</p>
+                  <p className="text-[10px] uppercase font-bold text-muted-foreground">Authenticity</p>
                 </div>
               </div>
 
@@ -357,7 +357,7 @@ const Product = () => {
                 {accordionItems.map((item, index) => (
                   <div key={index} className="border-b border-border">
                     <button onClick={() => setOpenAccordion(openAccordion === index ? null : index)} className="w-full flex items-center justify-between py-4 text-left">
-                      <span className="text-body-sm font-bold uppercase tracking-widest">{item.title}</span>
+                      <span className="text-body-sm font-bold uppercase">{item.title}</span>
                       {openAccordion === index ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
                     <AnimatePresence>
@@ -382,7 +382,7 @@ const Product = () => {
       {/* Related Products */}
       <section className="py-24 bg-secondary/30">
         <div className="container mx-auto px-6 lg:px-12">
-          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-display font-serif text-center mb-16 uppercase">
+          <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-display font-bold text-center mb-16 uppercase">
             You May Also Like
           </motion.h2>
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
