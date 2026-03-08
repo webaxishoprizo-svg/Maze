@@ -5,8 +5,8 @@ const getEnv = (key: string) => {
     return import.meta.env[key] || (process.env && process.env[key]) || '';
 };
 
-const domain = getEnv('VITE_SHOPIFY_STORE') || getEnv('VITE_STORE_DOMAIN') || 'maze-9983.myshopify.com';
-const accessToken = getEnv('VITE_SHOPIFY_TOKEN') || getEnv('VITE_STORE_TOKEN') || 'bfe4c13bf4e02a5e373e70586b08936b';
+const domain = getEnv('VITE_SHOPIFY_STORE') || getEnv('VITE_STORE_DOMAIN') || '3tkl0h-fw.myshopify.com';
+const accessToken = getEnv('VITE_SHOPIFY_TOKEN') || getEnv('VITE_STORE_TOKEN') || 'f56449142a31220e0ff0df389910cf35';
 const apiVersion = getEnv('VITE_SHOPIFY_API_VERSION') || '2024-01';
 
 console.log('Shopify Storefront Domain:', domain);
