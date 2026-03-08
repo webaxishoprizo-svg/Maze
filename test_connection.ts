@@ -1,3 +1,4 @@
+export { };
 const domain = 't3tk0h-fw.myshopify.com';
 const token = 'f56449142a31220e0ff0df389910cf35';
 const query = `
