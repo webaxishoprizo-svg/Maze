@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { getProducts, getProductByHandle, getNewArrivals, Product } from '@/api/products';
+import { getProducts, getProductByHandle, getNewArrivals, getStoreTestimonials, getBestSellers, getProductRecommendations, Product } from '@/api/products';
 import { storefrontFetch } from '../lib/storefront';
 import { GET_PRODUCTS_BY_COLLECTION_QUERY, GET_COLLECTIONS_QUERY } from '../lib/queries';
 
@@ -84,4 +84,39 @@ export function useNewArrivals(first = 4) {
         loading,
         error: error ? (error as Error).message : null
     };
+}
+
+export function useStoreTestimonials() {
+    const { data: testimonials = [], isLoading: loading, error } = useQuery({
+        queryKey: ['store-testimonials'],
+        queryFn: () => getStoreTestimonials(),
+        staleTime: 1000 * 60 * 60, // 1 hour
+    });
+
+    return {
+        testimonials,
+        loading,
+        error: error ? (error as Error).message : null
+    };
+}
+
+export function useBestSellers(first = 4) {
+    const { data: products = [], isLoading: loading, error } = useQuery({
+        queryKey: ['best-sellers', first],
+        queryFn: () => getBestSellers(first),
+        staleTime: 1000 * 60 * 5,
+    });
+
+    return { products, loading, error: error ? (error as Error).message : null };
+}
+
+export function useProductRecommendations(productId: string) {
+    const { data: products = [], isLoading: loading, error } = useQuery({
+        queryKey: ['product-recommendations', productId],
+        queryFn: () => getProductRecommendations(productId),
+        enabled: !!productId,
+        staleTime: 1000 * 60 * 5,
+    });
+
+    return { products, loading, error: error ? (error as Error).message : null };
 }

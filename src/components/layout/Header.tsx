@@ -12,7 +12,7 @@ const easeVelvet: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const navLinks = [
   { name: "HOME", href: "/" },
   { name: "SHOP", href: "/collection" },
-  { name: "NEW ARRIVAL", href: "/collection" },
+  { name: "NEW ARRIVAL", href: "/new-arrivals" },
   { name: "ABOUT", href: "/about" },
   { name: "CONTACT", href: "/contact" },
 ];
@@ -27,12 +27,14 @@ const categoryLinks = [
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const { cartCount, toggleCart } = useCart();
-  const { customer, isLoggedIn, logout } = useAuth();
+  const { isLoggedIn } = useAuth();
   const location = useLocation();
 
   const scrollToTop = () => {
@@ -41,11 +43,22 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 30);
+      const currentScrollY = window.scrollY;
+      
+      // Smart Navbar Logic
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      
+      setIsScrolled(currentScrollY > 30);
+      setLastScrollY(currentScrollY);
     };
-    window.addEventListener("scroll", handleScroll);
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -56,8 +69,11 @@ const Header = () => {
     <>
       <motion.header
         initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, ease: easeSilk }}
+        animate={{ 
+          y: isVisible ? 0 : -100,
+          opacity: isVisible ? 1 : 0 
+        }}
+        transition={{ duration: 0.6, ease: easeSilk }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled || location.pathname !== '/'
           ? "bg-background/98 backdrop-blur-md shadow-soft py-2"
           : "bg-transparent py-2 lg:py-4"
@@ -127,51 +143,21 @@ const Header = () => {
               </Link>
 
               <div className="relative">
-                <motion.button
-                  onClick={() => setIsAccountMenuOpen(!isAccountMenuOpen)}
-                  className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300"
-                  whileHover={{ y: -1 }}
-                  whileTap={{ y: 1 }}
-                  transition={{ duration: 0.2, ease: easeVelvet }}
+                <a
+                  href="https://shopify.com/64024543307/account"
+                  className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300 block"
                   aria-label="Account"
                 >
                   <User className="w-5 h-5" strokeWidth={1.5} />
-                </motion.button>
+                </a>
 
-                <AnimatePresence>
-                  {isAccountMenuOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-4 w-48 bg-background border border-border shadow-elevated py-2 z-50"
-                    >
-                      {isLoggedIn ? (
-                        <>
-                          <div className="px-4 py-2 border-b border-border mb-2">
-                            <p className="text-[10px] uppercase text-muted-foreground font-bold">Hello,</p>
-                            <p className="text-xs font-bold truncate">{customer?.firstName}</p>
-                          </div>
-                          <Link to="/account" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">My Account</Link>
-                          <Link to="/wishlist" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium">Wishlist</Link>
-                          <button
-                            onClick={logout}
-                            className="w-full text-left px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium text-destructive flex items-center gap-2"
-                          >
-                            <LogOut className="w-3 h-3" />
-                            Sign Out
-                          </button>
-                        </>
-                      ) : (
-                        <>
-                          <Link to="/login" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Sign In</Link>
-                          <Link to="/register" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Create Account</Link>
-                        </>
-                      )}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* Dropdown for detailed links */}
+                <div className="hidden lg:group-hover:block absolute right-0 mt-4 w-48 bg-background border border-border shadow-elevated py-2 z-50">
+                   <a href="https://shopify.com/64024543307/account/login?return_url=https://themaze.shop" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Sign In</a>
+                   <Link to="/register" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Create Account</Link>
+                   <a href="https://shopify.com/64024543307/account/orders" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase border-t border-border mt-2 pt-2">My Orders</a>
+                   <a href="https://shopify.com/64024543307/account/logout" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase text-destructive">Sign Out</a>
+                </div>
               </div>
 
               <motion.button
@@ -269,17 +255,9 @@ const Header = () => {
                   <Link to="/wishlist" onClick={scrollToTop} className="block py-4 text-heading font-bold border-b border-border/50 uppercase">Wishlist</Link>
                   <div className="mt-8">
                     <p className="text-[10px] uppercase text-muted-foreground font-bold mb-4">Account</p>
-                    {isLoggedIn ? (
-                      <>
-                        <Link to="/account" onClick={scrollToTop} className="block py-3 text-body">My Account</Link>
-                        <button onClick={logout} className="block py-3 text-body text-destructive">Sign Out</button>
-                      </>
-                    ) : (
-                      <>
-                        <Link to="/login" onClick={scrollToTop} className="block py-3 text-body">Sign In</Link>
-                        <Link to="/register" onClick={scrollToTop} className="block py-3 text-body">Create Account</Link>
-                      </>
-                    )}
+                    <a href="https://shopify.com/64024543307/account" className="block py-3 text-body">My Account</a>
+                    <a href="https://shopify.com/64024543307/account/login?return_url=https://themaze.shop" className="block py-3 text-body">Sign In</a>
+                    <Link to="/register" onClick={scrollToTop} className="block py-3 text-body">Create Account</Link>
                   </div>
                 </nav>
               </div>

@@ -3,6 +3,23 @@ export const PRODUCT_FIELDS = `
   title
   handle
   description
+  descriptionHtml
+  shippingMetafield: metafield(namespace: "custom", key: "shipping_and_returns") {
+    value
+  }
+  careMetafield: metafield(namespace: "custom", key: "care_instructions") {
+    value
+  }
+  testimonialsMetafield: metafield(namespace: "custom", key: "testimonials") {
+    value
+  }
+  sizeChartMetafield: metafield(namespace: "custom", key: "size_chart") {
+    value
+  }
+  fabricMetafield: metafield(namespace: "custom", key: "fabric_details") {
+    value
+  }
+  tags
   featuredImage {
     url(transform: {maxWidth: 1000, preferredContentType: WEBP})
     altText
@@ -153,6 +170,41 @@ export const GET_NEW_ARRIVALS_QUERY = `
           ${PRODUCT_FIELDS}
         }
       }
+    }
+  }
+`;
+
+export const GET_STORE_TESTIMONIALS_QUERY = `
+  query getStoreTestimonials {
+    metaobjects(type: "testimonial", first: 10) {
+      edges {
+        node {
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_BEST_SELLERS_QUERY = `
+  query getBestSellers($first: Int!) {
+    products(first: $first, sortKey: BEST_SELLING, reverse: false) {
+      edges {
+        node {
+          ${PRODUCT_FIELDS}
+        }
+      }
+    }
+  }
+`;
+
+export const GET_PRODUCT_RECOMMENDATIONS_QUERY = `
+  query productRecommendations($productId: ID!) {
+    productRecommendations(productId: $productId) {
+      ${PRODUCT_FIELDS}
     }
   }
 `;

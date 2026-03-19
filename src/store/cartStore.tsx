@@ -1,6 +1,7 @@
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
 import { storefrontFetch } from "../lib/storefront";
 import { CART_CREATE_MUTATION } from "../lib/queries";
+import { toast } from "@/hooks/use-toast";
 
 interface CartItem {
   id: string;
@@ -28,10 +29,22 @@ interface CartContextType {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+const CART_STORAGE_KEY = "maze_cart_items";
+
 export const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem(CART_STORAGE_KEY);
+      return saved ? JSON.parse(saved) : [];
+    }
+    return [];
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items));
+  }, [items]);
 
   const cartCount = items.reduce((sum, item) => sum + item.quantity, 0);
   const subtotal = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -52,6 +65,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         );
       }
       return [...prev, { ...newItem, quantity: qty }];
+    });
+
+    toast({
+      description: "Added to cart",
+      duration: 2000,
     });
     setIsOpen(true);
   };

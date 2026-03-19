@@ -3,6 +3,7 @@ import { AnimatePresence } from "framer-motion";
 import PageTransition from "./PageTransition";
 import Index from "../../pages/Index";
 import Collection from "../../pages/Collection";
+import NewArrivalsPage from "../../pages/NewArrivalsPage";
 import Product from "../../pages/Product";
 import About from "../../pages/About";
 import Contact from "../../pages/Contact";
@@ -14,14 +15,10 @@ import Dresses from "../../pages/categories/Dresses";
 import Jackets from "../../pages/categories/Jackets";
 import Knitwear from "../../pages/categories/Knitwear";
 import Accessories from "../../pages/categories/Accessories";
-import Men from "../../pages/categories/Men";
-import Women from "../../pages/categories/Women";
 import ReturnPolicy from "../../pages/ReturnPolicy";
 import PrivacyPolicy from "../../pages/PrivacyPolicy";
 import TermsConditions from "../../pages/TermsConditions";
-import Login from "../../pages/Login";
 import Register from "../../pages/Register";
-import Account from "../../pages/Account";
 import TrackOrder from "../../pages/TrackOrder";
 import Cookies from "../../pages/Cookies";
 import Cart from "../../pages/Cart";
@@ -45,6 +42,14 @@ const AnimatedRoutes = () => {
           element={
             <PageTransition>
               <Collection />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/new-arrivals"
+          element={
+            <PageTransition>
+              <NewArrivalsPage />
             </PageTransition>
           }
         />
@@ -89,22 +94,6 @@ const AnimatedRoutes = () => {
           }
         />
         <Route
-          path="/men"
-          element={
-            <PageTransition>
-              <Men />
-            </PageTransition>
-          }
-        />
-        <Route
-          path="/women"
-          element={
-            <PageTransition>
-              <Women />
-            </PageTransition>
-          }
-        />
-        <Route
           path="/product/:handle"
           element={
             <PageTransition>
@@ -144,14 +133,7 @@ const AnimatedRoutes = () => {
             </PageTransition>
           }
         />
-        <Route
-          path="/login"
-          element={
-            <PageTransition>
-              <Login />
-            </PageTransition>
-          }
-        />
+
         <Route
           path="/register"
           element={
@@ -160,14 +142,7 @@ const AnimatedRoutes = () => {
             </PageTransition>
           }
         />
-        <Route
-          path="/account"
-          element={
-            <PageTransition>
-              <Account />
-            </PageTransition>
-          }
-        />
+
         <Route
           path="/track-order"
           element={

@@ -7,8 +7,10 @@ import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "@/store/cartStore";
 import { AuthProvider } from "@/contexts/AuthContext";
 import AnimatedRoutes from "@/components/layout/AnimatedRoutes";
-import WhatsAppButton from "@/components/ui/WhatsAppButton";
 import LoadingScreen from "@/components/layout/LoadingScreen";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
+import { ExitIntent } from "@/components/ui/ExitIntent";
+import { InactivityPrompt } from "@/components/ui/InactivityPrompt";
 
 const queryClient = new QueryClient();
 
@@ -26,9 +28,11 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
+              <ScrollProgress />
+              <ExitIntent />
+              <InactivityPrompt />
               <AnimatedRoutes />
             </BrowserRouter>
-            <WhatsAppButton phoneNumber="+919483745479" message="Hi! I'm interested in Maze products." />
           </CartProvider>
         </AuthProvider>
       </TooltipProvider>

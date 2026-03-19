@@ -2,19 +2,22 @@ import { motion, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import ProductCard from "@/components/ui/ProductCard";
 import { useRef } from "react";
-import { useNewArrivals } from "@/hooks/useProducts";
+import { useBestSellers } from "@/hooks/useProducts";
+import { Product as ProductType } from "@/api/products";
 
-const NewArrivals = () => {
+const BestSellers = () => {
     const sectionRef = useRef<HTMLElement>(null);
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
-    const { products, loading } = useNewArrivals(4);
+    const { products, loading } = useBestSellers(4);
 
     const staggerDelay = 0.1;
+
+    if (!loading && products.length === 0) return null;
 
     return (
         <section ref={sectionRef} className="py-16 bg-background">
             <div className="container mx-auto px-6 lg:px-12">
-                {/* Editorial Header */}
+                {/* Header */}
                 <div className="flex flex-col md:flex-row items-end justify-between gap-8 mb-16">
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -23,10 +26,10 @@ const NewArrivals = () => {
                         className="flex-1"
                     >
                         <span className="text-[11px] uppercase tracking-[0.4em] text-muted-foreground block mb-4">
-                            Seasonal Drop
+                            Most Loved
                         </span>
                         <h2 className="text-4xl md:text-5xl font-serif leading-tight">
-                            Fresh <span className="italic">Arrivals</span>
+                            Best <span className="italic text-muted-foreground">Sellers</span>
                         </h2>
                     </motion.div>
 
@@ -37,14 +40,14 @@ const NewArrivals = () => {
                         className="flex flex-col items-start md:items-end gap-6"
                     >
                         <p className="text-body-sm text-muted-foreground max-w-[300px] md:text-right font-medium leading-relaxed">
-                            Discover the latest silhouettes and textures meticulously crafted for the modern curated wardrobe.
+                            Our highest performing track pants. Proven comfort and timeless style, loved by the community.
                         </p>
                         <Link
-                            to="/new-arrivals"
+                            to="/collection"
                             className="inline-flex items-center gap-3 text-[12px] uppercase tracking-widest font-bold group"
                         >
                             <span className="border-b border-foreground/20 pb-1 group-hover:border-foreground transition-colors">
-                                Explore The Drop
+                                Shop All
                             </span>
                             <motion.span
                                 animate={{ x: [0, 5, 0] }}
@@ -56,7 +59,7 @@ const NewArrivals = () => {
                     </motion.div>
                 </div>
 
-                {/* Products Grid - Horizontal Scroll on Mobile, Grid on Desktop */}
+                {/* Grid */}
                 <div className="relative">
                     <div className="flex overflow-x-auto pb-8 lg:pb-0 lg:grid lg:grid-cols-4 gap-4 lg:gap-8 snap-x snap-mandatory scrollbar-hide -mx-6 px-6 lg:mx-0 lg:px-0">
                         {loading ? (
@@ -68,15 +71,15 @@ const NewArrivals = () => {
                                 </div>
                             ))
                         ) : (
-                            products.map((p, index) => {
+                            products.map((p: ProductType, index: number) => {
                                 const mappedProduct = {
                                     id: p.id,
                                     variantId: p.variantId,
                                     name: p.title,
                                     price: Number(p.price),
                                     image: p.image,
-                                    hoverImage: p.image,
-                                    category: "New Arrival",
+                                    hoverImage: p.images?.[1] || p.image,
+                                    category: "Best Seller", // Hardcoding the category label here for visual emphasis
                                     handle: p.handle,
                                 };
                                 return (
@@ -101,17 +104,9 @@ const NewArrivals = () => {
                         )}
                     </div>
                 </div>
-
-                {!loading && products.length === 0 && (
-                    <div className="text-center py-20 bg-secondary/10 rounded-[4px] border border-dashed border-foreground/5">
-                        <p className="text-muted-foreground font-serif italic text-lg">
-                            The workshop is refining new creations. Check back soon.
-                        </p>
-                    </div>
-                )}
             </div>
         </section>
     );
 };
 
-export default NewArrivals;
+export default BestSellers;

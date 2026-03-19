@@ -174,12 +174,7 @@ const Footer = () => {
                   maze.ecom.store@gmail.com
                 </a>
               </li>
-              <li className="leading-relaxed">
-                <span className="text-[#F4F1EA] block mb-1">Contact:</span>
-                <a href="tel:+919483745479" className="hover:text-[#C6A75E] transition-colors">
-                  +91 94837 45479
-                </a>
-              </li>
+
               <li className="leading-relaxed">
                 <span className="text-[#F4F1EA] block mb-1">Address:</span>
                 Inshas Taliparamba, near Sreedevi,<br />

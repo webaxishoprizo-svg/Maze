@@ -11,11 +11,7 @@ const contactInfo = [
     title: "Visit Us",
     details: ["Inshas Taliparamba, near Sreedevi", "Kannur, Kerala, 670141, INDIA"],
   },
-  {
-    icon: Phone,
-    title: "Call Us",
-    details: ["+91 94837 45479", "Mon-Sat, 10am-7pm IST"],
-  },
+
   {
     icon: Mail,
     title: "Email Us",

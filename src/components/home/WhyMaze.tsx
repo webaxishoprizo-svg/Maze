@@ -48,7 +48,7 @@ const WhyMaze = () => {
     const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
     return (
-        <section ref={sectionRef} className="py-20 bg-white border-y border-[#e5e5e5]">
+        <section ref={sectionRef} className="py-12 bg-white border-y border-[#e5e5e5]">
             <div className="container mx-auto px-6 lg:px-12">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ const WhyMaze = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-xl md:text-2xl font-serif font-bold uppercase tracking-widest text-[#111]">
+                    <h2 className="text-xl md:text-2xl font-sans font-bold uppercase tracking-widest text-[#111]">
                         Why Maze?
                     </h2>
                 </motion.div>
@@ -74,10 +74,10 @@ const WhyMaze = () => {
                                 {feature.icon}
                             </div>
                             <div className="flex flex-col border-l border-[#e5e5e5] pl-6 text-left">
-                                <h3 className="text-sm font-serif font-bold uppercase tracking-widest text-[#111] mb-1">
+                                <h3 className="text-sm font-sans font-bold uppercase tracking-widest text-[#111] mb-1">
                                     {feature.title}
                                 </h3>
-                                <p className="text-xs font-serif text-[#666] font-medium tracking-wide">
+                                <p className="text-xs font-sans text-[#666] font-medium tracking-wide">
                                     {feature.description}
                                 </p>
                             </div>

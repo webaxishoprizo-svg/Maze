@@ -8,9 +8,9 @@ const EditorialSection = () => {
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={containerRef} className="relative mt-12">
+    <section ref={containerRef} className="relative mt-6">
       {/* Banner Area */}
-      <div className="relative h-[450px] lg:h-[550px] bg-[#111] overflow-hidden">
+      <div className="relative aspect-[16/9] md:aspect-auto md:h-[450px] lg:h-[550px] bg-[#111] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/images/lifestyle_baggy.png"
@@ -60,7 +60,7 @@ const EditorialSection = () => {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="flex flex-col items-center text-center justify-center"
             >
-              <h4 className="text-3xl md:text-4xl font-bold text-white mb-2">50K+</h4>
+              <h4 className="text-3xl md:text-4xl font-bold text-white mb-2">10K+</h4>
               <p className="text-[#999] text-sm md:text-base">Customers</p>
             </motion.div>
 
@@ -85,8 +85,8 @@ const EditorialSection = () => {
               transition={{ delay: 0.3, duration: 0.5 }}
               className="flex flex-col items-center text-center justify-center lg:border-l border-[#333]"
             >
-              <h4 className="text-3xl md:text-4xl font-bold text-white mb-2">30-Day</h4>
-              <p className="text-[#999] text-sm md:text-base">Return</p>
+              <h4 className="text-3xl md:text-4xl font-bold text-white mb-2">No</h4>
+              <p className="text-[#999] text-sm md:text-base">Returns</p>
             </motion.div>
 
             <motion.div

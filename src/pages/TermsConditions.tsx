@@ -110,7 +110,7 @@ const TermsConditions = () => {
                                     <p>For any questions regarding these terms, please contact us at:</p>
                                     <div className="mt-4 space-y-2">
                                         <p><span className="text-foreground font-bold">Email:</span> <a href="mailto:maze.ecom.store@gmail.com" className="hover:text-[#C6A75E]">maze.ecom.store@gmail.com</a></p>
-                                        <p><span className="text-foreground font-bold">Contact:</span> <a href="tel:+919483745479" className="hover:text-[#C6A75E]">+91 94837 45479</a></p>
+
                                     </div>
                                 </section>
 

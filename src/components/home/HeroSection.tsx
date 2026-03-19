@@ -4,7 +4,7 @@ import { CheckCircle2, Star } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[90vh] pt-28 pb-16 flex items-center overflow-hidden bg-white">
+    <section className="relative min-h-[75vh] pt-28 pb-12 flex items-center overflow-hidden bg-white">
       {/* Background image half right */}
       <div className="absolute top-0 right-0 w-full lg:w-2/3 h-full opacity-30 lg:opacity-100 z-0 select-none pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-max-w-max lg:to-transparent z-10" />
@@ -35,7 +35,7 @@ const HeroSection = () => {
 
             <Link
               to="/collection"
-              className="btn-couture-filled min-w-[240px] mb-16"
+              className="btn-couture-filled min-w-[240px] mb-8"
             >
               <span>Shop Now</span>
               <span className="ml-4">→</span>

@@ -29,7 +29,7 @@ const Register = () => {
 
         try {
             await signup(formData);
-            navigate("/account");
+            window.location.href = "https://shopify.com/64024543307/account/login?return_url=https://themaze.shop";
         } catch (err: any) {
             setError(err.message || "Failed to create account. Email might be already in use.");
         } finally {
@@ -38,13 +38,13 @@ const Register = () => {
     };
 
     return (
-        <main className="min-h-screen bg-[#FDFDFD] text-foreground flex flex-col justify-center py-20 lg:py-32">
+        <main className="min-h-screen bg-[#FDFDFD] text-foreground flex flex-col justify-center py-12 lg:py-20">
             <div className="container mx-auto px-6 lg:px-12 flex justify-center w-full">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="w-full max-w-xl bg-white rounded-[2.5rem] p-10 lg:p-16 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] border border-border/40 relative overflow-hidden group"
+                    className="w-full max-w-xl bg-white rounded-[2.5rem] p-8 lg:p-12 shadow-[0_40px_80px_-20px_rgba(0,0,0,0.12)] border border-border/40 relative overflow-hidden group"
                 >
                     {/* Back to Home inside Card */}
                     <Link to="/" className="absolute top-8 left-10 group/back flex items-center gap-2 text-[9px] font-black uppercase text-muted-foreground hover:text-foreground transition-all z-20">
@@ -91,7 +91,7 @@ const Register = () => {
                                         value={formData.firstName}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
+                                        className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-3.5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
                                         placeholder="John"
                                     />
                                 </div>
@@ -103,7 +103,7 @@ const Register = () => {
                                         value={formData.lastName}
                                         onChange={handleChange}
                                         required
-                                        className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
+                                        className="w-full bg-[#F9F9F9] border border-border/60 focus:border-foreground focus:bg-white rounded-[1.25rem] px-6 py-3.5 outline-none transition-all text-body font-medium placeholder:text-muted-foreground/20 shadow-[inset_0_2px_4px_rgba(0,0,0,0.01)] focus:shadow-[0_12px_24px_rgba(0,0,0,0.04)]"
                                         placeholder="Doe"
                                     />
                                 </div>
@@ -155,13 +155,13 @@ const Register = () => {
 
                         <div className="mt-16 text-center pt-10 border-t border-border/40">
                             <p className="text-[10px] uppercase text-muted-foreground mb-8 font-black">Already Profiled?</p>
-                            <Link
-                                to="/login"
+                            <a
+                                href="https://shopify.com/64024543307/account/login?return_url=https://themaze.shop"
                                 className="inline-flex items-center gap-4 px-12 py-5 rounded-[1.25rem] border border-border text-[11px] font-black uppercase text-foreground hover:bg-foreground hover:text-background hover:scale-105 active:scale-95 transition-all duration-500 group/sig"
                             >
                                 <span>Sign In</span>
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#C6A75E] scale-0 group-hover/sig:scale-100 transition-transform" />
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 </motion.div>

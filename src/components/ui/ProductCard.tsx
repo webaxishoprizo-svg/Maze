@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Heart, Plus } from "lucide-react";
 import { useCart } from "@/store/cartStore";
 import { useRef } from "react";
+import { Magnetic } from "./Magnetic";
 
 // Ultra-luxury easing curves
 const easeSilk: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -92,7 +93,7 @@ const ProductCard = ({
             onLoad={() => setImageLoaded(true)}
             animate={{
               opacity: imageLoaded ? (isHovered && hoverImage ? 0 : 1) : 0,
-              scale: isHovered ? 1.03 : 1,
+              scale: isHovered ? 1.1 : 1,
             }}
             transition={{
               duration: 0.8,
@@ -110,6 +111,7 @@ const ProductCard = ({
               initial={{ opacity: 0 }}
               animate={{
                 opacity: isHovered ? 1 : 0,
+                scale: isHovered ? 1.1 : 1,
               }}
               transition={{
                 duration: 0.8,
@@ -159,15 +161,17 @@ const ProductCard = ({
             }}
             className="absolute bottom-3 right-3 z-10"
           >
-            <motion.button
-              onClick={(e) => {
-                e.preventDefault();
-                addItem({ id: variantId || id, name, price, image });
-              }}
-              className="w-10 h-10 bg-[#111] text-white flex items-center justify-center transition-all hover:bg-black rounded-[6px] shadow-[0_3px_0_rgba(255,255,255,0.15)] active:translate-y-[1px] active:shadow-none"
-            >
-              <Plus className="w-5 h-5" />
-            </motion.button>
+            <Magnetic>
+              <motion.button
+                onClick={(e) => {
+                  e.preventDefault();
+                  addItem({ id: variantId || id, name, price, image });
+                }}
+                className="w-10 h-10 bg-[#111] text-white flex items-center justify-center transition-all hover:bg-black rounded-[6px] shadow-[0_3px_0_rgba(255,255,255,0.15)] active:translate-y-[1px] active:shadow-none"
+              >
+                <Plus className="w-5 h-5" />
+              </motion.button>
+            </Magnetic>
           </motion.div>
         </Link>
       </motion.div>
