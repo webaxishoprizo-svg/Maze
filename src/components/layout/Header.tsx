@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, User, Heart, ShoppingBag, Menu, X, LogOut } from "lucide-react";
 import { useCart } from "@/store/cartStore";
@@ -29,14 +29,24 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const { cartCount, toggleCart } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsSearchOpen(false);
+    };
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -188,15 +198,29 @@ const Header = () => {
                 transition={{ delay: 0.15, duration: 0.6, ease: easeSilk }}
                 className="max-w-2xl mx-auto"
               >
-                <div className="relative">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    if (searchQuery.trim()) {
+                      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+                      setIsSearchOpen(false);
+                      setSearchQuery("");
+                    }
+                  }}
+                  className="relative"
+                >
                   <input
                     type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search..."
                     autoFocus
                     className="w-full bg-transparent border-b-2 border-foreground/20 focus:border-foreground py-4 text-display font-bold outline-none placeholder:text-foreground/20"
                   />
-                  <Search className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 text-foreground/30" />
-                </div>
+                  <button type="submit" className="absolute right-0 top-1/2 -translate-y-1/2">
+                    <Search className="w-6 h-6 text-foreground/30 hover:text-foreground transition-colors" />
+                  </button>
+                </form>
               </motion.div>
             </div>
             <motion.button

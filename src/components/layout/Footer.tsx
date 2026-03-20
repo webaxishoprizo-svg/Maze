@@ -22,8 +22,8 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Instagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: Facebook, href: "https://facebook.com", label: "Facebook" },
+  { icon: Instagram, href: "https://instagram.com/themaze.store", label: "Instagram" },
+  { icon: Facebook, href: "https://facebook.com/themaze.store", label: "Facebook" },
   { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
   { icon: Youtube, href: "https://youtube.com", label: "YouTube" },
 ];
