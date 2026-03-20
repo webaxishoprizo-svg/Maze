@@ -122,14 +122,14 @@ const Header = () => {
               transition={{ delay: 0.5, duration: 0.6, ease: easeSilk }}
               className="flex items-center gap-2 lg:gap-6"
             >
-              <Link
-                to="/search"
+              <button
+                onClick={() => setIsSearchOpen(true)}
                 className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300"
               >
                 <Search className="w-5 h-5" strokeWidth={1.5} />
-              </Link>
+              </button>
 
-              <div className="relative">
+              <div className="relative group">
                 <a
                   href="https://shopify.com/64024543307/account"
                   className="p-1 text-foreground hover:text-foreground/70 transition-colors duration-300 block"
@@ -139,7 +139,7 @@ const Header = () => {
                 </a>
 
                 {/* Dropdown for detailed links */}
-                 <div className="hidden lg:group-hover:block absolute right-0 mt-4 w-48 bg-background border border-border shadow-elevated py-2 z-50">
+                 <div className="hidden lg:group-hover:block absolute right-0 mt-2 w-48 bg-background border border-border shadow-elevated py-2 z-50">
                    <a href="https://shopify.com/64024543307/account/login?return_url=https://themaze.shop" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Sign In</a>
                    <a href="https://shopify.com/64024543307/account/orders" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase border-t border-border mt-2 pt-2">My Orders</a>
                    <a href="https://shopify.com/64024543307/account/logout" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase text-destructive">Sign Out</a>
