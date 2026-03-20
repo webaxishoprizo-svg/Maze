@@ -28,7 +28,7 @@ const BestSellers = () => {
                         <span className="text-[11px] uppercase tracking-[0.4em] text-muted-foreground block mb-4">
                             Most Loved
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif leading-tight">
+                        <h2 className="text-fluid-h2 font-serif leading-tight">
                             Best <span className="italic text-muted-foreground">Sellers</span>
                         </h2>
                     </motion.div>
@@ -39,7 +39,7 @@ const BestSellers = () => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="flex flex-col items-start md:items-end gap-6"
                     >
-                        <p className="text-body-sm text-muted-foreground max-w-[300px] md:text-right font-medium leading-relaxed">
+                        <p className="text-fluid-body text-muted-foreground max-w-[360px] md:text-right font-medium leading-relaxed">
                             Our highest performing track pants. Proven comfort and timeless style, loved by the community.
                         </p>
                         <Link

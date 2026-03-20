@@ -31,11 +31,11 @@ const EditorialSection = () => {
             <h3 className="text-white/80 font-serif font-bold uppercase tracking-[0.3em] mb-4 text-sm md:text-base">
               Engineered For
             </h3>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-black text-white uppercase tracking-widest mb-6 leading-tight">
+            <h2 className="text-fluid-h1 font-serif font-black text-white uppercase tracking-widest mb-6 leading-tight">
               Strength & Style
             </h2>
             <div className="h-0.5 bg-[#c19864] w-24 mb-8 ml-auto lg:ml-0" />
-            <p className="text-lg md:text-xl text-white/90 font-serif font-medium tracking-wide mb-10">
+            <p className="text-fluid-body text-white/90 font-serif font-medium tracking-wide mb-10">
               From Gym to Street — One Fit.
             </p>
 

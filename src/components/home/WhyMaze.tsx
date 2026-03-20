@@ -56,7 +56,7 @@ const WhyMaze = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-xl md:text-2xl font-sans font-bold uppercase tracking-widest text-[#111]">
+                    <h2 className="text-fluid-h2 font-sans font-bold uppercase tracking-widest text-[#111]">
                         Why Maze?
                     </h2>
                 </motion.div>
@@ -74,10 +74,10 @@ const WhyMaze = () => {
                                 {feature.icon}
                             </div>
                             <div className="flex flex-col border-l border-[#e5e5e5] pl-6 text-left">
-                                <h3 className="text-sm font-sans font-bold uppercase tracking-widest text-[#111] mb-1">
+                                <h3 className="text-[13px] lg:text-sm font-sans font-bold uppercase tracking-widest text-[#111] mb-1">
                                     {feature.title}
                                 </h3>
-                                <p className="text-xs font-sans text-[#666] font-medium tracking-wide">
+                                <p className="text-fluid-caption font-sans text-[#666] font-medium tracking-wide">
                                     {feature.description}
                                 </p>
                             </div>

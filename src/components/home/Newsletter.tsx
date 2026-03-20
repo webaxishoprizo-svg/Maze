@@ -94,13 +94,13 @@ const Newsletter = () => {
               <span className="text-[10px] lg:text-[11px] uppercase tracking-[0.3em] text-muted-foreground block mb-2 lg:mb-4">
                 Stay Connected
               </span>
-              <h2 className="text-xl sm:text-3xl lg:text-display font-serif mb-2 lg:mb-4 leading-tight">
+              <h2 className="text-fluid-h2 font-serif mb-2 lg:mb-4 leading-tight">
                 Join the
                 <br />
                 <span className="italic">Inner Circle</span>
               </h2>
               {/* Description visible on BOTH mobile and desktop now */}
-              <p className="text-[11px] sm:text-sm lg:text-body-lg text-muted-foreground mb-0 lg:mb-0 max-w-lg leading-relaxed">
+              <p className="text-fluid-body text-muted-foreground mb-0 lg:mb-0 max-w-lg leading-relaxed">
                 Be the first to discover new arrivals, exclusive offers, and behind-the-scenes
                 stories from the world of MAZE.
               </p>

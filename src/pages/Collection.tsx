@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Filter, Grid, LayoutGrid, X, ChevronDown, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
+import { Grid, LayoutGrid, ChevronDown, Loader2 } from "lucide-react";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
@@ -8,40 +8,19 @@ import ProductCard from "@/components/ui/ProductCard";
 import { useProducts } from "@/hooks/useProducts";
 import { Product } from "@/api/products";
 
-const filters = {
-  category: ["All", "Dresses", "Outerwear", "Blazers", "Knitwear", "Accessories"],
-  color: ["Black", "White", "Cream", "Navy", "Camel", "Grey"],
-  size: ["XS", "S", "M", "L", "XL"],
-  price: ["Under ₹3,000", "₹3,000 - ₹5,000", "₹5,000 - ₹8,000", "Over ₹8,000"],
-};
-
 const Collection = () => {
   const { products, loading } = useProducts(50);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [gridSize, setGridSize] = useState<2 | 3 | 4>(4);
-  const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({
-    category: [],
-    color: [],
-    size: [],
-    price: [],
-  });
   const [sortBy, setSortBy] = useState("newest");
 
-  const toggleFilter = (type: string, value: string) => {
-    setSelectedFilters((prev) => {
-      const current = prev[type];
-      if (current.includes(value)) {
-        return { ...prev, [type]: current.filter((v) => v !== value) };
-      }
-      return { ...prev, [type]: [...current, value] };
-    });
-  };
+  const sortedProducts = [...products].sort((a, b) => {
+    const priceA = typeof a.price === 'string' ? parseFloat(a.price) : a.price;
+    const priceB = typeof b.price === 'string' ? parseFloat(b.price) : b.price;
 
-  const clearFilters = () => {
-    setSelectedFilters({ category: [], color: [], size: [], price: [] });
-  };
-
-  const activeFilterCount = Object.values(selectedFilters).flat().length;
+    if (sortBy === "price-low") return priceA - priceB;
+    if (sortBy === "price-high") return priceB - priceA;
+    return 0; // Default order
+  });
 
   return (
     <main className="min-h-screen">
@@ -68,20 +47,7 @@ const Collection = () => {
       <div className="border-y border-border sticky top-[72px] bg-background/95 backdrop-blur-sm z-40">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="flex items-center justify-between py-4">
-            <button
-              onClick={() => setIsFilterOpen(true)}
-              className="flex items-center gap-2 text-body-sm uppercase tracking-luxury hover:opacity-70 transition-opacity"
-            >
-              <Filter className="w-4 h-4" />
-              Filter
-              {activeFilterCount > 0 && (
-                <span className="w-5 h-5 bg-foreground text-background text-[10px] flex items-center justify-center">
-                  {activeFilterCount}
-                </span>
-              )}
-            </button>
-
-            <span className="text-body-sm text-muted-foreground">
+            <span className="text-body-sm text-muted-foreground font-bold uppercase tracking-widest">
               {products.length} Products
             </span>
 
@@ -113,7 +79,7 @@ const Collection = () => {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="appearance-none bg-transparent text-body-sm uppercase tracking-luxury pr-6 cursor-pointer outline-none"
+                  className="appearance-none bg-transparent text-body-sm uppercase tracking-luxury pr-6 cursor-pointer outline-none font-bold"
                 >
                   <option value="newest">Newest</option>
                   <option value="price-low">Price: Low to High</option>
@@ -126,93 +92,6 @@ const Collection = () => {
           </div>
         </div>
       </div>
-
-      {/* Filter Sidebar */}
-      <AnimatePresence>
-        {isFilterOpen && (
-          <>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-50"
-              onClick={() => setIsFilterOpen(false)}
-            />
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
-              transition={{ type: "spring", damping: 30, stiffness: 300 }}
-              className="fixed left-0 top-0 bottom-0 z-50 w-full max-w-sm bg-background shadow-elevated"
-            >
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between p-6 border-b border-border">
-                  <span className="text-subheading font-serif">Filters</span>
-                  <button onClick={() => setIsFilterOpen(false)}>
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                <div className="flex-1 overflow-y-auto p-6 space-y-8">
-                  {Object.entries(filters).map(([type, options]) => (
-                    <div key={type}>
-                      <h4 className="text-overline uppercase tracking-luxury mb-4">
-                        {type}
-                      </h4>
-                      <div className="space-y-3">
-                        {options.map((option) => (
-                          <label
-                            key={option}
-                            className="flex items-center gap-3 cursor-pointer group"
-                          >
-                            <div
-                              className={`w-5 h-5 border flex items-center justify-center transition-colors ${selectedFilters[type].includes(option)
-                                ? "bg-foreground border-foreground"
-                                : "border-border group-hover:border-foreground"
-                                }`}
-                              onClick={() => toggleFilter(type, option)}
-                            >
-                              {selectedFilters[type].includes(option) && (
-                                <motion.svg
-                                  initial={{ scale: 0 }}
-                                  animate={{ scale: 1 }}
-                                  className="w-3 h-3 text-background"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="3"
-                                >
-                                  <polyline points="20 6 9 17 4 12" />
-                                </motion.svg>
-                              )}
-                            </div>
-                            <span className="text-body-sm">{option}</span>
-                          </label>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="p-6 border-t border-border space-y-4">
-                  <button
-                    onClick={clearFilters}
-                    className="w-full btn-couture"
-                  >
-                    <span>Clear All</span>
-                  </button>
-                  <button
-                    onClick={() => setIsFilterOpen(false)}
-                    className="w-full btn-couture-filled"
-                  >
-                    <span>Apply Filters</span>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
 
       {/* Products Grid */}
       <section className="py-12 lg:py-16">
@@ -231,14 +110,14 @@ const Collection = () => {
                 <p className="text-body-sm text-muted-foreground">Loading collection...</p>
               </div>
             ) : (
-              products.map((p: Product, index: number) => {
+              sortedProducts.map((p: Product, index: number) => {
                 const mappedProduct = {
                   id: p.id,
                   variantId: p.variantId,
                   name: p.title,
                   price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
                   image: p.image,
-                  hoverImage: p.image, // Could add hover image logic to API if needed
+                  hoverImage: p.image,
                   category: "Activewear",
                   handle: p.handle,
                 };

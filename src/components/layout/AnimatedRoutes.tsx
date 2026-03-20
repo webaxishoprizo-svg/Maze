@@ -10,15 +10,13 @@ import Contact from "../../pages/Contact";
 import Search from "../../pages/Search";
 import Wishlist from "../../pages/Wishlist";
 import NotFound from "../../pages/NotFound";
-import Bags from "../../pages/categories/Bags";
 import Dresses from "../../pages/categories/Dresses";
-import Jackets from "../../pages/categories/Jackets";
 import Knitwear from "../../pages/categories/Knitwear";
 import Accessories from "../../pages/categories/Accessories";
 import ReturnPolicy from "../../pages/ReturnPolicy";
 import PrivacyPolicy from "../../pages/PrivacyPolicy";
 import TermsConditions from "../../pages/TermsConditions";
-import Register from "../../pages/Register";
+
 import TrackOrder from "../../pages/TrackOrder";
 import Cookies from "../../pages/Cookies";
 import Cart from "../../pages/Cart";
@@ -53,14 +51,7 @@ const AnimatedRoutes = () => {
             </PageTransition>
           }
         />
-        <Route
-          path="/bags"
-          element={
-            <PageTransition>
-              <Bags />
-            </PageTransition>
-          }
-        />
+
         <Route
           path="/dresses"
           element={
@@ -69,14 +60,7 @@ const AnimatedRoutes = () => {
             </PageTransition>
           }
         />
-        <Route
-          path="/jackets"
-          element={
-            <PageTransition>
-              <Jackets />
-            </PageTransition>
-          }
-        />
+
         <Route
           path="/knitwear"
           element={
@@ -134,14 +118,7 @@ const AnimatedRoutes = () => {
           }
         />
 
-        <Route
-          path="/register"
-          element={
-            <PageTransition>
-              <Register />
-            </PageTransition>
-          }
-        />
+
 
         <Route
           path="/track-order"

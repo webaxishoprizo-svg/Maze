@@ -30,7 +30,7 @@ const Index = () => {
       <NewArrivals />
       <BestSellers />
       <WhyMaze />
-      <FeaturedProducts products={products} />
+      {/* <FeaturedProducts products={products} /> */}
       <Testimonials data={testimonials} />
       <RecentlyViewedSection />
       <EditorialSection />

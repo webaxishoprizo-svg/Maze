@@ -25,7 +25,7 @@ const NewArrivals = () => {
                         <span className="text-[11px] uppercase tracking-[0.4em] text-muted-foreground block mb-4">
                             Seasonal Drop
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif leading-tight">
+                        <h2 className="text-fluid-h2 font-serif leading-tight">
                             Fresh <span className="italic">Arrivals</span>
                         </h2>
                     </motion.div>
@@ -36,7 +36,7 @@ const NewArrivals = () => {
                         transition={{ duration: 0.8, delay: 0.2 }}
                         className="flex flex-col items-start md:items-end gap-6"
                     >
-                        <p className="text-body-sm text-muted-foreground max-w-[300px] md:text-right font-medium leading-relaxed">
+                        <p className="text-fluid-body text-muted-foreground max-w-[360px] md:text-right font-medium leading-relaxed">
                             Discover the latest silhouettes and textures meticulously crafted for the modern curated wardrobe.
                         </p>
                         <Link

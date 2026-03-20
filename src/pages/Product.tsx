@@ -206,16 +206,16 @@ const Product = () => {
       <Header />
       <CartDrawer />
 
-      {/* Breadcrumb */}
-      <div className="pt-28 pb-8">
+      {/* Back Button */}
+      <div className="pt-28 pb-6 md:pb-8">
         <div className="container mx-auto px-6 lg:px-12">
-          <nav className="flex items-center gap-2 text-caption text-muted-foreground">
-            <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/collection" className="hover:text-foreground transition-colors">Collection</Link>
-            <span>/</span>
-            <span className="text-foreground">{product.title}</span>
-          </nav>
+          <Link 
+            to="/collection"
+            className="inline-flex items-center gap-2 text-caption text-muted-foreground hover:text-foreground transition-colors group px-4 py-2 bg-secondary/50 rounded-full border border-border/40 hover:bg-secondary"
+          >
+            <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
+            <span className="font-bold uppercase tracking-widest text-[10px]">Back</span>
+          </Link>
         </div>
       </div>
 

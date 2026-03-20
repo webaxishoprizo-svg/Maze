@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, User, Heart, ShoppingBag, Menu, X, LogOut } from "lucide-react";
 import { useCart } from "@/store/cartStore";
-import { useAuth } from "@/contexts/AuthContext";
+
 
 // Ultra-luxury easing curves
 const easeSilk: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -27,14 +27,11 @@ const categoryLinks = [
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAccountMenuOpen, setIsAccountMenuOpen] = useState(false);
 
   const { cartCount, toggleCart } = useCart();
-  const { isLoggedIn } = useAuth();
   const location = useLocation();
 
   const scrollToTop = () => {
@@ -43,22 +40,12 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Smart Navbar Logic
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      
-      setIsScrolled(currentScrollY > 30);
-      setLastScrollY(currentScrollY);
+      setIsScrolled(window.scrollY > 30);
     };
     
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [lastScrollY]);
+  }, []);
 
   useEffect(() => {
     setIsMobileMenuOpen(false);
@@ -70,8 +57,8 @@ const Header = () => {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ 
-          y: isVisible ? 0 : -100,
-          opacity: isVisible ? 1 : 0 
+          y: 0,
+          opacity: 1 
         }}
         transition={{ duration: 0.6, ease: easeSilk }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled || location.pathname !== '/'
@@ -152,9 +139,8 @@ const Header = () => {
                 </a>
 
                 {/* Dropdown for detailed links */}
-                <div className="hidden lg:group-hover:block absolute right-0 mt-4 w-48 bg-background border border-border shadow-elevated py-2 z-50">
+                 <div className="hidden lg:group-hover:block absolute right-0 mt-4 w-48 bg-background border border-border shadow-elevated py-2 z-50">
                    <a href="https://shopify.com/64024543307/account/login?return_url=https://themaze.shop" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Sign In</a>
-                   <Link to="/register" onClick={scrollToTop} className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase">Create Account</Link>
                    <a href="https://shopify.com/64024543307/account/orders" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase border-t border-border mt-2 pt-2">My Orders</a>
                    <a href="https://shopify.com/64024543307/account/logout" className="block px-4 py-2 text-xs hover:bg-secondary transition-colors font-medium uppercase text-destructive">Sign Out</a>
                 </div>
@@ -257,7 +243,6 @@ const Header = () => {
                     <p className="text-[10px] uppercase text-muted-foreground font-bold mb-4">Account</p>
                     <a href="https://shopify.com/64024543307/account" className="block py-3 text-body">My Account</a>
                     <a href="https://shopify.com/64024543307/account/login?return_url=https://themaze.shop" className="block py-3 text-body">Sign In</a>
-                    <Link to="/register" onClick={scrollToTop} className="block py-3 text-body">Create Account</Link>
                   </div>
                 </nav>
               </div>

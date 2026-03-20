@@ -4,7 +4,7 @@ import { CheckCircle2, Star } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[75vh] pt-28 pb-12 flex items-center overflow-hidden bg-white">
+    <section className="relative min-h-[75vh] pt-28 pb-24 lg:pb-40 flex items-center overflow-hidden bg-white">
       {/* Background image half right */}
       <div className="absolute top-0 right-0 w-full lg:w-2/3 h-full opacity-30 lg:opacity-100 z-0 select-none pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent lg:via-max-w-max lg:to-transparent z-10" />
@@ -16,20 +16,20 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-20 mt-16 lg:mt-0">
+      <div className="container mx-auto px-6 pr-12 lg:px-12 relative z-20 mt-16 lg:mt-0">
         <div className="max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-serif font-medium text-[#222] uppercase mb-1">
+            <h2 className="text-fluid-h2 font-serif font-medium text-[#222] uppercase mb-1">
               Crafted For
             </h2>
-            <h1 className="text-6xl md:text-7xl lg:text-9xl font-serif font-black text-[#111] uppercase tracking-[-0.03em] mb-6 leading-none">
+            <h1 className="text-fluid-display font-serif font-black text-[#111] uppercase tracking-[-0.03em] mb-6 leading-none">
               Greatness
             </h1>
-            <p className="text-lg md:text-xl text-[#333] font-serif font-medium mb-10">
+            <p className="text-fluid-body text-[#333] font-serif font-medium mb-10">
               Performance Track Pants Redefined
             </p>
 
