@@ -6,6 +6,7 @@ import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "@/store/cartStore";
 
 import AnimatedRoutes from "@/components/layout/AnimatedRoutes";
+import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
 const queryClient = new QueryClient();
 
@@ -14,6 +15,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <CartProvider>
+          <SmoothScroll />
           <Toaster />
           <Sonner />
           <BrowserRouter>

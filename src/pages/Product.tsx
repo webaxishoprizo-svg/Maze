@@ -51,6 +51,27 @@ const Product = () => {
     onSelect();
   }, [emblaApi]);
 
+  // Autoplay Effect
+  useEffect(() => {
+    if (!emblaApi) return;
+    const intervalId = setInterval(() => {
+      emblaApi.scrollNext();
+    }, 4500); // 4.5 seconds interval
+
+    return () => clearInterval(intervalId);
+  }, [emblaApi]);
+
+  // Keyboard Navigation
+  useEffect(() => {
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (!emblaApi) return;
+      if (e.key === "ArrowLeft") emblaApi.scrollPrev();
+      if (e.key === "ArrowRight") emblaApi.scrollNext();
+    };
+    window.addEventListener("keydown", handleKeydown);
+    return () => window.removeEventListener("keydown", handleKeydown);
+  }, [emblaApi]);
+
   // Recently Viewed Logic
   useEffect(() => {
     if (product) {
@@ -231,6 +252,14 @@ const Product = () => {
               className="w-full"
             >
               <div className="relative overflow-hidden bg-secondary w-full touch-pan-y group" ref={emblaRef}>
+                {/* Wishlist Button - Moved to Image */}
+                <button
+                  onClick={() => setIsWishlisted(!isWishlisted)}
+                  className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center bg-white/90 backdrop-blur-lg rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.15)] transition-all active:scale-90"
+                >
+                  <Heart className={`w-5 h-5 transition-colors ${isWishlisted ? "fill-foreground text-foreground" : "text-muted-foreground"}`} />
+                </button>
+
                 <div className="flex cursor-grab active:cursor-grabbing">
                   {images.length > 0 ? (
                     images.map((img: string, idx: number) => (
@@ -238,7 +267,7 @@ const Product = () => {
                         <img
                           src={img}
                           alt={`${product.title} ${idx + 1}`}
-                          className="w-full h-full object-cover select-none pointer-events-none"
+                          className="w-full h-full object-cover select-none"
                           draggable={false}
                         />
                       </div>
@@ -248,7 +277,7 @@ const Product = () => {
                       <img 
                         src={product.image} 
                         alt={product.title} 
-                        className="w-full h-full object-cover select-none pointer-events-none" 
+                        className="w-full h-full object-cover select-none" 
                         draggable={false} 
                       />
                     </div>
@@ -413,19 +442,30 @@ const Product = () => {
                   <p className="text-[11px] uppercase font-bold text-foreground">
                     Options
                   </p>
+
+                  {/* Inventory Urgency - Simulated for D2C experience */}
+                  {selectedVariant?.availableForSale && (
+                    <div className="flex items-center gap-2 mb-2">
+                       <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                       <span className="text-[10px] uppercase font-bold text-orange-600 tracking-wider">
+                         Selling Fast! Low stock in this size.
+                       </span>
+                    </div>
+                  )}
+
                   <div className="flex flex-wrap sm:flex-nowrap gap-3">
                     {/* Quantity Selector */}
-                    <div className="flex items-center bg-[#F8F8F8] rounded-xl p-1 h-14 w-full sm:w-auto shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
+                    <div className="flex items-center bg-[#F8F8F8] rounded-xl p-1 h-11 sm:h-14 w-32 sm:w-auto shadow-[inset_0_2px_4px_rgba(0,0,0,0.02)]">
                       <button
                         onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all text-muted-foreground hover:text-foreground"
+                        className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all text-muted-foreground hover:text-foreground"
                       >
                         <Minus className="w-4 h-4" />
                       </button>
-                      <span className="flex-1 sm:w-12 text-center text-sm font-bold">{quantity}</span>
+                      <span className="flex-1 sm:w-12 text-center text-xs sm:text-sm font-bold">{quantity}</span>
                       <button
                         onClick={() => setQuantity(quantity + 1)}
-                        className="w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all text-muted-foreground hover:text-foreground"
+                        className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-lg hover:bg-white hover:shadow-sm transition-all text-muted-foreground hover:text-foreground"
                       >
                         <Plus className="w-4 h-4" />
                       </button>
@@ -446,25 +486,9 @@ const Product = () => {
                         </button>
                       </Magnetic>
                     </div>
-
-                    {/* Inventory Urgency - Simulated for D2C experience */}
-                    {selectedVariant?.availableForSale && (
-                      <div className="mt-2 flex items-center gap-2">
-                         <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                         <span className="text-[10px] uppercase font-bold text-orange-600 tracking-wider">
-                           Selling Fast! Low stock in this size.
-                         </span>
-                      </div>
-                    )}
-
-                    {/* Wishlist */}
-                    <button
-                      onClick={() => setIsWishlisted(!isWishlisted)}
-                      className="w-14 h-14 flex items-center justify-center bg-[#F8F8F8] rounded-xl border border-transparent hover:border-border hover:bg-white hover:shadow-md transition-all duration-300 group active:scale-95"
-                    >
-                      <Heart className={`w-5 h-5 transition-colors ${isWishlisted ? "fill-foreground text-foreground" : "text-muted-foreground group-hover:text-foreground"}`} />
-                    </button>
                   </div>
+
+
 
                   {/* Buy It Now */}
                   <button
