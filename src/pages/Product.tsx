@@ -23,13 +23,13 @@ import { Helmet } from "react-helmet-async";
 const Product = () => {
   const { handle } = useParams();
   const { product, loading: productLoading, error: productError } = useProduct(handle || "");
-  
+
   // Use native Shopify Product Recommendations API
   const { products: relatedProducts } = useProductRecommendations(product?.id || "");
   const { addItem } = useCart();
 
   const [selectedOptions, setSelectedOptions] = useState<Record<string, string>>({});
-  const [selectedVariant, setSelectedVariant] = useState<any>(null);
+  const [selectedVariant, setSelectedVariant] = useState<ProductType['variants'][number] | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [openAccordion, setOpenAccordion] = useState<number | null>(0);
@@ -75,14 +75,14 @@ const Product = () => {
     return () => window.removeEventListener("keydown", handleKeydown);
   }, [emblaApi]);
 
-  // Recently Viewed Logic
+  // Recently Viewed Logic - Only save when product handle changes
   useEffect(() => {
-    if (product) {
+    if (product && product.handle) {
       const stored = localStorage.getItem(RECENTLY_VIEWED_KEY);
       let list = stored ? JSON.parse(stored) : [];
-      
+
       // Filter out current product and keep last 5
-      const cleanedList = list.filter((p: any) => p.handle !== product.handle);
+      const cleanedList = list.filter((p: { handle: string }) => p.handle !== product.handle);
       cleanedList.unshift({
         id: product.id,
         variantId: product.variantId,
@@ -91,10 +91,10 @@ const Product = () => {
         image: product.image,
         price: product.price
       });
-      
+
       localStorage.setItem(RECENTLY_VIEWED_KEY, JSON.stringify(cleanedList.slice(0, 5)));
     }
-  }, [product]);
+  }, [product?.handle]);
 
   // Sticky Bar Scroll Logic
   useEffect(() => {
@@ -127,15 +127,15 @@ const Product = () => {
 
   // Update selected variant when options change
   useEffect(() => {
-    if (product?.variants && Object.keys(selectedOptions).length > 0) {
-      const variant = product.variants.find((v: any) =>
-        v.selectedOptions.every((opt: any) => selectedOptions[opt.name] === opt.value)
+    if (product?.variants && Object.keys(selectedOptions).length === product.options?.length) {
+      const variant = product.variants.find((v: { selectedOptions: { name: string, value: string }[] }) =>
+        v.selectedOptions.every((opt: { name: string, value: string }) => selectedOptions[opt.name] === opt.value)
       );
       if (variant) {
         setSelectedVariant(variant);
       }
     }
-  }, [selectedOptions, product?.variants]);
+  }, [selectedOptions, product?.variants, product?.options?.length]);
 
   if (productLoading) {
     return (
@@ -162,7 +162,7 @@ const Product = () => {
 
   const handleAddToCart = () => {
     if (!selectedVariant) return;
-    
+
     const cartItem = {
       id: selectedVariant.id,
       name: product.title,
@@ -175,12 +175,12 @@ const Product = () => {
 
     // Final tracking via Meta Pixel Frontend AddToCart event
     trackPixelEvent('AddToCart', {
-        content_name: product.title,
-        content_ids: [selectedVariant.id],
-        content_type: 'product',
-        value: parseFloat(price as string) * quantity,
-        currency: currency,
-        content_category: product.tags?.[0] || 'luxury activewear',
+      content_name: product.title,
+      content_ids: [selectedVariant.id],
+      content_type: 'product',
+      value: parseFloat(price as string) * quantity,
+      currency: currency,
+      content_category: product.tags?.[0] || 'luxury activewear',
     });
   };
 
@@ -211,9 +211,9 @@ const Product = () => {
   const isLowStock = selectedVariant && selectedVariant.availableForSale && !selectedVariant.inventoryQuantity; // Fallback logic if inventoryQuantity isn't fetched, otherwise just check value if available
 
   const accordionItems = [
-    { 
-      title: "Product Details", 
-      contentHtml: product.descriptionHtml || `<p>${product.description}</p>` 
+    {
+      title: "Product Details",
+      contentHtml: product.descriptionHtml || `<p>${product.description}</p>`
     }
   ];
 
@@ -249,7 +249,7 @@ const Product = () => {
         <meta property="og:image" content={product.image} />
         <meta property="og:type" content="product" />
         <link rel="canonical" href={`https://themaze.shop/product/${product.handle}`} />
-        
+
         {/* Product Data / JSON-LD for Search Engines */}
         <script type="application/ld+json">
           {JSON.stringify({
@@ -285,7 +285,7 @@ const Product = () => {
       {/* Back Button */}
       <div className="pt-28 pb-6 md:pb-8">
         <div className="container mx-auto px-6 lg:px-12">
-          <Link 
+          <Link
             to="/collection"
             className="inline-flex items-center gap-2 text-caption text-muted-foreground hover:text-foreground transition-colors group px-4 py-2 bg-secondary/50 rounded-full border border-border/40 hover:bg-secondary"
           >
@@ -329,11 +329,11 @@ const Product = () => {
                     ))
                   ) : (
                     <div className="flex-[0_0_100%] min-w-0 relative aspect-[3/4]">
-                      <img 
-                        src={product.image} 
-                        alt={`MAZE ${product.title} Track Pant - Luxury Activewear for Gym and Casual Wear`} 
-                        className="w-full h-full object-cover select-none" 
-                        draggable={false} 
+                      <img
+                        src={product.image}
+                        alt={`MAZE ${product.title} Track Pant - Luxury Activewear for Gym and Casual Wear`}
+                        className="w-full h-full object-cover select-none"
+                        draggable={false}
                       />
                     </div>
                   )}
@@ -343,9 +343,9 @@ const Product = () => {
                 {images.length > 1 && (
                   <div className="absolute bottom-6 left-0 right-0 flex justify-center gap-2 pointer-events-none">
                     {images.map((_: any, idx: number) => (
-                      <div 
-                        key={idx} 
-                        className={`w-2 h-2 rounded-full transition-all duration-300 shadow-sm ${selectedIndex === idx ? "bg-foreground scale-110" : "bg-foreground/30"}`} 
+                      <div
+                        key={idx}
+                        className={`w-2 h-2 rounded-full transition-all duration-300 shadow-sm ${selectedIndex === idx ? "bg-foreground scale-110" : "bg-foreground/30"}`}
                       />
                     ))}
                   </div>
@@ -379,24 +379,24 @@ const Product = () => {
 
               {/* Fabric Highlights - Perfect for Track Pants */}
               <div className="flex gap-6 mb-10 pb-8 border-b border-border/50">
-                 <div className="flex flex-col items-center gap-2 group">
-                    <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
-                       <Wind className="w-5 h-5" />
-                    </div>
-                    <span className="text-[9px] uppercase font-bold tracking-widest">Breathable</span>
-                 </div>
-                 <div className="flex flex-col items-center gap-2 group">
-                    <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
-                       <Zap className="w-5 h-5" />
-                    </div>
-                    <span className="text-[9px] uppercase font-bold tracking-widest">4-Way Stretch</span>
-                 </div>
-                 <div className="flex flex-col items-center gap-2 group">
-                    <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
-                       <ShieldCheck className="w-5 h-5" />
-                    </div>
-                    <span className="text-[9px] uppercase font-bold tracking-widest">Durability</span>
-                 </div>
+                <div className="flex flex-col items-center gap-2 group">
+                  <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                    <Wind className="w-5 h-5" />
+                  </div>
+                  <span className="text-[9px] uppercase font-bold tracking-widest">Breathable</span>
+                </div>
+                <div className="flex flex-col items-center gap-2 group">
+                  <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <span className="text-[9px] uppercase font-bold tracking-widest">4-Way Stretch</span>
+                </div>
+                <div className="flex flex-col items-center gap-2 group">
+                  <div className="w-12 h-12 rounded-full bg-secondary flex items-center justify-center group-hover:bg-foreground group-hover:text-background transition-all duration-500">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <span className="text-[9px] uppercase font-bold tracking-widest">Durability</span>
+                </div>
               </div>
 
               {/* Product Options Redesign */}
@@ -442,7 +442,7 @@ const Product = () => {
                             {option.name}
                           </p>
                           {isSize && product.sizeChartMetafield && (
-                            <button 
+                            <button
                               onClick={() => setIsSizeChartOpen(true)}
                               className="text-[10px] uppercase font-bold text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
                             >
@@ -501,10 +501,10 @@ const Product = () => {
                   {/* Inventory Urgency - Simulated for D2C experience */}
                   {selectedVariant?.availableForSale && (
                     <div className="flex items-center gap-2 mb-2">
-                       <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                       <span className="text-[10px] uppercase font-bold text-orange-600 tracking-wider">
-                         Selling Fast! Low stock in this size.
-                       </span>
+                      <div className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
+                      <span className="text-[10px] uppercase font-bold text-orange-600 tracking-wider">
+                        Selling Fast! Low stock in this size.
+                      </span>
                     </div>
                   )}
 
@@ -588,9 +588,9 @@ const Product = () => {
                     <AnimatePresence>
                       {openAccordion === index && (
                         <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
-                          <div 
-                            className="pb-4 space-y-2 text-body-sm text-muted-foreground leading-relaxed prose prose-sm max-w-none prose-p:text-muted-foreground prose-li:text-muted-foreground" 
-                            dangerouslySetInnerHTML={{ __html: item.contentHtml }} 
+                          <div
+                            className="pb-4 space-y-2 text-body-sm text-muted-foreground leading-relaxed prose prose-sm max-w-none prose-p:text-muted-foreground prose-li:text-muted-foreground"
+                            dangerouslySetInnerHTML={{ __html: item.contentHtml }}
                           />
                         </motion.div>
                       )}
@@ -611,12 +611,12 @@ const Product = () => {
               <h2 className="text-display-sm font-bold uppercase tracking-tight">The Ultimate MAZE Performance</h2>
               <div className="w-20 h-1 bg-foreground mx-auto" />
             </div>
-            
+
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
-                <h3 className="text-xl font-bold uppercase italic">Designed for Performance & Comfort</h3>
+                <h3 className="text-xl font-bold uppercase">Designed for Performance & Comfort</h3>
                 <p className="text-body text-muted-foreground leading-relaxed">
-                  Our <strong>MAZE track pant</strong> collection is engineered for those who demand excellence in every move. Whether you're pushing limits in the gym or navigating the city streets, these <strong>gym track pants</strong> provide the perfect balance of flexibility and style. 
+                  Our <strong>MAZE track pant</strong> collection is engineered for those who demand excellence in every move. Whether you're pushing limits in the gym or navigating the city streets, these <strong>gym track pants</strong> provide the perfect balance of flexibility and style.
                 </p>
                 <p className="text-body text-muted-foreground leading-relaxed">
                   Crafted from premium, 4-way stretch fabric, each <strong>performance track pant</strong> ensures maximum breathability and durability. The tailored fit makes it ideal for <strong>casual wear</strong>, allowing you to transition seamlessly from a workout session to a relaxed outing.
@@ -662,25 +662,25 @@ const Product = () => {
             </motion.h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {relatedProducts.slice(0, 4).map((p: ProductType, index: number) => {
-              const mappedProduct = {
-                id: p.id,
-                variantId: p.variantId,
-                name: p.title,
-                price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
-                image: p.image,
-                hoverImage: p.image,
-                category: "Bestseller",
-                handle: p.handle,
-              };
-              return (
-                <motion.div key={p.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
-                  <ProductCard {...mappedProduct} />
-                </motion.div>
-              );
-            })}
+                const mappedProduct = {
+                  id: p.id,
+                  variantId: p.variantId,
+                  name: p.title,
+                  price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
+                  image: p.image,
+                  hoverImage: p.image,
+                  category: "Bestseller",
+                  handle: p.handle,
+                };
+                return (
+                  <motion.div key={p.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1 }}>
+                    <ProductCard {...mappedProduct} />
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
       )}
 
       {/* Recently Viewed */}
@@ -690,37 +690,37 @@ const Product = () => {
       <AnimatePresence>
         {isSizeChartOpen && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsSizeChartOpen(false)}
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               className="relative w-full max-w-2xl bg-white rounded-2xl overflow-hidden shadow-2xl z-10"
             >
               <div className="p-8">
-                 <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-2xl font-bold uppercase flex items-center gap-2">
-                       <Ruler className="w-6 h-6" />
-                       Size Guide
-                    </h3>
-                    <button onClick={() => setIsSizeChartOpen(false)} className="w-10 h-10 flex items-center justify-center hover:bg-secondary rounded-full transition-colors">
-                       <Plus className="w-6 h-6 rotate-45" />
-                    </button>
-                 </div>
-                 <div 
-                   className="prose prose-luxury max-w-none"
-                   dangerouslySetInnerHTML={{ __html: product.sizeChartMetafield || "No size chart available." }}
-                 />
-                 <div className="mt-12 bg-secondary/50 p-6 rounded-xl">
-                    <p className="text-xs text-muted-foreground uppercase font-bold mb-2">Pro Tip:</p>
-                    <p className="text-sm italic">"Our track pants are designed for a relaxed streetwear fit. If you prefer a slimmer look, we recommend sizing down."</p>
-                 </div>
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-2xl font-bold uppercase flex items-center gap-2">
+                    <Ruler className="w-6 h-6" />
+                    Size Guide
+                  </h3>
+                  <button onClick={() => setIsSizeChartOpen(false)} className="w-10 h-10 flex items-center justify-center hover:bg-secondary rounded-full transition-colors">
+                    <Plus className="w-6 h-6 rotate-45" />
+                  </button>
+                </div>
+                <div
+                  className="prose prose-luxury max-w-none"
+                  dangerouslySetInnerHTML={{ __html: product.sizeChartMetafield || "No size chart available." }}
+                />
+                <div className="mt-12 bg-secondary/50 p-6 rounded-xl">
+                  <p className="text-xs text-muted-foreground uppercase font-bold mb-2">Pro Tip:</p>
+                  <p className="text-sm italic">"Our track pants are designed for a relaxed streetwear fit. If you prefer a slimmer look, we recommend sizing down."</p>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -730,22 +730,22 @@ const Product = () => {
       {/* Sticky Mobile Add to Cart Bar */}
       <AnimatePresence>
         {showStickyBar && (
-          <motion.div 
+          <motion.div
             initial={{ y: 100 }}
             animate={{ y: 0 }}
             exit={{ y: 100 }}
             className="fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-t border-border px-6 py-4 flex items-center justify-between gap-4 lg:hidden shadow-[0_-8px_30px_rgb(0,0,0,0.12)]"
           >
             <div className="flex items-center gap-3 overflow-hidden">
-               <div className="w-12 h-12 rounded-lg bg-secondary shrink-0 overflow-hidden">
-                  <img src={images[0] || product.image} alt="" className="w-full h-full object-cover" />
-               </div>
-               <div className="min-w-0">
-                  <p className="text-[10px] uppercase font-bold truncate tracking-tight">{product.title}</p>
-                  <p className="text-xs font-black">{currency === "INR" ? "₹" : currency} {parseFloat(price as string).toLocaleString()}</p>
-               </div>
+              <div className="w-12 h-12 rounded-lg bg-secondary shrink-0 overflow-hidden">
+                <img src={images[0] || product.image} alt="" className="w-full h-full object-cover" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[10px] uppercase font-bold truncate tracking-tight">{product.title}</p>
+                <p className="text-xs font-black">{currency === "INR" ? "₹" : currency} {parseFloat(price as string).toLocaleString()}</p>
+              </div>
             </div>
-            <button 
+            <button
               onClick={handleAddToCart}
               disabled={!selectedVariant || !selectedVariant.availableForSale}
               className="px-6 h-12 bg-foreground text-background rounded-xl text-[10px] font-bold uppercase whitespace-nowrap"

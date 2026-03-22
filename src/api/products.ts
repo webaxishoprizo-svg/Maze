@@ -1,6 +1,26 @@
 import { storefrontClient } from '../lib/storefront';
 import { GET_PRODUCTS_QUERY, GET_PRODUCT_BY_HANDLE_QUERY, SEARCH_PRODUCTS_QUERY, GET_NEW_ARRIVALS_QUERY } from '../lib/queries';
 
+export interface Variant {
+    id: string;
+    title: string;
+    availableForSale: boolean;
+    price: {
+        amount: string;
+        currencyCode: string;
+    };
+    compareAtPrice?: {
+        amount: string;
+        currencyCode: string;
+    };
+    sku?: string;
+    inventoryQuantity?: number;
+    selectedOptions: {
+        name: string;
+        value: string;
+    }[];
+}
+
 export interface Product {
     id: string;
     variantId?: string;
@@ -18,7 +38,7 @@ export interface Product {
     price: string | number;
     currencyCode: string;
     images?: string[];
-    variants?: any[];
+    variants?: Variant[];
     options?: {
         name: string;
         values: string[];

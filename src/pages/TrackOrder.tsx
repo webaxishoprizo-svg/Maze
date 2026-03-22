@@ -30,7 +30,7 @@ const TrackOrder = () => {
                                 </span>
                                 <h1 className="text-display font-serif mb-8 uppercase leading-[1.1]">
                                     Track Your <br />
-                                    <span className="italic text-[#111]/40 transition-colors hover:text-[#C6A75E]">Shipment</span>
+                                    <span className="text-[#111]/40 transition-colors hover:text-[#C6A75E]">Shipment</span>
                                 </h1>
                                 <p className="text-body text-muted-foreground mb-10 max-w-md leading-relaxed">
                                     Enter your unique order identifier and email to access real-time status updates on your Maze performance gear.

@@ -77,7 +77,7 @@ const Wishlist = () => {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-center py-24 max-w-lg mx-auto"
               >
-                <p className="text-subheading font-serif mb-6 italic">Enrich your collection.</p>
+                <p className="text-subheading font-serif mb-6">Enrich your collection.</p>
                 <p className="text-body text-muted-foreground mb-12">
                   Save your favorite technical apparel here to explore later.
                   Every piece in our collection is engineered for performance and precision.

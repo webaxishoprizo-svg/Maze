@@ -11,7 +11,7 @@ const HeroSection = () => {
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-white to-transparent z-10" />
         <img
           src="/images/hero_man_baggy.png"
-          alt="Athlete wearing Maze baggy track pants"
+          alt="Athlete wearing MAZE baggy track pants"
           className="w-full h-full object-cover object-top"
         />
       </div>
@@ -23,11 +23,8 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-heading">
-              THE MAZE
-            </h2>
             <h1 className="text-display mb-6">
-              PERFORMANCE
+              MAZE <span className="text-[#333] ">PERFORMANCE</span>
             </h1>
             <p className="text-body mb-10">
               Engineered Track Pants & Luxury Activewear redefined.
@@ -41,8 +38,8 @@ const HeroSection = () => {
                 <span>Shop Now</span>
                 <span className="ml-4">→</span>
               </Link>
-              <Link 
-                to="/collection" 
+              <Link
+                to="/collection"
                 className="text-button-secondary"
               >
                 Shop MAZE Track Pant

@@ -56,7 +56,7 @@ const NewArrivalsPage = () => {
           </div>
         ) : (
           <div className="flex items-center justify-center py-32 bg-secondary/20 rounded-lg">
-            <p className="font-serif italic text-lg text-muted-foreground">
+            <p className="font-serif text-lg text-muted-foreground">
               No new arrivals at the moment. Check back soon.
             </p>
           </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -26,7 +26,7 @@
     --secondary-foreground: 0 0% 15%;
 
     --muted: 0 0% 94%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 7%;
 
     --accent: 0 0% 92%;
     /* Clean grey accent */
@@ -103,7 +103,7 @@
     --secondary: 20 10% 18%;
     --secondary-foreground: 30 25% 95%;
     --muted: 20 8% 25%;
-    --muted-foreground: 30 15% 65%;
+    --muted-foreground: 30 25% 95%;
     --accent: 30 20% 25%;
     --accent-foreground: 30 25% 95%;
     --border: 20 8% 22%;
@@ -650,7 +650,7 @@
 
   /* Typography */
   .font-serif {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Inter', sans-serif;
   }
 
   .font-sans {

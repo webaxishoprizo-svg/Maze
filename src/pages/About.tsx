@@ -111,7 +111,7 @@ const About = () => {
                   We started MAZE with one simple idea — to create track pants that move with you, not against you.
                 </p>
                 <div className="py-4 border-l-2 border-foreground/10 pl-6 my-8">
-                  <p className="text-xl font-serif italic text-foreground">
+                  <p className="text-xl font-serif text-foreground">
                     "Why should everyday wear feel ordinary?"
                   </p>
                 </div>

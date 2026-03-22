@@ -8,7 +8,7 @@ import { NEWSLETTER_SIGNUP_MUTATION } from "../../lib/queries";
 const footerLinks = {
   quickLinks: [
     { name: "Shop All", href: "/collection" },
-    { name: "My Account", href: "/account" },
+    { name: "My Account", href: "https://shopify.com/64024543307/account/login?return_url=https://themaze.shop" },
     { name: "Track Order", href: "/track-order" },
     { name: "Wishlist", href: "/wishlist" },
   ],
@@ -104,7 +104,7 @@ const Footer = () => {
             <Link to="/" className="inline-block mb-6" onClick={scrollToTop}>
               <img src="/logo.png" alt="Maze" className="h-16 w-auto object-contain invert" />
             </Link>
-            <p className="text-body text-[#A1A1A1] mb-8 max-w-xs font-medium">
+            <p className="text-body text-gray-400 mb-8 max-w-xs font-medium leading-relaxed">
               MAZE is an Indian performance brand engineered for strength and style. Based in Kerala, we build for the modern athlete at themaze.shop.
             </p>
             <div className="flex gap-3">
@@ -114,7 +114,7 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-10 h-10 border border-[#A1A1A1]/20 rounded-[6px] flex items-center justify-center hover:border-[#C6A75E] hover:bg-[#C6A75E] hover:text-[#111111] text-[#A1A1A1] transition-all duration-300 shadow-[0_2px_0_rgba(0,0,0,0.1)] active:translate-y-[1px] active:shadow-none"
+                  className="w-10 h-10 border border-white/20 rounded-[6px] flex items-center justify-center hover:border-accent-gold hover:bg-accent-gold hover:text-black text-gray-400 transition-all duration-300 shadow-[0_2px_0_rgba(0,0,0,0.1)] active:translate-y-[1px] active:shadow-none"
                   aria-label={social.label}
                 >
                   <social.icon className="w-4 h-4" />
@@ -125,7 +125,7 @@ const Footer = () => {
 
           {/* Links */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-white tracking-widest">
               Quick Links
             </h4>
             <ul className="space-y-3 font-medium">
@@ -134,7 +134,7 @@ const Footer = () => {
                   <Link
                     to={link.href}
                     onClick={scrollToTop}
-                    className="text-body-sm text-[#A1A1A1] hover:text-[#C6A75E] transition-colors duration-300"
+                    className="text-body-sm text-gray-400 hover:text-white transition-colors duration-300"
                   >
                     {link.name}
                   </Link>
@@ -144,7 +144,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-white tracking-widest">
               Information
             </h4>
             <ul className="space-y-3 font-medium">
@@ -153,7 +153,7 @@ const Footer = () => {
                   <Link
                     to={link.href}
                     onClick={scrollToTop}
-                    className="text-body-sm text-[#A1A1A1] hover:text-[#C6A75E] transition-colors duration-300"
+                    className="text-body-sm text-gray-400 hover:text-white transition-colors duration-300"
                   >
                     {link.name}
                   </Link>
@@ -164,10 +164,10 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-white tracking-widest">
               Contact
             </h4>
-            <ul className="space-y-4 font-medium text-body-sm text-[#A1A1A1]">
+            <ul className="space-y-4 font-medium text-body-sm text-gray-400">
               <li className="leading-relaxed">
                 <span className="text-[#F4F1EA] block mb-1">Email:</span>
                 <a href="mailto:maze.ecom.store@gmail.com" className="hover:text-[#C6A75E] transition-colors">
@@ -176,7 +176,7 @@ const Footer = () => {
               </li>
 
               <li className="leading-relaxed">
-                <span className="text-[#F4F1EA] block mb-1">Address:</span>
+                <span className="text-white block mb-1">Address:</span>
                 Inshas Taliparamba, near Sreedevi,<br />
                 Kannur, Kerala, 670141, INDIA
               </li>
@@ -185,10 +185,10 @@ const Footer = () => {
 
           {/* Newsletter */}
           <div className="col-span-2 md:col-span-4 lg:col-span-1">
-            <h4 className="text-[11px] font-bold uppercase mb-6 text-[#F4F1EA]">
+            <h4 className="text-[11px] font-bold uppercase mb-6 text-white tracking-widest">
               Newsletter
             </h4>
-            <p className="text-body-sm text-[#A1A1A1] mb-6 leading-relaxed font-medium">
+            <p className="text-body-sm text-gray-400 mb-6 leading-relaxed font-medium">
               Subscribe to receive updates, access to exclusive deals, and more.
             </p>
             <form className="relative" onSubmit={handleNewsletterSubmit}>
@@ -198,12 +198,12 @@ const Footer = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
                 disabled={loading || submitted}
-                className={`w-full bg-transparent border-b ${errorStatus ? 'border-destructive' : 'border-[#A1A1A1]/30'} focus:border-[#C6A75E] py-2 pr-10 text-body-sm outline-none transition-colors placeholder:text-[#A1A1A1]/50 text-[#F4F1EA]`}
+                className={`w-full bg-transparent border-b ${errorStatus ? 'border-destructive' : 'border-white/10'} focus:border-accent-gold py-2 pr-10 text-body-sm outline-none transition-colors placeholder:text-gray-500 text-white`}
               />
               <button
                 type="submit"
                 disabled={loading || submitted}
-                className="absolute right-0 top-1/2 -translate-y-1/2 text-[#A1A1A1] hover:text-[#C6A75E] transition-colors"
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                 aria-label="Subscribe"
               >
                 {loading ? (

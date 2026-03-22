@@ -37,7 +37,7 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex-1 text-center"
           >
-            <span className="text-xl md:text-2xl font-serif italic text-[#333]">
+            <span className="text-xl md:text-2xl font-serif text-[#333]">
               Limited Edition Drops
             </span>
           </motion.div>
@@ -91,7 +91,7 @@ const FeaturedProducts = ({ products }: FeaturedProductsProps) => {
         </div>
         {products.length === 0 && (
           <div className="text-center py-10">
-            <p className="text-gray-500 italic">Connecting to Maze Storefront...</p>
+            <p className="text-gray-500">Connecting to Maze Storefront...</p>
           </div>
         )}
       </div>

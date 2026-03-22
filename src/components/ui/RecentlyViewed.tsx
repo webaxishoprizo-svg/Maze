@@ -2,11 +2,18 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Eye } from "lucide-react";
 import ProductCard from "./ProductCard";
+import { Product as ProductType } from "@/api/products";
 
 const RECENTLY_VIEWED_KEY = "maze_recently_viewed";
 
+interface HistoryItem extends Omit<ProductType, 'price'> {
+    name: string;
+    category: string;
+    price: number;
+}
+
 export const RecentlyViewedSection = ({ excludeHandle }: { excludeHandle?: string }) => {
-    const [recentlyViewed, setRecentlyViewed] = useState<any[]>([]);
+    const [recentlyViewed, setRecentlyViewed] = useState<HistoryItem[]>([]);
 
     useEffect(() => {
         const saved = localStorage.getItem(RECENTLY_VIEWED_KEY);
@@ -14,9 +21,17 @@ export const RecentlyViewedSection = ({ excludeHandle }: { excludeHandle?: strin
             try {
                 let list = JSON.parse(saved);
                 if (excludeHandle) {
-                    list = list.filter((p: any) => p.handle !== excludeHandle);
+                    list = list.filter((p: { handle: string }) => p.handle !== excludeHandle);
                 }
-                setRecentlyViewed(list.slice(0, 4));
+
+                const mapped: HistoryItem[] = list.map((p: any) => ({
+                    ...p,
+                    name: p.title || p.name,
+                    price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
+                    category: "Viewed History"
+                }));
+
+                setRecentlyViewed(mapped.slice(0, 4));
             } catch (e) {
                 console.error("Failed to parse recently viewed", e);
             }
@@ -34,36 +49,24 @@ export const RecentlyViewedSection = ({ excludeHandle }: { excludeHandle?: strin
                             History
                         </span>
                         <h2 className="text-heading flex items-center gap-6">
-                            Recently <span className="italic font-serif">Viewed</span>
+                            Recently <span className="font-serif">Viewed</span>
                             <Eye className="w-8 h-8 opacity-20" />
                         </h2>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                    {recentlyViewed.map((p: any, index: number) => {
-                        const mappedProduct = {
-                            id: p.id,
-                            variantId: p.variantId,
-                            name: p.title,
-                            price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
-                            image: p.image,
-                            hoverImage: p.image,
-                            category: "History",
-                            handle: p.handle,
-                        };
-                        return (
-                            <motion.div 
-                                key={p.id} 
-                                initial={{ opacity: 0, y: 20 }} 
-                                whileInView={{ opacity: 1, y: 0 }} 
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
-                            >
-                                <ProductCard {...mappedProduct} />
-                            </motion.div>
-                        );
-                    })}
+                    {recentlyViewed.map((p, index) => (
+                        <motion.div
+                            key={p.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                        >
+                            <ProductCard {...p} />
+                        </motion.div>
+                    ))}
                 </div>
             </div>
         </section>

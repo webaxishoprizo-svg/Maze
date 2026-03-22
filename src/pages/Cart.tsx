@@ -27,7 +27,7 @@ const Cart = () => {
                             <ShoppingBag className="w-10 h-10 text-muted-foreground/40" />
                         </div>
                         <h1 className="text-4xl md:text-5xl font-serif mb-6">Your Bag is Empty</h1>
-                        <p className="text-muted-foreground max-w-md mx-auto mb-10 leading-relaxed italic">
+                        <p className="text-muted-foreground max-w-md mx-auto mb-10 leading-relaxed">
                             The finest pieces are still waiting for you. Discover our seasonal collections and find your signature style.
                         </p>
                         <Link to="/collection" className="btn-standard-filled px-12">
@@ -85,7 +85,7 @@ const Cart = () => {
                                     <div className="flex-1 flex flex-col py-2">
                                         <div className="flex justify-between items-start mb-4">
                                             <div>
-                                                <h3 className="text-xl font-serif mb-1 group-hover:italic transition-all">{item.name}</h3>
+                                                <h3 className="text-xl font-serif mb-1 group-hover:transition-all">{item.name}</h3>
                                                 <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-bold">
                                                     {item.size && `Size: ${item.size}`}
                                                     {item.color && (item.size ? ` / ${item.color}` : `Color: ${item.color}`)}
@@ -118,7 +118,7 @@ const Cart = () => {
                                                     <Plus className="w-3 h-3" />
                                                 </button>
                                             </div>
-                                            <div className="text-lg font-serif italic">
+                                            <div className="text-lg font-serif">
                                                 ₹{(item.price * item.quantity).toLocaleString()}
                                             </div>
                                         </div>
@@ -152,7 +152,7 @@ const Cart = () => {
                             transition={{ delay: 0.3 }}
                             className="bg-secondary/20 border border-border rounded-[8px] p-8 sticky top-32"
                         >
-                            <h2 className="text-2xl font-serif mb-8 italic">Summary</h2>
+                            <h2 className="text-2xl font-serif mb-8">Summary</h2>
 
                             <div className="space-y-4 mb-8">
                                 <div className="flex justify-between text-sm">
@@ -161,16 +161,16 @@ const Cart = () => {
                                 </div>
                                 <div className="flex justify-between text-sm">
                                     <span className="text-muted-foreground uppercase tracking-widest text-[10px] font-bold">Shipping</span>
-                                    <span className="text-accent-gold uppercase tracking-widest text-[10px] font-bold italic">Complimentary</span>
+                                    <span className="text-accent-gold uppercase tracking-widest text-[10px] font-bold">Complimentary</span>
                                 </div>
                             </div>
 
                             <div className="pt-6 border-t border-border mb-10">
                                 <div className="flex justify-between items-end">
-                                    <span className="text-lg font-serif italic">Total</span>
+                                    <span className="text-lg font-serif">Total</span>
                                     <span className="text-2xl font-serif">₹{subtotal.toLocaleString()}</span>
                                 </div>
-                                <p className="text-[10px] text-muted-foreground mt-4 italic">
+                                <p className="text-[10px] text-muted-foreground mt-4">
                                     Taxes are calculated at checkout based on your delivery address.
                                 </p>
                             </div>

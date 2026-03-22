@@ -6,17 +6,23 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CartDrawer from "@/components/cart/CartDrawer";
 import ProductCard from "@/components/ui/ProductCard";
-import { searchProducts } from "@/api/products";
+import { searchProducts, Product } from "@/api/products";
+
+interface SearchResult extends Omit<Product, 'price'> {
+  name: string;
+  category: string;
+  price: number;
+}
 
 const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQuery = searchParams.get("q") || "";
   const [query, setQuery] = useState(initialQuery);
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    document.title = "Search | Maze";
+    document.title = "Search | MAZE";
   }, []);
 
   useEffect(() => {
@@ -34,11 +40,11 @@ const Search = () => {
     const timer = setTimeout(async () => {
       try {
         const found = await searchProducts(query);
-        const mapped = found.map(p => ({
+        const mapped: SearchResult[] = found.map(p => ({
           ...p,
           name: p.title,
           price: typeof p.price === 'string' ? parseFloat(p.price) : p.price,
-          category: "Search Result"
+          category: "Performance Gear",
         }));
         setResults(mapped);
       } catch (err) {
@@ -99,9 +105,9 @@ const Search = () => {
               className="text-body-sm text-muted-foreground mb-12 flex items-center gap-2"
             >
               {isSearching ? (
-                <>Searching for "<span className="text-foreground italic">{query}</span>"...</>
+                <>Searching for "<span className="text-foreground">{query}</span>"...</>
               ) : (
-                <>{results.length} pieces found for "<span className="text-foreground italic">{query}</span>"</>
+                <>{results.length} pieces found for "<span className="text-foreground">{query}</span>"</>
               )}
             </motion.p>
           )}
@@ -154,7 +160,7 @@ const Search = () => {
                 exit={{ opacity: 0 }}
                 className="text-center py-24"
               >
-                <p className="text-subheading font-serif mb-4 italic">No results found for "{query}"</p>
+                <p className="text-subheading font-serif mb-4">No results found for "{query}"</p>
                 <p className="text-body text-muted-foreground mb-10">
                   Try adjusting your search terms or explore our collections.
                 </p>

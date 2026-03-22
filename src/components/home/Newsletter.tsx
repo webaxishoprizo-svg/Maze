@@ -95,9 +95,7 @@ const Newsletter = () => {
                 Stay Connected
               </span>
               <h2 className="text-fluid-h2 font-serif mb-2 lg:mb-4 leading-tight">
-                Join the
-                <br />
-                <span className="italic">Inner Circle</span>
+                Join the Inner Circle
               </h2>
               {/* Description visible on BOTH mobile and desktop now */}
               <p className="text-fluid-body text-muted-foreground mb-0 lg:mb-0 max-w-lg leading-relaxed">

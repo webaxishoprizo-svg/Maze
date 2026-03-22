@@ -26,7 +26,7 @@ const NewArrivals = () => {
                             Seasonal Drop
                         </span>
                         <h2 className="text-heading">
-                            Fresh <span className="italic font-serif">Arrivals</span>
+                            Fresh <span className="font-serif">Arrivals</span>
                         </h2>
                     </motion.div>
 
@@ -104,7 +104,7 @@ const NewArrivals = () => {
 
                 {!loading && products.length === 0 && (
                     <div className="text-center py-20 bg-secondary/10 rounded-[4px] border border-dashed border-foreground/5">
-                        <p className="text-muted-foreground font-serif italic text-lg">
+                        <p className="text-muted-foreground font-serif text-lg">
                             The workshop is refining new creations. Check back soon.
                         </p>
                     </div>

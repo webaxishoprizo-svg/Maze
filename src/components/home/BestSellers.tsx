@@ -29,7 +29,7 @@ const BestSellers = () => {
                             Most Loved
                         </span>
                         <h2 className="text-fluid-h2 font-serif leading-tight">
-                            Best <span className="italic text-muted-foreground">Sellers</span>
+                            Best <span className="text-muted-foreground">Sellers</span>
                         </h2>
                     </motion.div>
 

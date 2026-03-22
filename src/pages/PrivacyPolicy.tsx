@@ -124,7 +124,7 @@ const PrivacyPolicy = () => {
                                     <p>
                                         Should you have any questions about our privacy practices or this Privacy Policy, or if you would like to exercise any of the rights available to you, please call or email us at <a href="mailto:maze.ecom.store@gmail.com" className="text-foreground font-bold hover:text-[#C6A75E]">maze.ecom.store@gmail.com</a> or contact us at:
                                     </p>
-                                    <address className="mt-4 not-italic text-foreground font-medium">
+                                    <address className="mt-4 not- text-foreground font-medium">
                                         Inshas Taliparamba, near Sreedevi,<br />
                                         Kannur, Kerala, 670141, India
                                     </address>
