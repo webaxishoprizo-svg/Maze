@@ -33,8 +33,8 @@ export const RecentlyViewedSection = ({ excludeHandle }: { excludeHandle?: strin
                         <span className="text-[11px] uppercase tracking-[0.4em] text-muted-foreground block mb-4">
                             History
                         </span>
-                        <h2 className="text-4xl md:text-5xl font-serif leading-tight flex items-center gap-6">
-                            Recently <span className="italic">Viewed</span>
+                        <h2 className="text-heading flex items-center gap-6">
+                            Recently <span className="italic font-serif">Viewed</span>
                             <Eye className="w-8 h-8 opacity-20" />
                         </h2>
                     </div>

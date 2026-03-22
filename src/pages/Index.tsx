@@ -22,10 +22,10 @@ const Index = () => {
   return (
     <main className="min-h-screen bg-white">
       <Helmet>
-        <title>The Maze | Engineered Performance & Performance Track Pants</title>
-        <meta name="description" content="Welcome to The Maze. Shop our premium collection of performance track pants and luxury activewear. Engineered for strength, designed for style at themaze.shop." />
-        <meta name="keywords" content="the maze, maze shop, themaze.shop, track pants, performance track pants, premium activewear, luxury sportswear" />
-        <meta property="og:title" content="The Maze | Luxury Activewear & Performance Track Pants" />
+        <title>MAZE | Engineered Performance & Track Pants at themaze.shop</title>
+        <meta name="description" content="Welcome to MAZE. Shop our premium collection of performance track pants and luxury activewear. Engineered for performance at themaze.shop." />
+        <meta name="keywords" content="maze, maze shop, themaze.shop, track pants, performance track pants, premium activewear, luxury sportswear" />
+        <meta property="og:title" content="MAZE | Luxury Activewear & Performance Track Pants" />
         <meta property="og:description" content="Engineered for strength, designed for style. Shop premium track pants at themaze.shop." />
         <link rel="canonical" href="https://themaze.shop" />
       </Helmet>

@@ -154,21 +154,36 @@
     font-kerning: normal;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
+  h1, .h1 {
     @apply font-sans;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    transform: translateZ(0);
-    backface-visibility: hidden;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
   }
 
-  p, span, div {
+  h2, .h2 {
+    @apply font-sans;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  h3, .h3 {
+    @apply font-sans;
+    font-size: clamp(1.5rem, 4vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  p, .body-text {
+    font-size: clamp(0.9rem, 1.2vw + 0.4rem, 1.1rem);
+    line-height: 1.7;
+    letter-spacing: 0.01em;
+  }
+
+  span, div {
     line-height: 1.6;
     letter-spacing: 0.01em;
   }
@@ -207,11 +222,13 @@
      ULTRA-LUXURY BUTTON SYSTEM
      =================================== */
 
-  /* Simplified Standard Button System */
+  /* Simplified Standard Button System - Fluid Padding and Font */
   .btn-standard {
-    @apply relative inline-flex items-center justify-center overflow-hidden px-6 py-3 text-[11px] uppercase font-bold;
+    @apply relative inline-flex items-center justify-center overflow-hidden uppercase font-bold;
     @apply border border-foreground bg-transparent text-foreground;
     @apply transition-all duration-300 ease-in-out;
+    font-size: clamp(0.65rem, 1vw, 0.75rem);
+    padding: clamp(0.6rem, 1.5vw, 0.9rem) clamp(1.2rem, 3vw, 2rem);
     box-shadow: 2px 2px 0px 0px hsl(var(--foreground) / 0.1);
     border-radius: 4px;
     transform: translateY(0);
@@ -229,9 +246,11 @@
   }
 
   .btn-standard-filled {
-    @apply relative inline-flex items-center justify-center overflow-hidden px-8 py-4 text-[11px] uppercase font-bold;
+    @apply relative inline-flex items-center justify-center overflow-hidden uppercase font-bold;
     @apply bg-foreground text-background border border-foreground;
     @apply transition-all duration-300 ease-in-out;
+    font-size: clamp(0.65rem, 1vw, 0.75rem);
+    padding: clamp(0.7rem, 2vw, 1.1rem) clamp(1.5rem, 4vw, 2.5rem);
     box-shadow: 2px 2px 0px 0px hsl(var(--foreground) / 0.2);
     border-radius: 4px;
     transform: translateY(0);
@@ -652,30 +671,42 @@
     background-image: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--warm-gray)) 100%);
   }
 
-  /* Fluid Editorial Typography System */
+  /* Fluid Editorial Typography System - Standardized Classes */
+  .text-display {
+    @apply h1;
+  }
+
+  .text-display-sm {
+    @apply h2;
+  }
+
+  .text-heading {
+    @apply h3;
+  }
+
+  .text-body {
+    @apply body-text;
+  }
+
   .text-fluid-display {
-    @apply leading-[0.9] tracking-[-0.04em] uppercase font-black;
+    @apply h1;
     font-size: clamp(3.5rem, 12vw, 11rem);
   }
 
   .text-fluid-h1 {
-    @apply leading-none tracking-tight font-bold;
-    font-size: clamp(2.5rem, 8vw, 6rem);
+    @apply h1;
   }
 
   .text-fluid-h2 {
-    @apply leading-tight tracking-normal font-bold;
-    font-size: clamp(1.75rem, 5vw, 3.5rem);
+    @apply h2;
   }
 
   .text-fluid-h3 {
-    @apply leading-snug tracking-normal font-semibold;
-    font-size: clamp(1.25rem, 3vw, 2.25rem);
+    @apply h3;
   }
 
   .text-fluid-body {
-    @apply leading-relaxed;
-    font-size: clamp(0.9rem, 1.5vw + 0.5rem, 1.15rem);
+    @apply body-text;
   }
 
   .text-fluid-caption {

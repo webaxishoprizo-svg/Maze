@@ -23,36 +23,44 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-fluid-h2 font-serif font-medium text-[#222] uppercase mb-1">
+            <h2 className="text-heading">
               THE MAZE
             </h2>
-            <h1 className="text-fluid-display font-serif font-black text-[#111] uppercase tracking-[-0.03em] mb-6 leading-none">
+            <h1 className="text-display mb-6">
               PERFORMANCE
             </h1>
-            <p className="text-fluid-body text-[#333] font-serif font-medium mb-10">
+            <p className="text-body mb-10">
               Engineered Track Pants & Luxury Activewear redefined.
             </p>
 
-            <Link
-              to="/collection"
-              className="btn-couture-filled min-w-[240px] mb-8"
-            >
-              <span>Shop Now</span>
-              <span className="ml-4">→</span>
-            </Link>
+            <div className="flex flex-col sm:flex-row items-center gap-4 mb-8">
+              <Link
+                to="/collection"
+                className="btn-couture-filled min-w-[240px]"
+              >
+                <span>Shop Now</span>
+                <span className="ml-4">→</span>
+              </Link>
+              <Link 
+                to="/collection" 
+                className="text-button-secondary"
+              >
+                Shop MAZE Track Pant
+              </Link>
+            </div>
 
             <div className="flex flex-wrap items-center gap-6 md:gap-8">
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-[#c19864]" strokeWidth={2.5} />
-                <span className="text-xs font-bold uppercase text-[#333]">Premium Fabric</span>
+                <span className="text-body-sm font-bold uppercase text-[#333]">Premium Fabric</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-5 h-5 text-[#c19864]" strokeWidth={2.5} />
-                <span className="text-xs font-bold uppercase text-[#333]">Fast Shipping</span>
+                <span className="text-body-sm font-bold uppercase text-[#333]">Fast Shipping</span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 text-[#c19864] fill-current" strokeWidth={1} />
-                <span className="text-xs font-bold uppercase text-[#333]">Limited Drops</span>
+                <span className="text-body-sm font-bold uppercase text-[#333]">Limited Drops</span>
               </div>
             </div>
           </motion.div>

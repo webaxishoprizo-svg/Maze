@@ -104,8 +104,8 @@ const Footer = () => {
             <Link to="/" className="inline-block mb-6" onClick={scrollToTop}>
               <img src="/logo.png" alt="Maze" className="h-16 w-auto object-contain invert" />
             </Link>
-            <p className="text-body-sm text-[#A1A1A1] mb-8 max-w-xs leading-relaxed font-medium">
-              Maze is an Indian performance brand engineered for strength and style. Based in Kerala, we build for the modern athlete.
+            <p className="text-body text-[#A1A1A1] mb-8 max-w-xs font-medium">
+              MAZE is an Indian performance brand engineered for strength and style. Based in Kerala, we build for the modern athlete at themaze.shop.
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social) => (

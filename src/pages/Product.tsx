@@ -241,10 +241,11 @@ const Product = () => {
   return (
     <main className="min-h-screen">
       <Helmet>
-        <title>{`${product.title} | Maze Luxury Activewear`}</title>
-        <meta name="description" content={product.description?.slice(0, 160)} />
-        <meta property="og:title" content={product.title} />
-        <meta property="og:description" content={product.description?.slice(0, 160)} />
+        <title>{`MAZE Track Pant | ${product.title}`}</title>
+        <meta name="description" content={`Experience the ultimate comfort with MAZE. Our ${product.title} is engineered for gym training and casual streetwear. Shop at themaze.shop.`} />
+        <meta name="keywords" content={`maze track pant, ${product.title}, gym track pants, performance track pant, activewear, themaze.shop`} />
+        <meta property="og:title" content={`MAZE Track Pant - ${product.title}`} />
+        <meta property="og:description" content={`Engineered for strength and designed for style. MAZE is your perfect companion for training and everyday wear at themaze.shop.`} />
         <meta property="og:image" content={product.image} />
         <meta property="og:type" content="product" />
         <link rel="canonical" href={`https://themaze.shop/product/${product.handle}`} />
@@ -254,19 +255,25 @@ const Product = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Product",
-            "name": product.title,
+            "name": `MAZE Track Pant - ${product.title}`,
             "image": [product.image, ...(product.images || [])],
-            "description": product.description,
+            "description": product.description || `High-performance MAZE Track Pant designed for maximum comfort and durability during workouts or casual outings.`,
             "brand": {
               "@type": "Brand",
-              "name": "The Maze"
+              "name": "MAZE"
             },
+            "sku": selectedVariant?.sku || product.id,
             "offers": {
               "@type": "Offer",
               "url": `https://themaze.shop/product/${product.handle}`,
               "priceCurrency": currency,
               "price": price,
-              "availability": product.variants?.[0]?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+              "itemCondition": "https://schema.org/NewCondition",
+              "availability": product.variants?.[0]?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+              "seller": {
+                "@type": "Organization",
+                "name": "MAZE"
+              }
             }
           })}
         </script>
@@ -314,7 +321,7 @@ const Product = () => {
                       <div className="flex-[0_0_100%] min-w-0 relative aspect-[3/4]" key={idx}>
                         <img
                           src={img}
-                          alt={`${product.title} ${idx + 1}`}
+                          alt={`MAZE ${product.title} Track Pant - Premium Performance Wear ${idx + 1}`}
                           className="w-full h-full object-cover select-none"
                           draggable={false}
                         />
@@ -324,7 +331,7 @@ const Product = () => {
                     <div className="flex-[0_0_100%] min-w-0 relative aspect-[3/4]">
                       <img 
                         src={product.image} 
-                        alt={product.title} 
+                        alt={`MAZE ${product.title} Track Pant - Luxury Activewear for Gym and Casual Wear`} 
                         className="w-full h-full object-cover select-none" 
                         draggable={false} 
                       />
@@ -592,6 +599,53 @@ const Product = () => {
                 ))}
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Optimized Content Section */}
+      <section className="py-24 border-t border-border bg-[#FBFBFB]">
+        <div className="container mx-auto px-6 lg:px-12">
+          <div className="max-w-4xl mx-auto space-y-12">
+            <div className="text-center space-y-4">
+              <h2 className="text-display-sm font-bold uppercase tracking-tight">The Ultimate MAZE Performance</h2>
+              <div className="w-20 h-1 bg-foreground mx-auto" />
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold uppercase italic">Designed for Performance & Comfort</h3>
+                <p className="text-body text-muted-foreground leading-relaxed">
+                  Our <strong>MAZE track pant</strong> collection is engineered for those who demand excellence in every move. Whether you're pushing limits in the gym or navigating the city streets, these <strong>gym track pants</strong> provide the perfect balance of flexibility and style. 
+                </p>
+                <p className="text-body text-muted-foreground leading-relaxed">
+                  Crafted from premium, 4-way stretch fabric, each <strong>performance track pant</strong> ensures maximum breathability and durability. The tailored fit makes it ideal for <strong>casual wear</strong>, allowing you to transition seamlessly from a workout session to a relaxed outing.
+                </p>
+              </div>
+              <div className="bg-secondary p-8 rounded-2xl space-y-6">
+                <h3 className="text-lg font-bold uppercase tracking-widest text-center">Why choose MAZE?</h3>
+                <ul className="space-y-4">
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-foreground flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-background" />
+                    </div>
+                    <span className="text-sm font-medium">Engineered for intense training sessions.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-foreground flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-background" />
+                    </div>
+                    <span className="text-sm font-medium">Premium material quality that lasts long.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <div className="w-5 h-5 rounded-full bg-foreground flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="w-3 h-3 text-background" />
+                    </div>
+                    <span className="text-sm font-medium">Sophisticated luxury activewear design.</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </section>
