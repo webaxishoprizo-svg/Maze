@@ -8,22 +8,29 @@ import { CartProvider } from "@/store/cartStore";
 import AnimatedRoutes from "@/components/layout/AnimatedRoutes";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 
+import MetaPixelTracker from "@/components/layout/MetaPixelTracker";
+
+import { HelmetProvider } from "react-helmet-async";
+
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <CartProvider>
-          <SmoothScroll />
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AnimatedRoutes />
-          </BrowserRouter>
-        </CartProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <CartProvider>
+            <SmoothScroll />
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <MetaPixelTracker />
+              <AnimatedRoutes />
+            </BrowserRouter>
+          </CartProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
   );
 };
 

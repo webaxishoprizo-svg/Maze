@@ -10,7 +10,10 @@ import { Magnetic } from "./Magnetic";
 const easeSilk: [number, number, number, number] = [0.22, 1, 0.36, 1];
 const easeVelvet: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
+import { trackPixelEvent } from "@/lib/metaPixel";
+
 interface ProductCardProps {
+
   id: string;
   variantId?: string;
   name: string;
@@ -166,6 +169,16 @@ const ProductCard = ({
                 onClick={(e) => {
                   e.preventDefault();
                   addItem({ id: variantId || id, name, price, image });
+                  
+                  // Meta Pixel Tracking
+                  trackPixelEvent('AddToCart', {
+                      content_name: name,
+                      content_ids: [variantId || id],
+                      content_type: 'product',
+                      value: price,
+                      currency: 'INR',
+                      content_category: category,
+                  });
                 }}
                 className="w-10 h-10 bg-[#111] text-white flex items-center justify-center transition-all hover:bg-black rounded-[6px] shadow-[0_3px_0_rgba(255,255,255,0.15)] active:translate-y-[1px] active:shadow-none"
               >

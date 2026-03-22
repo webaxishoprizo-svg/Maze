@@ -4,31 +4,91 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Maze | Luxury Activewear & Performance Gear</title>
+  <title>The Maze | Engineered Performance & Performance Track Pants</title>
   <meta name="description"
-    content="Discover Maze's curated collection of luxury activewear. Engineered for strength, designed for style. Premium performance gear." />
-  <meta name="application-name" content="Maze" />
-  <meta name="author" content="Maze" />
+    content="Discover The Maze, your destination for premium performance gear. Experience our engineered track pants and luxury activewear designed for excellence at themaze.shop." />
+  <meta name="application-name" content="The Maze" />
+  <meta name="author" content="The Maze" />
   <meta name="keywords"
-    content="luxury activewear, performance gear, premium sportswear, workout clothing, training gear" />
+    content="maze, the maze shop, premium track pants, luxury activewear, performance gear, training apparel, trackpants" />
 
   <link rel="icon" type="image/png" href="/logo.png" />
 
-  <meta property="og:title" content="Maze | Engineered for Strength & Style" />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="The Maze" />
+  <meta name="mobile-web-app-capable" content="yes" />
+
+  <meta property="og:site_name" content="The Maze" />
+  <meta property="og:url" content="https://themaze.shop" />
+  <meta property="og:title" content="The Maze | Luxury Activewear & Performance Track Pants" />
   <meta property="og:description"
-    content="Discover Maze's curated collection of luxury activewear. Engineered for strength, designed for style." />
+    content="Shop high-performance track pants and luxury sportswear at The Maze. Engineered for strength, designed for style. Visit themaze.shop today." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="/logo.png" />
+  <meta property="og:image" content="https://themaze.shop/og-image.jpg" />
+  <meta property="og:image:alt" content="The Maze Luxury Performance Gear" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Maze | Luxury Activewear" />
-  <meta name="twitter:description" content="Engineered for strength, designed for style." />
-  <meta name="twitter:image" content="/logo.png" />
+  <meta name="twitter:site" content="@themaze" />
+  <meta name="twitter:title" content="The Maze | Engineered for Strength & Style" />
+  <meta name="twitter:description" content="Premium performance track pants and activewear. Engineered for champions at themaze.shop." />
+  <meta name="twitter:image" content="https://themaze.shop/twitter-card.jpg" />
 
-  <link rel="canonical" href="https://mazefit.in" />
+  <link rel="canonical" href="https://themaze.shop" />
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "The Maze",
+      "url": "https://themaze.shop",
+      "logo": "https://themaze.shop/logo.png",
+      "description": "Premium performance track pants and activewear engineered for excellence.",
+      "sameAs": [
+        "https://facebook.com/themaze.store",
+        "https://instagram.com/themaze.store"
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "url": "https://themaze.shop",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://themaze.shop/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+  </script>
+  
+  <!-- Meta Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    // Standard initialization
+    const pixelId = '1129018252721229';
+    fbq('init', pixelId);
+    fbq('track', 'PageView');
+  </script>
 </head>
 
 <body>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=1129018252721229&ev=PageView&noscript=1" />
+  </noscript>
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>

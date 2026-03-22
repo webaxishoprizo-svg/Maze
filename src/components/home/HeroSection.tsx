@@ -24,13 +24,13 @@ const HeroSection = () => {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-fluid-h2 font-serif font-medium text-[#222] uppercase mb-1">
-              Crafted For
+              THE MAZE
             </h2>
             <h1 className="text-fluid-display font-serif font-black text-[#111] uppercase tracking-[-0.03em] mb-6 leading-none">
-              Greatness
+              PERFORMANCE
             </h1>
             <p className="text-fluid-body text-[#333] font-serif font-medium mb-10">
-              Performance Track Pants Redefined
+              Engineered Track Pants & Luxury Activewear redefined.
             </p>
 
             <Link

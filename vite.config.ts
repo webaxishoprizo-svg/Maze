@@ -34,6 +34,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env.VITE_SHOPIFY_STORE': JSON.stringify(shopifyStore),
       'process.env.VITE_SHOPIFY_TOKEN': JSON.stringify(shopifyToken),
+      'process.env.VITE_META_PIXEL_ID': JSON.stringify(env.VITE_META_PIXEL_ID || ''),
     }
   };
 });

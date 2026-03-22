@@ -1,14 +1,8 @@
-User-agent: Googlebot
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
 User-agent: *
 Allow: /
+Sitemap: https://themaze.shop/sitemap.xml
+
+# Exclude private pages
+Disallow: /cart
+Disallow: /checkout
+Disallow: /account

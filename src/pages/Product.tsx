@@ -16,6 +16,9 @@ import { CART_CREATE_MUTATION } from "@/lib/queries";
 import useEmblaCarousel from "embla-carousel-react";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { RecentlyViewedSection } from "@/components/ui/RecentlyViewed";
+import { trackPixelEvent } from "@/lib/metaPixel";
+import { Helmet } from "react-helmet-async";
+
 
 const Product = () => {
   const { handle } = useParams();
@@ -159,13 +162,26 @@ const Product = () => {
 
   const handleAddToCart = () => {
     if (!selectedVariant) return;
-    addItem({
+    
+    const cartItem = {
       id: selectedVariant.id,
       name: product.title,
       price: parseFloat(price as string),
       image: images[0] || product.image,
       size: selectedVariant.title !== "Default Title" ? selectedVariant.title : undefined,
-    }, quantity);
+    };
+
+    addItem(cartItem, quantity);
+
+    // Final tracking via Meta Pixel Frontend AddToCart event
+    trackPixelEvent('AddToCart', {
+        content_name: product.title,
+        content_ids: [selectedVariant.id],
+        content_type: 'product',
+        value: parseFloat(price as string) * quantity,
+        currency: currency,
+        content_category: product.tags?.[0] || 'luxury activewear',
+    });
   };
 
   const handleBuyNow = async () => {
@@ -224,6 +240,38 @@ const Product = () => {
 
   return (
     <main className="min-h-screen">
+      <Helmet>
+        <title>{`${product.title} | Maze Luxury Activewear`}</title>
+        <meta name="description" content={product.description?.slice(0, 160)} />
+        <meta property="og:title" content={product.title} />
+        <meta property="og:description" content={product.description?.slice(0, 160)} />
+        <meta property="og:image" content={product.image} />
+        <meta property="og:type" content="product" />
+        <link rel="canonical" href={`https://themaze.shop/product/${product.handle}`} />
+        
+        {/* Product Data / JSON-LD for Search Engines */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.title,
+            "image": [product.image, ...(product.images || [])],
+            "description": product.description,
+            "brand": {
+              "@type": "Brand",
+              "name": "The Maze"
+            },
+            "offers": {
+              "@type": "Offer",
+              "url": `https://themaze.shop/product/${product.handle}`,
+              "priceCurrency": currency,
+              "price": price,
+              "availability": product.variants?.[0]?.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock"
+            }
+          })}
+        </script>
+      </Helmet>
+
       <Header />
       <CartDrawer />
 
